@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/29 13:56:21 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:16:06 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "/Users/hakaraou/local/MLX42.h"
+# include "../MLX42.h"
 
 typedef enum e_type
 {
