@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/27 13:58:54 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:46:02 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,16 @@ int	set_floor_ceiling(t_cub *cub, char *line)
 	while (line[i] && is_white_space(line[i]))
 		i++;
 	if (!ft_strncmp(line, "F", j))
+	{
 		if (set_colors(&cub->floor, line + i) == -1)
 			return (-1);
-	if (!ft_strncmp(line, "C", j))
+	}
+	else if (!ft_strncmp(line, "C", j))
+	{
 		if (set_colors(&cub->ceiling, line + i) == -1)
 			return (-1);
+	}
+	else
+		return (ft_putendl_fd("ERROR", 2), -1);
 	return (0);
 }
