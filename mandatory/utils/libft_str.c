@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:42:05 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/29 16:30:41 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:47:38 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 int	ft_atoi(char *str)
 {
 	int	c;
+	int	sign;
 
+	sign = 1;
+	if ((*str != '\0')
+		&& (*str == '+' || *str == '-'))
+	{
+		if (*str == '-')
+			sign = sign * -1;
+		str++;
+	}
 	c = 0;
-	if (*str && (*str < '0' || *str > '9'))
-		return (-1);
 	while ((*str != '\0')
 		&& (*str >= '0' && *str <= '9'))
 	{
@@ -57,7 +64,7 @@ int	ft_atoi(char *str)
 	}
 	if (*str && *str != ',')
 		return (-1);
-	return (c);
+	return (c * sign);
 }
 
 int	ft_strcmp(char *s1, char *s2)

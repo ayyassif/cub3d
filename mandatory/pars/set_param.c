@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 10:36:00 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:46:44 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	dir_picker(char *line)
 	return (-1);
 }
 
-int	set_texture(t_texture *texture, char *line)
+static int	set_texture(t_texture *texture, char *line)
 {
 	int	i;
 	int	j;
@@ -72,14 +72,16 @@ static int	set_colors(t_color *color, char *line)
 	color->blue = ft_atoi(++line);
 	if (color->blue < 0 || color->blue > 255)
 		return (ft_putendl_fd("ERROR", 2), -1);
+	if (*line == '-' || *line == '+')
+		line++;
 	while (*line && *line >= '0' && *line <= '9')
 		line++;
 	if (*line)
-		return (ft_putendl_fd("ERROR", 2), -1);
+		return (ft_putendl_fd("ERROR.", 2), -1);
 	return (0);
 }
 
-int	set_floor_ceiling(t_cub *cub, char *line)
+static int	set_floor_ceiling(t_cub *cub, char *line)
 {
 	int	j;
 	int	i;
@@ -102,5 +104,31 @@ int	set_floor_ceiling(t_cub *cub, char *line)
 	}
 	else
 		return (ft_putendl_fd("ERROR", 2), -1);
+	return (0);
+}
+
+int	set_param(t_cub *cub, char *line, int i)
+{
+	size_t	len;
+
+	if (i < 5 && set_texture(&cub->texture[i - 1], line) == -1)
+		return (-1);
+	if (i == 5 && check_texture(cub->texture) == -1)
+		return (-1);
+	if (i > 4 && i < 7 && set_floor_ceiling(cub, line) == -1)
+		return (-1);
+	if (i == 6 && check_colors(&cub->floor, &cub->ceiling) == -1)
+		return (ft_putendl_fd("ERROR", 2), -1);
+	if (i > 6)
+	{
+		len = ft_ofset_front(line);
+		if (cub->ofset_front > len)
+			cub->ofset_front = len;
+		len = ft_strlen(line) - 1;
+		if (cub->ofset_back < len)
+			cub->ofset_back = len;
+		if (set_line_map(&cub->line_map, line) == -1)
+			return (-1);
+	}
 	return (0);
 }

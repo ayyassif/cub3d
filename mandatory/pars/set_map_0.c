@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:58:40 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 11:10:16 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:05:08 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,26 @@ int	ft_ofset_front(char *line)
 	while (line[i] && is_white_space(line[i]))
 		i++;
 	return (i);
+}
+
+void	set_cub(t_cub *cub)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		cub->texture[i].path = NULL;
+	cub->height = 0;
+	cub->width = 0;
+	cub->ofset_front = 0;
+	cub->ofset_back = 0;
+	cub->line_map = NULL;
+	cub->floor.red = -1;
+	cub->floor.blue = -1;
+	cub->floor.green = -1;
+	cub->ceiling.red = -1;
+	cub->ceiling.blue = -1;
+	cub->ceiling.green = -1;
+	cub->map = NULL;
+	cub->endl = 0;
 }

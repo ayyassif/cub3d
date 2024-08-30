@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 11:40:36 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:05:16 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,31 +77,34 @@ typedef struct s_cub
 	int			endl;
 }				t_cub;
 
-void	ft_putendl_fd(char *s, int fd);
-char	*ft_strdup(const char *s1);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		is_white_space(char c);
 int		ft_pars(t_cub *cub, char *name_file);
-char	*ft_strtrim(char *s1);
-int		ft_atoi(char *str);
-int		set_floor_ceiling(t_cub *cub, char *line);
-int		set_texture(t_texture *texture, char *line);
-int		set_line_map(t_line_map **line_map, char *line);
-void	free_cub(t_cub *cub);
-void	free_texture(t_cub *cub);
-void	free_line_map(t_line_map **line_map);
-int		ft_ofset_front(char *line);
+
 int		creat_map(t_cub *cub);
+int		set_param(t_cub *cub, char *line, int i);
+int		set_line_map(t_line_map **line_map, char *line);
+void	set_cub(t_cub *cub);
+
+int		check_file_name(char *file);
+int		pars_map(t_cub *cub);
 int		check_texture(t_texture *texture);
 int		check_colors(t_color *floor, t_color *ceiling);
+
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(char *s1, char *s2);
-int		check_file_name(char *file);
-void	free_map(t_cub *cub);
-int		pars_map(t_cub *cub);
-int		is_player(t_type value);
+int		ft_atoi(char *str);
+int		ft_ofset_front(char *line);
+char	*ft_strdup(const char *s1);
+void	ft_putendl_fd(char *s, int fd);
+char	*ft_strtrim(char *s1);
 char	*ft_back_strtrim(char *s1);
 
+void	free_texture(t_cub *cub);
+void	free_line_map(t_line_map **line_map);
+void	free_cub(t_cub *cub);
+
+int		is_player(t_type value);
+int		is_white_space(char c);
 
 void ft_write_cub(t_cub *cub);
 
