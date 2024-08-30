@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 13:03:18 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:49:26 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void f() {
 int	main(int ac, char **av)
 {
 	t_cub	cub;
-//atexit(f);
+atexit(f);
 	if (ac != 2 || check_file_name(av[1]))
 		return (ft_putendl_fd("ERROR", 2), -1);
 	if (ft_pars(&cub, av[1]) == -1)
