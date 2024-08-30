@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:42:05 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/27 14:27:28 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:30:41 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ int	ft_atoi(char *str)
 	if (*str && *str != ',')
 		return (-1);
 	return (c);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (*(s1 + i) && *(s2 + i) && *(s1 + i) == *(s2 + i))
+		i++;
+	return (*(s1 + i) - *(s2 + i));
 }

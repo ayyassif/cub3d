@@ -6,7 +6,7 @@
 #    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/08/29 14:15:47 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/08/30 10:56:56 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,16 +19,18 @@ NAME = cub3D
 B_NAME = cub3d_bonus
 
 SRC = mandatory/ft_write_test.c \
-	mandatory/main.c mandatory/ft_free.c \
-	mandatory/pars/get_next_line.c mandatory/pars/get_next_line_utils.c \
+	mandatory/main.c \
+	mandatory/get_next_line/get_next_line.c \
+	mandatory/get_next_line/get_next_line_utils.c \
 	mandatory/pars/ft_pars.c mandatory/pars/set_param.c \
 	mandatory/pars/set_map_0.c mandatory/pars/set_map_1.c \
-	mandatory/pars/check_param.c \
+	mandatory/pars/check_param.c mandatory/pars/pars_map.c \
 	mandatory/utils/libft_str.c mandatory/utils/libft_ptr_0.c \
 	mandatory/utils/libft_ptr_1.c mandatory/utils/cond.c \
+	mandatory/utils/ft_free.c \
 	
 
-H_SRC = mandatory/cub3d.h mandatory/pars/get_next_line.h
+H_SRC = mandatory/cub3d.h mandatory/get_next_line/get_next_line.h
 
 B_SRC =
 
@@ -38,27 +40,27 @@ OBJ = $(SRC:.c=.o)
 
 B_OBJ = $(B_SRC:.c=.o)
 
-all : $(NAME)
+all : $(NAME) clean
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(OBJ) -o $(NAME)
 
 mandatory/%.o: mandatory/%.c $(H_SRC)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 bonus : $(B_NAME)
 
 $(B_NAME) : $(B_OBJ)
-	$(CC) $(CFLAGS) $(B_OBJ) -o $(B_NAME)
+	@$(CC) $(CFLAGS) $(B_OBJ) -o $(B_NAME)
 
 bonus/%.o: bonus/%.c $(HB_SRC)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean :
-	rm -f $(OBJ) $(B_OBJ)
+	@rm -f $(OBJ) $(B_OBJ)
 
 fclean : clean
-	rm -f $(NAME) $(B_NAME)
+	@rm -f $(NAME) $(B_NAME)
 	
 re : fclean all
 

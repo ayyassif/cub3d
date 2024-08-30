@@ -23,7 +23,14 @@ void ft_write_cub(t_cub *cub)
 		j = 0;
 		while (j < cub->width)
 		{
-			printf("%c", cub->map[i][j].value);
+			if (cub->map[i][j].value == 6)
+				printf("\e[1;30m██\e[0m");
+			else if (cub->map[i][j].value == 0)
+				printf("\e[1;32m██\e[0m");
+			else if (cub->map[i][j].value == 1)
+				printf("\e[1;33m██\e[0m");
+			else
+				printf("\e[1;31m██\e[0m");
 			j++;
 		}
 		printf("\n");

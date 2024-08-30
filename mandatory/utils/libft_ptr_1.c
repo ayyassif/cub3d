@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:37:56 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/27 10:52:20 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:49:32 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,30 @@ char	*ft_strtrim(char *s1)
 	i = ft_front(s1);
 	j = ft_back(s1);
 	str = malloc(((i <= j) * (j - i + 2)) + ((i > j) * (i - j + 2)));
+	if (!str)
+		return (free(s1), NULL);
+	a = 0;
+	while (i <= j)
+		str[a++] = s1[i++];
+	str[a] = 0;
+	free(s1);
+	return (str);
+}
+
+char	*ft_back_strtrim(char *s1)
+{
+	size_t	j;
+	char	*str;
+	size_t	a;
+	size_t	i;
+
+	i = 0;
+	if (!s1)
+		return (0);
+	if (s1[0] == '\0')
+		return (ft_m1((char *)s1));
+	j = ft_back(s1);
+	str = malloc(j + 2);
 	if (!str)
 		return (free(s1), NULL);
 	a = 0;

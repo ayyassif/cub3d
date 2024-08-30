@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:58:40 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/28 12:04:46 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:10:16 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,4 @@ int	ft_ofset_front(char *line)
 	while (line[i] && is_white_space(line[i]))
 		i++;
 	return (i);
-}
-
-int	ft_ofset_back(char *line)
-{
-	int	len;
-
-	len = ft_strlen(line) - 1;
-	while (line[len] && is_white_space(line[len]))
-		len--;
-	return (len);
 }

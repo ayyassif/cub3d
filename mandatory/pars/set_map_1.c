@@ -6,13 +6,40 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/28 16:21:19 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/08/30 10:56:46 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	put_map(t_cub *cub)
+static t_type	set_type_block_1(char c)
+{
+	if (c == ' ')
+		return (E_VOID);
+	if (c == '0')
+		return (E_EMPTY);
+	if (c == '1')
+		return (E_BLOCK);
+	if (c == 'W')
+		return (E_PLAYER_W);
+	if (c == 'S')
+		return (E_PLAYER_S);
+	if (c == 'E')
+		return (E_PLAYER_E);
+	if (c == 'N')
+		return (E_PLAYER_N);
+	else
+		return (9);
+}
+
+static t_type	set_type_block_0(char c)
+{
+	if (c != '\n')
+		return (set_type_block_1(c));
+	return (set_type_block_1(' '));
+}
+
+static int	put_map(t_cub *cub)
 {
 	size_t		i;
 	size_t		j;
@@ -21,27 +48,23 @@ static void	put_map(t_cub *cub)
 
 	tmp = cub->line_map;
 	j = 0;
-	while (tmp)
+	while (tmp && j < cub->height)
 	{
 		i = cub->ofset_front;
-		k = 0;
-		while (tmp->line_map[i] && k < cub->width)
+		k = -1;
+		while (tmp->line_map[i] && ++k < cub->width)
 		{
-			if (tmp->line_map[i] != '\n')
-				cub->map[j][k].value = tmp->line_map[i];
-			else
-				cub->map[j][k].value = ' ';
-			k++;
+			cub->map[j][k].value = set_type_block_0(tmp->line_map[i]);
+			if (cub->map[j][k].value == 9)
+				return (-1);
 			i++;
 		}
-		while (k < cub->width)
-		{
-			cub->map[j][k].value = ' ';
-			k++;
-		}
+		while (++k < cub->width)
+			cub->map[j][k].value = set_type_block_1(' ');
 		j++;
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 int	creat_map(t_cub *cub)
@@ -49,17 +72,17 @@ int	creat_map(t_cub *cub)
 	size_t	i;
 
 	i = 0;
-
 	cub->map = malloc(sizeof(t_map *) * cub->height);
 	if (!cub->map)
-		return (ft_putendl_fd("error: malloc", 2), -1);
-	while (i < cub->height && cub->map[i])
+		return (free_texture(cub), ft_putendl_fd("error: malloc", 2), -1);
+	while (i < cub->height)
 	{
 		cub->map[i] = malloc(sizeof(t_map) * cub->width);
 		if (!cub->map[i])
-			return (ft_putendl_fd("error: malloc", 2), -1);
+			return (free_cub(cub), ft_putendl_fd("error: malloc", 2), -1);
 		i++;
 	}
-	put_map(cub);
+	if (put_map(cub) == -1)
+		return (free_cub(cub), ft_putendl_fd("ERROR", 2), -1);
 	return (0);
 }
