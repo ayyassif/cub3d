@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 13:05:16 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/01 12:17:42 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,29 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-// # include "../MLX42.h"
+# include "../MLX42.h"
+
+# define WIDTH 1000
+# define HEIGHT 800
+# define LEFT_KEY 0
+# define RIGHT_KEY 2
+# define UP_KEY 13
+# define DOWN_KEY 1
+
+//tmp
+# define TILE_SIZE 40
+
+typedef struct s_s_map
+{
+	mlx_t		*mlx_s_map;
+	mlx_image_t	*img_s_map;
+}	t_s_map;
+
+typedef struct s_vec
+{
+	size_t	x;
+	size_t	y;
+}	t_vec;
 
 typedef enum e_type
 {
@@ -75,6 +97,8 @@ typedef struct s_cub
 	size_t		ofset_back;
 	int			fd;
 	int			endl;
+	t_s_map		s_map;
+	t_vec		pos;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);
@@ -106,6 +130,12 @@ void	free_cub(t_cub *cub);
 int		is_player(t_type value);
 int		is_white_space(char c);
 
-void ft_write_cub(t_cub *cub);
+void	ft_write_cub(t_cub *cub);
+
+//-------------------------------------------------------------
+
+int		mini_map(t_cub *cub);
+
+//----------------------------------------------------------------
 
 #endif

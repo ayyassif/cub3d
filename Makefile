@@ -6,13 +6,13 @@
 #    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/08/30 13:02:18 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/09/01 09:53:47 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror# -g -fsanitize=address# -O3
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address# -O3
 
 NAME = cub3D
 
@@ -28,6 +28,7 @@ SRC = mandatory/ft_write_test.c \
 	mandatory/utils/libft_str.c mandatory/utils/libft_ptr_0.c \
 	mandatory/utils/libft_ptr_1.c mandatory/utils/cond.c \
 	mandatory/utils/ft_free.c \
+	mandatory/2Dmap/2Dmap.c \
 	
 
 H_SRC = mandatory/cub3d.h mandatory/get_next_line/get_next_line.h
