@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/01 12:17:42 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:45:44 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "../MLX42.h"
+# include <math.h>
 
-# define WIDTH 1000
+# define WIDTH 955
 # define HEIGHT 800
 # define LEFT_KEY 0
 # define RIGHT_KEY 2
@@ -27,7 +28,7 @@
 # define DOWN_KEY 1
 
 //tmp
-# define TILE_SIZE 40
+# define TILE_SIZE 80
 
 typedef struct s_s_map
 {
@@ -99,6 +100,7 @@ typedef struct s_cub
 	int			endl;
 	t_s_map		s_map;
 	t_vec		pos;
+	double		player_dir;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);

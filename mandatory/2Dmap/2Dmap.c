@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/01 12:14:23 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:18:31 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ static void	player_square_draw(t_cub *cub)
 	size_t		y;
 
 	pos = cub->pos;
-	y = pos.y - 4;
-	while (y <= pos.y + 4)
+	y = pos.y;
+	while (y <= pos.y + 1)
 	{
-		x = pos.x - 4;
-		while (x <= pos.x + 4)
+		x = pos.x;
+		while (x <= pos.x + 1)
 		{
 			ft_put_pixel(cub->s_map.img_s_map, x, y,
 				create_rgb(255, 0, 0, 255));
@@ -127,31 +127,57 @@ static void	draw_s_map_1(t_cub *cub)
 		y++;
 	}
 }
-
-static void	key_hook(void *v_cub)
+void key_func(mlx_key_data_t keydata, void *v_cub)
 {
 	t_cub	*cub;
 	int		speed;
 	t_vec	pos;
-
-	speed = 4;
+	double	angle = 0;
+// pos.x += (cos(cub->player_dir + angle) - sin(cub->player_dir + angle)) * speed;
+		// pos.y += (cos(cub->player_dir + angle) + sin(cub->player_dir + angle)) * speed;
+	speed = 10;
 	cub = (t_cub *)v_cub;
 	pos = player_pos(0, 0, 0, cub);
-	if (mlx_is_key_down(cub->s_map.mlx_s_map, MLX_KEY_A))
-		cub->pos.x -= speed;
-	if (mlx_is_key_down(cub->s_map.mlx_s_map, MLX_KEY_D))
-		cub->pos.x += speed;
-	if (mlx_is_key_down(cub->s_map.mlx_s_map, MLX_KEY_W))
-		cub->pos.y -= speed;
-	if (mlx_is_key_down(cub->s_map.mlx_s_map, MLX_KEY_S))
-		cub->pos.y += speed;
-	if ((cub->pos.y / TILE_SIZE) < cub->height
-		&& (cub->pos.x / TILE_SIZE) < cub->width
-		&& cub->map[cub->pos.y / TILE_SIZE][cub->pos.x / TILE_SIZE].value
-		== E_EMPTY)
-		player_pos(cub->pos.x, cub->pos.y, 1, cub);
+	if (keydata.key == MLX_KEY_ESCAPE)
+		exit(0);
+	if (keydata.action == 0)
+		angle = 0;
+	if (keydata.action == 2)
+		keydata.action = 1;
+	if (keydata.key == MLX_KEY_LEFT)
+		cub->player_dir -= 0.02;
+	if (keydata.key ==  MLX_KEY_RIGHT)
+		cub->player_dir += 0.02;
+	if (keydata.key == 'A' && keydata.action == 1)
+		angle = - M_PI * 0.5;
+	if (keydata.key == 'D' && keydata.action == 1)
+		angle = M_PI * 0.5;
+	if (keydata.key == 'W' && keydata.action == 1)
+		angle = M_PI * 2;
+	if (keydata.key == 'S' && keydata.action == 1)
+		angle = M_PI;
+	if (angle != 0)
+	{
+		pos.x += roundf(speed * cos(cub->player_dir + angle));
+		pos.y += roundf(speed * sin(cub->player_dir + angle));
+		printf("%f\n", angle);	
+	}
+	angle = 0;
+	if ((pos.y / TILE_SIZE) < cub->height
+		&& (pos.x / TILE_SIZE) < cub->width
+		&& cub->map[pos.y / TILE_SIZE][pos.x / TILE_SIZE].value
+		!= E_BLOCK)
+		player_pos(pos.x, pos.y, 1, cub);	
+	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
+	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	draw_s_map_1(cub);
 	player_square_draw(cub);
+	for (int i = 0; i < 100; i++)
+	{
+		int x = cub->pos.x + i * cos(cub->player_dir);
+		int y = cub->pos.y + i * sin(cub->player_dir);
+		ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 155, 55, 255));
+	}
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 	return ;
 }
@@ -159,7 +185,8 @@ static void	key_hook(void *v_cub)
 static void	draw_player(t_cub *cub)
 {
 	player_square_draw(cub);
-	mlx_loop_hook(cub->s_map.mlx_s_map, key_hook, cub);
+	// mlx_loop_hook(cub->s_map.mlx_s_map, key_hook, cub);
+	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
 }
 
 int	mini_map(t_cub *cub)

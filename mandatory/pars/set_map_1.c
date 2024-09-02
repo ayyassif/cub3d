@@ -6,13 +6,13 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 10:56:46 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:53:42 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static t_type	set_type_block_1(char c)
+static t_type	set_type_block_1(char c, t_cub *cub)
 {
 	if (c == ' ')
 		return (E_VOID);
@@ -21,22 +21,22 @@ static t_type	set_type_block_1(char c)
 	if (c == '1')
 		return (E_BLOCK);
 	if (c == 'W')
-		return (E_PLAYER_W);
+		return (cub->player_dir = M_PI, E_PLAYER_W);
 	if (c == 'S')
-		return (E_PLAYER_S);
+		return (cub->player_dir = (M_PI * 0.5),E_PLAYER_S);
 	if (c == 'E')
-		return (E_PLAYER_E);
+		return (cub->player_dir = 0, E_PLAYER_E);
 	if (c == 'N')
-		return (E_PLAYER_N);
+		return (cub->player_dir = (M_PI * 1.5), E_PLAYER_N);
 	else
 		return (9);
 }
 
-static t_type	set_type_block_0(char c)
+static t_type	set_type_block_0(char c, t_cub *cub)
 {
 	if (c != '\n')
-		return (set_type_block_1(c));
-	return (set_type_block_1(' '));
+		return (set_type_block_1(c, cub));
+	return (set_type_block_1(' ', cub));
 }
 
 static int	put_map(t_cub *cub)
@@ -54,13 +54,13 @@ static int	put_map(t_cub *cub)
 		k = -1;
 		while (tmp->line_map[i] && ++k < cub->width)
 		{
-			cub->map[j][k].value = set_type_block_0(tmp->line_map[i]);
+			cub->map[j][k].value = set_type_block_0(tmp->line_map[i], cub);
 			if (cub->map[j][k].value == 9)
 				return (-1);
 			i++;
 		}
 		while (++k < cub->width)
-			cub->map[j][k].value = set_type_block_1(' ');
+			cub->map[j][k].value = set_type_block_1(' ', cub);
 		j++;
 		tmp = tmp->next;
 	}
