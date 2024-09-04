@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/04 12:01:07 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:13:46 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,6 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 static void	draw_player(t_cub *cub)
 {
 	player_square_draw(cub);
-	// mlx_loop_hook(cub->s_map.mlx_s_map, key_hook, cub);
 	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
 }
 
