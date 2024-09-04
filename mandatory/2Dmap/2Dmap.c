@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/02 19:18:31 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:01:07 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 	int		speed;
 	t_vec	pos;
 	double	angle = 0;
-// pos.x += (cos(cub->player_dir + angle) - sin(cub->player_dir + angle)) * speed;
-		// pos.y += (cos(cub->player_dir + angle) + sin(cub->player_dir + angle)) * speed;
+
 	speed = 10;
 	cub = (t_cub *)v_cub;
 	pos = player_pos(0, 0, 0, cub);
@@ -160,14 +159,16 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 	{
 		pos.x += roundf(speed * cos(cub->player_dir + angle));
 		pos.y += roundf(speed * sin(cub->player_dir + angle));
-		printf("%f\n", angle);	
 	}
 	angle = 0;
-	if ((pos.y / TILE_SIZE) < cub->height
-		&& (pos.x / TILE_SIZE) < cub->width
-		&& cub->map[pos.y / TILE_SIZE][pos.x / TILE_SIZE].value
+	if (pos.y / TILE_SIZE < cub->height
+		&& cub->map[pos.y / TILE_SIZE][cub->pos.x / TILE_SIZE].value
 		!= E_BLOCK)
-		player_pos(pos.x, pos.y, 1, cub);	
+		player_pos(cub->pos.x, pos.y, 1, cub);	
+	if (pos.x / TILE_SIZE < cub->width
+		&& cub->map[cub->pos.y / TILE_SIZE][pos.x / TILE_SIZE].value
+		!= E_BLOCK)
+		player_pos(pos.x, cub->pos.y, 1, cub);	
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	draw_s_map_1(cub);
