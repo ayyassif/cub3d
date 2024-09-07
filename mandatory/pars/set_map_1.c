@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/02 16:53:42 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:06:13 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static t_type	set_type_block_1(char c, t_cub *cub)
+static t_type	set_typM_WALL_1(char c, t_cub *cub)
 {
 	if (c == ' ')
-		return (E_VOID);
+		return (M_VOID);
 	if (c == '0')
-		return (E_EMPTY);
+		return (M_FLOOR);
 	if (c == '1')
-		return (E_BLOCK);
+		return (M_WALL);
 	if (c == 'W')
-		return (cub->player_dir = M_PI, E_PLAYER_W);
+		return (cub->player_dir = M_PI, M_PLAYER_W);
 	if (c == 'S')
-		return (cub->player_dir = (M_PI * 0.5),E_PLAYER_S);
+		return (cub->player_dir = (M_PI * 0.5),M_PLAYER_S);
 	if (c == 'E')
-		return (cub->player_dir = 0, E_PLAYER_E);
+		return (cub->player_dir = 0, M_PLAYER_E);
 	if (c == 'N')
-		return (cub->player_dir = (M_PI * 1.5), E_PLAYER_N);
+		return (cub->player_dir = (M_PI * 1.5), M_PLAYER_N);
 	else
 		return (9);
 }
 
-static t_type	set_type_block_0(char c, t_cub *cub)
+static t_type	set_typM_WALL_0(char c, t_cub *cub)
 {
 	if (c != '\n')
-		return (set_type_block_1(c, cub));
-	return (set_type_block_1(' ', cub));
+		return (set_typM_WALL_1(c, cub));
+	return (set_typM_WALL_1(' ', cub));
 }
 
 static int	put_map(t_cub *cub)
@@ -54,13 +54,13 @@ static int	put_map(t_cub *cub)
 		k = -1;
 		while (tmp->line_map[i] && ++k < cub->width)
 		{
-			cub->map[j][k].value = set_type_block_0(tmp->line_map[i], cub);
+			cub->map[j][k].value = set_typM_WALL_0(tmp->line_map[i], cub);
 			if (cub->map[j][k].value == 9)
 				return (-1);
 			i++;
 		}
 		while (++k < cub->width)
-			cub->map[j][k].value = set_type_block_1(' ', cub);
+			cub->map[j][k].value = set_typM_WALL_1(' ', cub);
 		j++;
 		tmp = tmp->next;
 	}

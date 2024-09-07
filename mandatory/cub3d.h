@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/02 12:45:44 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/07 14:20:44 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ typedef struct s_vec
 
 typedef enum e_type
 {
-	E_EMPTY,
-	E_BLOCK,
-	E_PLAYER_W,
-	E_PLAYER_S,
-	E_PLAYER_E,
-	E_PLAYER_N,
-	E_VOID
+	M_FLOOR,
+	M_WALL,
+	M_PLAYER_W,
+	M_PLAYER_S,
+	M_PLAYER_E,
+	M_PLAYER_N,
+	M_VOID
 }	t_type;
 
 typedef enum e_id
@@ -79,6 +79,17 @@ typedef struct s_map
 	t_type	value;
 }			t_map;
 
+typedef struct s_pressed_down
+{
+	int	is_frwd;
+	int	is_bckwd;
+	int	is_right;
+	int	is_left;
+	int	is_turn_right;
+	int	is_turn_left;
+}		t_prsd_dwn;
+
+
 typedef struct s_line_map
 {
 	char				*line_map;
@@ -101,6 +112,7 @@ typedef struct s_cub
 	t_s_map		s_map;
 	t_vec		pos;
 	double		player_dir;
+	t_prsd_dwn	pressed_down;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);

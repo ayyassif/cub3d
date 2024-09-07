@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2Dmap.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/04 12:01:07 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/07 14:59:27 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static void	draw_square(t_s_map	*s_map, int x, int y, int32_t color)
 		x = x_tmp;
 		while (x < x_max)
 		{
-			if (x == x_max - TILE_SIZE || x == x_max - 1
-				|| y == y_max - TILE_SIZE || y == y_max - 1)
+			if (x == x_max - TILE_SIZE || y == y_max - TILE_SIZE)
 				ft_put_pixel(s_map->img_s_map, x, y,
 					create_rgb(0, 150, 0, 255));
 			else
@@ -73,12 +72,14 @@ static void	draw_s_map(t_cub *cub)
 		{
 			draw_square(&cub->s_map, x * TILE_SIZE,
 				y * TILE_SIZE, create_rgb(0, 0, 0, 255));
-			if (cub->map[y][x].value == E_BLOCK)
+			if (cub->map[y][x].value == M_WALL)
 				draw_square(&cub->s_map, x * TILE_SIZE,
 					y * TILE_SIZE, create_rgb(100, 150, 100, 255));
 			else if (is_player(cub->map[y][x].value))
-				player_pos (x * TILE_SIZE + TILE_SIZE / 2,
-					y * TILE_SIZE + TILE_SIZE / 2, 1, cub);
+			{
+				player_pos (x * TILE_SIZE + TILE_SIZE / 2, y * TILE_SIZE + TILE_SIZE / 2, 1, cub);
+				cub->map[y][x].value = M_FLOOR;
+			}
 			x++;
 		}
 		y++;
@@ -106,72 +107,102 @@ static void	player_square_draw(t_cub *cub)
 	}
 }
 
-static void	draw_s_map_1(t_cub *cub)
+void key_func(mlx_key_data_t keydata, void *v_cub)
 {
-	size_t	x;
-	size_t	y;
+	t_cub	*cub;
 
-	y = 0;
-	while (y < cub->height)
+	cub = (t_cub *)v_cub;
+	if (keydata.key == MLX_KEY_ESCAPE)
+		exit(0);
+	if (keydata.action == MLX_PRESS)
 	{
-		x = 0;
-		while (x < cub->width)
+		if (keydata.key == MLX_KEY_LEFT)
 		{
-			draw_square(&cub->s_map, x * TILE_SIZE, y * TILE_SIZE,
-				create_rgb(0, 0, 0, 255));
-			if (cub->map[y][x].value == E_BLOCK)
-				draw_square(&cub->s_map, x * TILE_SIZE, y * TILE_SIZE,
-					create_rgb(100, 150, 100, 255));
-			x++;
+			cub->pressed_down.is_turn_left = 1;
+			cub->pressed_down.is_turn_right = 0;
 		}
-		y++;
+		else if (keydata.key ==  MLX_KEY_RIGHT)
+		{
+			cub->pressed_down.is_turn_left = 0;
+			cub->pressed_down.is_turn_right = 1;
+		}
+		else if (keydata.key == 'A')
+		{
+			cub->pressed_down.is_left = 1;
+			cub->pressed_down.is_right = 0;
+		}
+		else if (keydata.key == 'D')
+		{
+			cub->pressed_down.is_left = 0;
+			cub->pressed_down.is_right = 1;
+		}
+		else if (keydata.key == 'W')
+		{
+			cub->pressed_down.is_bckwd = 0;
+			cub->pressed_down.is_frwd = 1;
+		}
+		else if (keydata.key == 'S')
+		{
+			cub->pressed_down.is_bckwd = 1;
+			cub->pressed_down.is_frwd = 0;
+		}
+	}
+	else if (keydata.action == MLX_RELEASE)
+	{
+		if (keydata.key == MLX_KEY_LEFT)
+			cub->pressed_down.is_turn_left = 0;
+		else if (keydata.key ==  MLX_KEY_RIGHT)
+			cub->pressed_down.is_turn_right = 0;
+		else if (keydata.key == 'A')
+			cub->pressed_down.is_left = 0;
+		else if (keydata.key == 'D')
+			cub->pressed_down.is_right = 0;
+		else if (keydata.key == 'W')
+			cub->pressed_down.is_frwd = 0;
+		else if (keydata.key == 'S')
+			cub->pressed_down.is_bckwd = 0;
 	}
 }
-void key_func(mlx_key_data_t keydata, void *v_cub)
+
+void	loop_hook(void *v_cub)
 {
 	t_cub	*cub;
 	int		speed;
 	t_vec	pos;
-	double	angle = 0;
+	double	angle;
 
-	speed = 10;
+	speed = 1;
 	cub = (t_cub *)v_cub;
 	pos = player_pos(0, 0, 0, cub);
-	if (keydata.key == MLX_KEY_ESCAPE)
-		exit(0);
-	if (keydata.action == 0)
-		angle = 0;
-	if (keydata.action == 2)
-		keydata.action = 1;
-	if (keydata.key == MLX_KEY_LEFT)
-		cub->player_dir -= 0.02;
-	if (keydata.key ==  MLX_KEY_RIGHT)
-		cub->player_dir += 0.02;
-	if (keydata.key == 'A' && keydata.action == 1)
-		angle = - M_PI * 0.5;
-	if (keydata.key == 'D' && keydata.action == 1)
-		angle = M_PI * 0.5;
-	if (keydata.key == 'W' && keydata.action == 1)
+	angle = 0;
+	if (cub->pressed_down.is_frwd)
 		angle = M_PI * 2;
-	if (keydata.key == 'S' && keydata.action == 1)
+	if (cub->pressed_down.is_bckwd)
 		angle = M_PI;
+	if (cub->pressed_down.is_right)
+		angle = M_PI * 0.5;
+	if (cub->pressed_down.is_left)
+		angle = - M_PI * 0.5;
+	if (cub->pressed_down.is_turn_left)
+		cub->player_dir -= 0.02;
+	if (cub->pressed_down.is_turn_right)
+		cub->player_dir += 0.02;
 	if (angle != 0)
 	{
 		pos.x += roundf(speed * cos(cub->player_dir + angle));
 		pos.y += roundf(speed * sin(cub->player_dir + angle));
 	}
-	angle = 0;
 	if (pos.y / TILE_SIZE < cub->height
 		&& cub->map[pos.y / TILE_SIZE][cub->pos.x / TILE_SIZE].value
-		!= E_BLOCK)
+		!= M_WALL)
 		player_pos(cub->pos.x, pos.y, 1, cub);	
 	if (pos.x / TILE_SIZE < cub->width
 		&& cub->map[cub->pos.y / TILE_SIZE][pos.x / TILE_SIZE].value
-		!= E_BLOCK)
+		!= M_WALL)
 		player_pos(pos.x, cub->pos.y, 1, cub);	
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
-	draw_s_map_1(cub);
+	draw_s_map(cub);
 	player_square_draw(cub);
 	for (int i = 0; i < 100; i++)
 	{
@@ -180,14 +211,13 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 		ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 155, 55, 255));
 	}
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
-	return ;
 }
 
 static void	draw_player(t_cub *cub)
 {
 	player_square_draw(cub);
-	// mlx_loop_hook(cub->s_map.mlx_s_map, key_hook, cub);
 	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
+	mlx_loop_hook(cub->s_map.mlx_s_map, loop_hook, cub);
 }
 
 int	mini_map(t_cub *cub)
