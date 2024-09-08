@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/08 17:28:43 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:09:21 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void	loop_hook(void *v_cub)
 	t_cub	*cub;
 	int		speed;
 	t_vec	velocity;
-	//int		theta;
+	int		theta;
 
 	speed = 1;
 	cub = (t_cub *)v_cub;
@@ -231,7 +231,9 @@ void	loop_hook(void *v_cub)
 		vec_rotation(&cub->direction, 1);
 	if (cub->pressed_down.is_turn_right)
 		vec_rotation(&cub->direction, -1);
-	//vec_rotation(&velocity, dir_angle(cub->direction));
+	theta = -dir_angle(cub->direction);
+	velocity.x = velocity.x * (double)cosf(theta) - velocity.y * (double)sinf(theta);
+	velocity.y = velocity.x * (double)sinf(theta) + velocity.y * (double)cosf(theta);
 	printf("dir x:%.2f\tdir y:%.2f\n", velocity.x, velocity.y);
 	cub->pos.x += velocity.x;
 	cub->pos.y += velocity.y;
@@ -239,7 +241,7 @@ void	loop_hook(void *v_cub)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	draw_s_map(cub);
 	player_square_draw(cub);
-	dda(cub->direction, cub);
+	dda(cub->direction, cub); 
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 	// if (angle != 0)
 	// {
