@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/07 15:02:32 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:28:43 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,58 +164,113 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 	}
 }
 
+void	vec_normalize(t_vec *vec)
+{
+	double	length;
+
+	length = sqrtf(vec->x * vec->x + vec->y * vec->y);
+	vec->x = vec->x / length;
+	vec->y = vec->y / length;
+}
+
+void	vec_rotation(t_vec *vec, double theta)
+{
+	theta = theta * M_PI / 180;
+	vec->x = vec->x * (double)cosf(theta) - vec->y * (double)sinf(theta);
+	vec->y = vec->x * (double)sinf(theta) + vec->y * (double)cosf(theta);
+	vec_normalize(vec);
+}
+
+double	dir_angle(t_vec dir)
+{
+	return ((double)acosf(dir.y / (double)sqrtf(dir.x * dir.x + dir.y * dir.y)));
+}
+
+void	dda(t_vec vec, t_cub *cub)
+{
+	double	step;
+	double	x_inc;
+	double	y_inc;
+	double	x;
+	double	y;
+
+	step = fmax(fabs(vec.x), fabs(vec.y));
+	x_inc = vec.x / step;
+	y_inc = vec.y / step; 
+	x = cub->pos.x;
+	y = cub->pos.y;
+	for (int i = 0; i < 100; i++)
+	{
+		x = x + x_inc;
+		y = y + y_inc;
+		ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 155, 55, 255));
+	}
+}
+
+
 void	loop_hook(void *v_cub)
 {
 	t_cub	*cub;
 	int		speed;
-	t_vec	pos;
-	double	angle;
+	t_vec	velocity;
+	//int		theta;
 
 	speed = 1;
 	cub = (t_cub *)v_cub;
-	pos = player_pos(0, 0, 0, cub);
-	angle = 0;
+	velocity.x = 0;
+	velocity.y = 0;
 	if (cub->pressed_down.is_frwd)
-		angle = M_PI * 2;
+		velocity.y = 1;
 	if (cub->pressed_down.is_bckwd)
-		angle = M_PI;
+		velocity.y = -1;
 	if (cub->pressed_down.is_right)
-		angle = M_PI * 0.5;
+		velocity.x = 1;
 	if (cub->pressed_down.is_left)
-		angle = - M_PI * 0.5;
+		velocity.x = -1;
 	if (cub->pressed_down.is_turn_left)
-		cub->player_dir -= 0.02;
+		vec_rotation(&cub->direction, 1);
 	if (cub->pressed_down.is_turn_right)
-		cub->player_dir += 0.02;
-	if (angle != 0)
-	{
-		pos.x += roundf(speed * cos(cub->player_dir + angle));
-		pos.y += roundf(speed * sin(cub->player_dir + angle));
-	}
-	if (pos.y / TILE_SIZE < cub->height
-		&& cub->map[pos.y / TILE_SIZE][cub->pos.x / TILE_SIZE].value
-		!= M_WALL)
-		player_pos(cub->pos.x, pos.y, 1, cub);	
-	if (pos.x / TILE_SIZE < cub->width
-		&& cub->map[cub->pos.y / TILE_SIZE][pos.x / TILE_SIZE].value
-		!= M_WALL)
-		player_pos(pos.x, cub->pos.y, 1, cub);	
+		vec_rotation(&cub->direction, -1);
+	//vec_rotation(&velocity, dir_angle(cub->direction));
+	printf("dir x:%.2f\tdir y:%.2f\n", velocity.x, velocity.y);
+	cub->pos.x += velocity.x;
+	cub->pos.y += velocity.y;
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	draw_s_map(cub);
 	player_square_draw(cub);
-	for (int i = 0; i < 100; i++)
-	{
-		int x = cub->pos.x + i * cos(cub->player_dir);
-		int y = cub->pos.y + i * sin(cub->player_dir);
-		ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 155, 55, 255));
-	}
+	dda(cub->direction, cub);
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
+	// if (angle != 0)
+	// {
+	// 	pos.x += roundf(speed * cos(cub->player_dir + angle));
+	// 	pos.y += roundf(speed * sin(cub->player_dir + angle));
+	// }
+	// if (pos.y / TILE_SIZE < cub->height
+	// 	&& cub->map[pos.y / TILE_SIZE][cub->pos.x / TILE_SIZE].value
+	// 	!= M_WALL)
+	// 	player_pos(cub->pos.x, pos.y, 1, cub);	
+	// if (pos.x / TILE_SIZE < cub->width
+	// 	&& cub->map[cub->pos.y / TILE_SIZE][pos.x / TILE_SIZE].value
+	// 	!= M_WALL)
+	// 	player_pos(pos.x, cub->pos.y, 1, cub);	
+	// mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
+	// cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
+	// draw_s_map(cub);
+	// player_square_draw(cub);
+	// for (int i = 0; i < 100; i++)
+	// {
+	// 	int x = cub->pos.x + i * cos(cub->player_dir);
+	// 	int y = cub->pos.y + i * sin(cub->player_dir);
+	// 	ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 155, 55, 255));
+	// }
+	// mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 
 static void	draw_player(t_cub *cub)
 {
 	player_square_draw(cub);
+	printf("x:%.2f\ty:%.2f\n", cub->direction.x, cub->direction.y);
 	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
 	mlx_loop_hook(cub->s_map.mlx_s_map, loop_hook, cub);
 }

@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/07 14:20:44 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:53:25 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_s_map
 
 typedef struct s_vec
 {
-	size_t	x;
-	size_t	y;
+	double	x;
+	double	y;
 }	t_vec;
 
 typedef enum e_type
@@ -111,7 +111,7 @@ typedef struct s_cub
 	int			endl;
 	t_s_map		s_map;
 	t_vec		pos;
-	double		player_dir;
+	t_vec		direction;
 	t_prsd_dwn	pressed_down;
 }				t_cub;
 

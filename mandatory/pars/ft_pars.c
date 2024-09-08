@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 13:04:38 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:22:17 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static int	creat_cub_0(t_cub *cub, char *name_file)
 int	ft_pars(t_cub *cub, char *name_file)
 {
 	set_cub(cub);
+	cub->direction.x = 0;
+	cub->direction.y = 0;
 	if (creat_cub_0(cub, name_file) == -1)
 		return (free_line_map(&cub->line_map), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;

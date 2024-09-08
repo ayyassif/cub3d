@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/04 18:06:13 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:23:26 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static t_type	set_typM_WALL_1(char c, t_cub *cub)
 	if (c == '1')
 		return (M_WALL);
 	if (c == 'W')
-		return (cub->player_dir = M_PI, M_PLAYER_W);
+		return (cub->direction.x = -1, M_PLAYER_W);
 	if (c == 'S')
-		return (cub->player_dir = (M_PI * 0.5),M_PLAYER_S);
+		return (cub->direction.y = 1,M_PLAYER_S);
 	if (c == 'E')
-		return (cub->player_dir = 0, M_PLAYER_E);
+		return (cub->direction.x = 1, M_PLAYER_E);
 	if (c == 'N')
-		return (cub->player_dir = (M_PI * 1.5), M_PLAYER_N);
+		return (cub->direction.y = -1, M_PLAYER_N);
 	else
 		return (9);
 }
