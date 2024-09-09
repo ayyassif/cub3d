@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/08 15:53:25 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:58:14 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define RIGHT_KEY 2
 # define UP_KEY 13
 # define DOWN_KEY 1
+
+# define SPEED 2
 
 //tmp
 # define TILE_SIZE 80

@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/08 19:09:21 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:57:55 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,12 +173,15 @@ void	vec_normalize(t_vec *vec)
 	vec->y = vec->y / length;
 }
 
-void	vec_rotation(t_vec *vec, double theta)
+t_vec	vec_rotation(t_vec vec, double theta)
 {
+	t_vec	prime_vec;
+	
 	theta = theta * M_PI / 180;
-	vec->x = vec->x * (double)cosf(theta) - vec->y * (double)sinf(theta);
-	vec->y = vec->x * (double)sinf(theta) + vec->y * (double)cosf(theta);
-	vec_normalize(vec);
+	prime_vec.x = vec.x * (double)cosf(theta) - vec.y * (double)sinf(theta);
+	prime_vec.y = vec.x * (double)sinf(theta) + vec.y * (double)cosf(theta);
+	vec_normalize(&prime_vec);
+	return (prime_vec);
 }
 
 double	dir_angle(t_vec dir)
@@ -208,65 +211,58 @@ void	dda(t_vec vec, t_cub *cub)
 }
 
 
-void	loop_hook(void *v_cub)
+void	move_process(t_cub *cub, double x, double y)
 {
-	t_cub	*cub;
-	int		speed;
-	t_vec	velocity;
-	int		theta;
+	t_vec	new_pos;
 
-	speed = 1;
-	cub = (t_cub *)v_cub;
-	velocity.x = 0;
-	velocity.y = 0;
-	if (cub->pressed_down.is_frwd)
-		velocity.y = 1;
-	if (cub->pressed_down.is_bckwd)
-		velocity.y = -1;
-	if (cub->pressed_down.is_right)
-		velocity.x = 1;
-	if (cub->pressed_down.is_left)
-		velocity.x = -1;
-	if (cub->pressed_down.is_turn_left)
-		vec_rotation(&cub->direction, 1);
-	if (cub->pressed_down.is_turn_right)
-		vec_rotation(&cub->direction, -1);
-	theta = -dir_angle(cub->direction);
-	velocity.x = velocity.x * (double)cosf(theta) - velocity.y * (double)sinf(theta);
-	velocity.y = velocity.x * (double)sinf(theta) + velocity.y * (double)cosf(theta);
-	printf("dir x:%.2f\tdir y:%.2f\n", velocity.x, velocity.y);
-	cub->pos.x += velocity.x;
-	cub->pos.y += velocity.y;
+	new_pos.x = cub->pos.x + x * SPEED;
+	new_pos.y = cub->pos.y + y * SPEED;
+	if (new_pos.y / TILE_SIZE < cub->height
+		&& cub->map[(int)new_pos.y / TILE_SIZE][(int)cub->pos.x / TILE_SIZE].value
+		!= M_WALL)
+		cub->pos.y = new_pos.y;
+	if (new_pos.x / TILE_SIZE < cub->width
+		&& cub->map[(int)cub->pos.y / TILE_SIZE][(int)new_pos.x / TILE_SIZE].value
+		!= M_WALL)
+		cub->pos.x = new_pos.x;
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	draw_s_map(cub);
 	player_square_draw(cub);
 	dda(cub->direction, cub); 
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
-	// if (angle != 0)
-	// {
-	// 	pos.x += roundf(speed * cos(cub->player_dir + angle));
-	// 	pos.y += roundf(speed * sin(cub->player_dir + angle));
-	// }
-	// if (pos.y / TILE_SIZE < cub->height
-	// 	&& cub->map[pos.y / TILE_SIZE][cub->pos.x / TILE_SIZE].value
-	// 	!= M_WALL)
-	// 	player_pos(cub->pos.x, pos.y, 1, cub);	
-	// if (pos.x / TILE_SIZE < cub->width
-	// 	&& cub->map[cub->pos.y / TILE_SIZE][pos.x / TILE_SIZE].value
-	// 	!= M_WALL)
-	// 	player_pos(pos.x, cub->pos.y, 1, cub);	
-	// mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
-	// cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
-	// draw_s_map(cub);
-	// player_square_draw(cub);
-	// for (int i = 0; i < 100; i++)
-	// {
-	// 	int x = cub->pos.x + i * cos(cub->player_dir);
-	// 	int y = cub->pos.y + i * sin(cub->player_dir);
-	// 	ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 155, 55, 255));
-	// }
-	// mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
+}
+
+
+void	loop_hook(void *v_cub)
+{
+	t_cub	*cub;
+	t_vec	velocity;
+	int		theta;
+
+	cub = (t_cub *)v_cub;
+	velocity = cub->direction;
+	if (cub->pressed_down.is_turn_left)
+		cub->direction = vec_rotation(cub->direction, 1);
+	if (cub->pressed_down.is_turn_right)
+		cub->direction = vec_rotation(cub->direction, -1);
+	velocity = cub->direction;
+	theta = 0;
+	if (cub->pressed_down.is_right)
+		theta = 90;
+	if (cub->pressed_down.is_left)
+		theta = -90;
+	if (cub->pressed_down.is_bckwd && (cub->pressed_down.is_right || cub->pressed_down.is_left))
+		theta = theta + theta / 2;
+	else if (cub->pressed_down.is_bckwd)
+		theta = 180;
+	if (cub->pressed_down.is_frwd && (cub->pressed_down.is_right || cub->pressed_down.is_left))
+		theta = theta - theta / 2;
+	velocity = vec_rotation(cub->direction, theta);
+	if (!cub->pressed_down.is_frwd && theta == 0)
+		move_process(cub, 0, 0);
+	else
+		move_process(cub, velocity.x, velocity.y);
 }
 
 static void	draw_player(t_cub *cub)
