@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/09 15:19:19 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:23:38 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,6 @@ void	loop_hook(void *v_cub)
 static void	draw_player(t_cub *cub)
 {
 	player_square_draw(cub);
-	printf("x:%.2f\ty:%.2f\n", cub->direction.x, cub->direction.y);
 	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
 	mlx_loop_hook(cub->s_map.mlx_s_map, loop_hook, cub);
 }
