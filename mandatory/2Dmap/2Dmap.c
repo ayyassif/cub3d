@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/09 14:57:55 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:19:19 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,9 +243,9 @@ void	loop_hook(void *v_cub)
 	cub = (t_cub *)v_cub;
 	velocity = cub->direction;
 	if (cub->pressed_down.is_turn_left)
-		cub->direction = vec_rotation(cub->direction, 1);
-	if (cub->pressed_down.is_turn_right)
 		cub->direction = vec_rotation(cub->direction, -1);
+	if (cub->pressed_down.is_turn_right)
+		cub->direction = vec_rotation(cub->direction, 1);
 	velocity = cub->direction;
 	theta = 0;
 	if (cub->pressed_down.is_right)
