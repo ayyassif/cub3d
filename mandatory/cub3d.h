@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/09 14:58:14 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:02:43 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@
 
 # define WIDTH 955
 # define HEIGHT 800
-# define LEFT_KEY 0
-# define RIGHT_KEY 2
-# define UP_KEY 13
-# define DOWN_KEY 1
-
-# define SPEED 2
 
 //tmp
 # define TILE_SIZE 80
@@ -115,6 +109,7 @@ typedef struct s_cub
 	t_vec		pos;
 	t_vec		direction;
 	t_prsd_dwn	pressed_down;
+	t_vec		cam_plane;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);

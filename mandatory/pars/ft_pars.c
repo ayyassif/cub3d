@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/08 17:22:17 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:56:13 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	ft_pars(t_cub *cub, char *name_file)
 	set_cub(cub);
 	cub->direction.x = 0;
 	cub->direction.y = 0;
+	cub->cam_plane.x = 0;
+	cub->cam_plane.y = 0;
 	if (creat_cub_0(cub, name_file) == -1)
 		return (free_line_map(&cub->line_map), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;

@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/09 15:23:38 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:21:45 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,23 +164,22 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 	}
 }
 
-void	vec_normalize(t_vec *vec)
-{
-	double	length;
+// void	vec_normalize(t_vec *vec)
+// {
+// 	double	length;
 
-	length = sqrtf(vec->x * vec->x + vec->y * vec->y);
-	vec->x = vec->x / length;
-	vec->y = vec->y / length;
-}
+// 	length = sqrtf(vec->x * vec->x + vec->y * vec->y);
+// 	vec->x = vec->x / length;
+// 	vec->y = vec->y / length;
+// }
 
 t_vec	vec_rotation(t_vec vec, double theta)
 {
 	t_vec	prime_vec;
 	
-	theta = theta * M_PI / 180;
+	theta = theta * (M_PI / 180);
 	prime_vec.x = vec.x * (double)cosf(theta) - vec.y * (double)sinf(theta);
 	prime_vec.y = vec.x * (double)sinf(theta) + vec.y * (double)cosf(theta);
-	vec_normalize(&prime_vec);
 	return (prime_vec);
 }
 
@@ -189,47 +188,76 @@ double	dir_angle(t_vec dir)
 	return ((double)acosf(dir.y / (double)sqrtf(dir.x * dir.x + dir.y * dir.y)));
 }
 
-void	dda(t_vec vec, t_cub *cub)
+void	dda(t_vec pos, t_vec vec, t_cub *cub, int32_t color)
 {
 	double	step;
 	double	x_inc;
 	double	y_inc;
-	double	x;
-	double	y;
 
 	step = fmax(fabs(vec.x), fabs(vec.y));
 	x_inc = vec.x / step;
 	y_inc = vec.y / step; 
-	x = cub->pos.x;
-	y = cub->pos.y;
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < step * 100; i++)
 	{
-		x = x + x_inc;
-		y = y + y_inc;
-		ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 155, 55, 255));
+		pos.x = pos.x + x_inc;
+		pos.y = pos.y + y_inc;
+		ft_put_pixel(cub->s_map.img_s_map, pos.x, pos.y, color);
 	}
 }
 
+int	is_wall_coll(t_cub cub ,double v1, double v2, double len)
+{
+	return (cub.map[(int)(v1 + len)][(int)(v2 + len)].value != M_WALL
+		&& cub.map[(int)(v1 - len)][(int)(v2 + len)].value != M_WALL
+		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL
+		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL);
+}
 
-void	move_process(t_cub *cub, double x, double y)
+t_vec	vec_multiply(t_vec vec, double multiplier)
+{
+	vec.x = vec.x * multiplier;
+	vec.y = vec.y * multiplier;
+	return (vec);
+}
+
+void	move_process(t_cub *cub, t_vec *velo)
 {
 	t_vec	new_pos;
+	double	move_speed;
+	t_vec	margin;
+	t_vec	ray;
 
-	new_pos.x = cub->pos.x + x * SPEED;
-	new_pos.y = cub->pos.y + y * SPEED;
-	if (new_pos.y / TILE_SIZE < cub->height
-		&& cub->map[(int)new_pos.y / TILE_SIZE][(int)cub->pos.x / TILE_SIZE].value
-		!= M_WALL)
-		cub->pos.y = new_pos.y;
-	if (new_pos.x / TILE_SIZE < cub->width
-		&& cub->map[(int)cub->pos.y / TILE_SIZE][(int)new_pos.x / TILE_SIZE].value
-		!= M_WALL)
-		cub->pos.x = new_pos.x;
+	if (velo)
+	{
+		move_speed = 100 * cub->s_map.mlx_s_map->delta_time;
+		new_pos.x = cub->pos.x + velo->x * move_speed;
+		new_pos.y = cub->pos.y + velo->y * move_speed;
+		if ((new_pos.y + 10) / TILE_SIZE < cub->height
+			&& (new_pos.y - 10) / TILE_SIZE < cub->height
+			&& is_wall_coll(*cub, new_pos.y / TILE_SIZE, cub->pos.x / TILE_SIZE, 0.05))
+			cub->pos.y = new_pos.y;
+		if ((new_pos.x + 10) / TILE_SIZE < cub->width
+			&& (new_pos.x - 10) / TILE_SIZE < cub->width
+			&& is_wall_coll(*cub, cub->pos.y / TILE_SIZE, new_pos.x / TILE_SIZE, 0.05))
+			cub->pos.x = new_pos.x;
+	}
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	draw_s_map(cub);
 	player_square_draw(cub);
-	dda(cub->direction, cub); 
+	dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
+	margin.x = cub->pos.x + cub->direction.x * 100;
+	margin.y = cub->pos.y + cub->direction.y * 100;
+	for (int x = 0; x < 100; x++)
+	{
+		double cameraX = 2 * x / (double)100 - 1;
+		ray.x = (cub->direction.x + cub->cam_plane.x * cameraX) * 10;
+     	ray.y = (cub->direction.y + cub->cam_plane.y * cameraX) * 10;
+		
+		dda(cub->pos, ray, cub, create_rgb(255, 0, 0, 255));
+	}
+	dda(margin, cub->cam_plane, cub, create_rgb(0, 0, 255, 255));
+	dda(margin, vec_multiply(cub->cam_plane, -1), cub, create_rgb(0, 0, 255, 255));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 
@@ -243,9 +271,15 @@ void	loop_hook(void *v_cub)
 	cub = (t_cub *)v_cub;
 	velocity = cub->direction;
 	if (cub->pressed_down.is_turn_left)
+	{
 		cub->direction = vec_rotation(cub->direction, -1);
+		cub->cam_plane = vec_rotation(cub->cam_plane, -1);
+	}
 	if (cub->pressed_down.is_turn_right)
+	{
 		cub->direction = vec_rotation(cub->direction, 1);
+		cub->cam_plane = vec_rotation(cub->cam_plane, 1);
+	}
 	velocity = cub->direction;
 	theta = 0;
 	if (cub->pressed_down.is_right)
@@ -260,9 +294,9 @@ void	loop_hook(void *v_cub)
 		theta = theta - theta / 2;
 	velocity = vec_rotation(cub->direction, theta);
 	if (!cub->pressed_down.is_frwd && theta == 0)
-		move_process(cub, 0, 0);
+		move_process(cub, NULL);
 	else
-		move_process(cub, velocity.x, velocity.y);
+		move_process(cub, &velocity);
 }
 
 static void	draw_player(t_cub *cub)
