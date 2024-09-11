@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/11 18:02:30 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:39:40 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ static void	player_square_draw(t_cub *cub)
 		x = pos.x;
 		while (x <= pos.x + 1)
 		{
-			ft_put_pixel(cub->s_map.img_s_map, x, y,
-				create_rgb(255, 0, 0, 255));
+			ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 0, 0, 255));
 			x++;
 		}
 		y++;
@@ -250,11 +249,12 @@ t_vec	side_dist_setter(t_vec ray, t_vec *map_cords, t_vec delta_dist, t_vec *ste
 	return (side_dist);
 }
 
-void	ray_dda(t_cub *cub, t_vec delta_dist, t_vec map_cords, t_vec ray)
+double	ray_dda(t_cub *cub, t_vec delta_dist, t_vec map_cords, t_vec ray)
 {
 	int		side;
 	t_vec	side_dist;
 	t_vec	step;
+	double	perp_wall_dist;
 
 	side_dist = side_dist_setter(ray, &map_cords, delta_dist, &step);
 	while (1)
@@ -274,9 +274,15 @@ void	ray_dda(t_cub *cub, t_vec delta_dist, t_vec map_cords, t_vec ray)
 		if (cub->map[(int)map_cords.x][(int)map_cords.y].value == M_WALL)
 			break ;
 	}
+	// should study and modify!!!!
+	if (side == 0)
+		perp_wall_dist = (side_dist.x - delta_dist.x);
+	else
+		perp_wall_dist = (side_dist.y - delta_dist.y);
+	return (perp_wall_dist);
 }
 
-void	ray_distance(t_cub *cub, t_vec ray)
+double	ray_distance(t_cub *cub, t_vec ray)
 {
 	t_vec	map_cords;
 	t_vec	delta_dist;
@@ -291,7 +297,16 @@ void	ray_distance(t_cub *cub, t_vec ray)
 		delta_dist.y = fabs(1 / ray.y);
 	else
 		delta_dist.y = INFINITY;
-	ray_dda(cub, delta_dist, map_cords, ray);
+	return (ray_dda(cub, delta_dist, map_cords, ray));
+}
+//should study and modify!!
+void	verline(t_cub *cub, int drawStart, int drawEnd, int x)
+{
+	while (drawEnd >= drawStart)
+	{
+		ft_put_pixel(cub->s_map.img_s_map, x, drawStart, create_rgb(255, 0, 0, 255));
+		drawStart++;
+	}
 }
 
 void	move_process(t_cub *cub, t_vec *velo)
@@ -300,33 +315,44 @@ void	move_process(t_cub *cub, t_vec *velo)
 	double	move_speed;
 	t_vec	margin;
 	t_vec	ray;
+	double	camera_x;
+	double	perp_wall_dist;
 
 	if (velo)
 	{
 		move_speed = 100 * cub->s_map.mlx_s_map->delta_time;
 		new_pos.x = cub->pos.x + velo->x * move_speed;
 		new_pos.y = cub->pos.y + velo->y * move_speed;
-		if (is_wall_coll(*cub, new_pos.y / TILE_SIZE, cub->pos.x / TILE_SIZE, 0.05))
+		if (is_wall_coll(*cub, new_pos.y / TILE_SIZE, cub->pos.x / TILE_SIZE, 0.01))
 			cub->pos.y = new_pos.y;
-		if (is_wall_coll(*cub, cub->pos.y / TILE_SIZE, new_pos.x / TILE_SIZE, 0.05))
+		if (is_wall_coll(*cub, cub->pos.y / TILE_SIZE, new_pos.x / TILE_SIZE, 0.01))
 			cub->pos.x = new_pos.x;
 	}
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
-	draw_s_map(cub);
-	player_square_draw(cub);
+	// draw_s_map(cub);
+	// player_square_draw(cub);
 	margin.x = cub->pos.x + cub->direction.x * 100;
 	margin.y = cub->pos.y + cub->direction.y * 100;
-	for (int x = 0; x < 100; x++)
+	//should study and modify and put in a seprate func !!
+	for (int x = 0; x < WIDTH; x++)
 	{
-		double cameraX = 2 * x / (double)100 - 1;
-		ray.x = (cub->direction.x + cub->cam_plane.x * cameraX);
-     	ray.y = (cub->direction.y + cub->cam_plane.y * cameraX);
-		ray_distance(cub, ray);
+		camera_x = 2 * x / (double)WIDTH - 1;
+		ray.x = (cub->direction.x + cub->cam_plane.x * camera_x);
+     	ray.y = (cub->direction.y + cub->cam_plane.y * camera_x);
+		perp_wall_dist = ray_distance(cub, ray);
+		int lineHeight = (int)(HEIGHT/ perp_wall_dist);
+		int drawStart = -lineHeight / 2 + HEIGHT/ 2;
+		if(drawStart < 0)
+			drawStart = 0;
+		int drawEnd = lineHeight / 2 + HEIGHT/ 2;
+		if(drawEnd >= HEIGHT)
+			drawEnd = HEIGHT - 1;
+		verline(cub, drawStart, drawEnd, x);
 	}
-	dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
-	dda(margin, cub->cam_plane, cub, create_rgb(0, 0, 255, 255));
-	dda(margin, vec_multiply(cub->cam_plane, -1), cub, create_rgb(0, 0, 255, 255));
+	// dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
+	// dda(margin, cub->cam_plane, cub, create_rgb(0, 0, 255, 255));
+	// dda(margin, vec_multiply(cub->cam_plane, -1), cub, create_rgb(0, 0, 255, 255));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 
