@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/10 17:21:45 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:02:30 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,14 +164,14 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 	}
 }
 
-// void	vec_normalize(t_vec *vec)
-// {
-// 	double	length;
+void	vec_normalize(t_vec *vec)
+{
+	double	length;
 
-// 	length = sqrtf(vec->x * vec->x + vec->y * vec->y);
-// 	vec->x = vec->x / length;
-// 	vec->y = vec->y / length;
-// }
+	length = sqrtf(vec->x * vec->x + vec->y * vec->y);
+	vec->x = vec->x / length;
+	vec->y = vec->y / length;
+}
 
 t_vec	vec_rotation(t_vec vec, double theta)
 {
@@ -183,10 +183,10 @@ t_vec	vec_rotation(t_vec vec, double theta)
 	return (prime_vec);
 }
 
-double	dir_angle(t_vec dir)
-{
-	return ((double)acosf(dir.y / (double)sqrtf(dir.x * dir.x + dir.y * dir.y)));
-}
+// double	dir_angle(t_vec dir)
+// {
+// 	return ((double)acosf(dir.y / (double)sqrtf(dir.x * dir.x + dir.y * dir.y)));
+// }
 
 void	dda(t_vec pos, t_vec vec, t_cub *cub, int32_t color)
 {
@@ -207,7 +207,8 @@ void	dda(t_vec pos, t_vec vec, t_cub *cub, int32_t color)
 
 int	is_wall_coll(t_cub cub ,double v1, double v2, double len)
 {
-	return (cub.map[(int)(v1 + len)][(int)(v2 + len)].value != M_WALL
+	return (v1 + len < cub.height && v1 - len < cub.height
+		&& cub.map[(int)(v1 + len)][(int)(v2 + len)].value != M_WALL
 		&& cub.map[(int)(v1 - len)][(int)(v2 + len)].value != M_WALL
 		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL
 		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL);
@@ -218,6 +219,79 @@ t_vec	vec_multiply(t_vec vec, double multiplier)
 	vec.x = vec.x * multiplier;
 	vec.y = vec.y * multiplier;
 	return (vec);
+}
+
+t_vec	side_dist_setter(t_vec ray, t_vec *map_cords, t_vec delta_dist, t_vec *step)
+{
+	t_vec	side_dist;
+
+	if (ray.x < 0)
+	{
+		step->x = -1;
+		side_dist.x = (map_cords->x - (int)map_cords->x) * delta_dist.x;
+	}
+	else
+	{
+		step->x = 1;
+		side_dist.x = ((int)map_cords->x + 1 - map_cords->x) * delta_dist.x;
+	}
+	if (ray.y < 0)
+	{
+		step->y = -1;
+		side_dist.y = (map_cords->y - (int)map_cords->y) * delta_dist.y;
+	}
+	else
+	{
+		step->y = 1;
+		side_dist.y = ((int)map_cords->y + 1 - map_cords->y) * delta_dist.y;
+	}
+	map_cords->x = (int)map_cords->x;
+	map_cords->y = (int)map_cords->y;
+	return (side_dist);
+}
+
+void	ray_dda(t_cub *cub, t_vec delta_dist, t_vec map_cords, t_vec ray)
+{
+	int		side;
+	t_vec	side_dist;
+	t_vec	step;
+
+	side_dist = side_dist_setter(ray, &map_cords, delta_dist, &step);
+	while (1)
+	{
+		if (side_dist.x < side_dist.y)
+		{
+			side_dist.x += delta_dist.x;
+			map_cords.x += step.x;
+			side = 0;
+		}
+		else
+		{
+			side_dist.y += delta_dist.y;
+			map_cords.y += step.y;
+			side = 1;
+		}
+		if (cub->map[(int)map_cords.x][(int)map_cords.y].value == M_WALL)
+			break ;
+	}
+}
+
+void	ray_distance(t_cub *cub, t_vec ray)
+{
+	t_vec	map_cords;
+	t_vec	delta_dist;
+
+	map_cords.x = cub->pos.x / TILE_SIZE;
+	map_cords.y = cub->pos.y / TILE_SIZE;
+	if (ray.x)
+		delta_dist.x = fabs(1 / ray.x);
+	else
+		delta_dist.x = INFINITY;
+	if (ray.y)
+		delta_dist.y = fabs(1 / ray.y);
+	else
+		delta_dist.y = INFINITY;
+	ray_dda(cub, delta_dist, map_cords, ray);
 }
 
 void	move_process(t_cub *cub, t_vec *velo)
@@ -232,30 +306,25 @@ void	move_process(t_cub *cub, t_vec *velo)
 		move_speed = 100 * cub->s_map.mlx_s_map->delta_time;
 		new_pos.x = cub->pos.x + velo->x * move_speed;
 		new_pos.y = cub->pos.y + velo->y * move_speed;
-		if ((new_pos.y + 10) / TILE_SIZE < cub->height
-			&& (new_pos.y - 10) / TILE_SIZE < cub->height
-			&& is_wall_coll(*cub, new_pos.y / TILE_SIZE, cub->pos.x / TILE_SIZE, 0.05))
+		if (is_wall_coll(*cub, new_pos.y / TILE_SIZE, cub->pos.x / TILE_SIZE, 0.05))
 			cub->pos.y = new_pos.y;
-		if ((new_pos.x + 10) / TILE_SIZE < cub->width
-			&& (new_pos.x - 10) / TILE_SIZE < cub->width
-			&& is_wall_coll(*cub, cub->pos.y / TILE_SIZE, new_pos.x / TILE_SIZE, 0.05))
+		if (is_wall_coll(*cub, cub->pos.y / TILE_SIZE, new_pos.x / TILE_SIZE, 0.05))
 			cub->pos.x = new_pos.x;
 	}
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	draw_s_map(cub);
 	player_square_draw(cub);
-	dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
 	margin.x = cub->pos.x + cub->direction.x * 100;
 	margin.y = cub->pos.y + cub->direction.y * 100;
 	for (int x = 0; x < 100; x++)
 	{
 		double cameraX = 2 * x / (double)100 - 1;
-		ray.x = (cub->direction.x + cub->cam_plane.x * cameraX) * 10;
-     	ray.y = (cub->direction.y + cub->cam_plane.y * cameraX) * 10;
-		
-		dda(cub->pos, ray, cub, create_rgb(255, 0, 0, 255));
+		ray.x = (cub->direction.x + cub->cam_plane.x * cameraX);
+     	ray.y = (cub->direction.y + cub->cam_plane.y * cameraX);
+		ray_distance(cub, ray);
 	}
+	dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
 	dda(margin, cub->cam_plane, cub, create_rgb(0, 0, 255, 255));
 	dda(margin, vec_multiply(cub->cam_plane, -1), cub, create_rgb(0, 0, 255, 255));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);

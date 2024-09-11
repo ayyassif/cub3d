@@ -17,6 +17,8 @@
 		"system_error": "c",
 		"tuple": "c",
 		"type_traits": "c",
-		"vector": "c"
+		"vector": "c",
+		"mlx42.h": "c",
+		"fcntl.h": "c"
 	}
 }
