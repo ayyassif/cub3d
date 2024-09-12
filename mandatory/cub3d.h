@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/12 15:09:53 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:40:00 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 # include "../MLX42.h"
 # include <math.h>
 
-# define WIDTH 955
-# define HEIGHT 800
+# define WIDTH 960
+# define HEIGHT 720
+
+# define SPEED 50
+# define ROT_ANG 1
 
 //tmp
-# define TILE_SIZE 80
+# define TILE_SIZE 20
 
 typedef struct s_s_map
 {
@@ -77,12 +80,9 @@ typedef struct s_map
 
 typedef struct s_pressed_down
 {
-	int	is_frwd;
-	int	is_bckwd;
-	int	is_right;
-	int	is_left;
-	int	is_turn_right;
-	int	is_turn_left;
+	int	frwd_bckwd;
+	int	left_right;
+	int	turn_left_right;
 }		t_prsd_dwn;
 
 
@@ -111,6 +111,7 @@ typedef struct s_cub
 	t_prsd_dwn	pressed_down;
 	t_vec		cam_plane;
 	int			line_color;
+	int			tile_size;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);
