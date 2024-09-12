@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:37 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:09:53 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_cub
 	t_vec		direction;
 	t_prsd_dwn	pressed_down;
 	t_vec		cam_plane;
+	int			line_color;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);

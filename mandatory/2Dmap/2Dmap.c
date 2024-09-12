@@ -6,11 +6,13 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/11 18:39:40 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:24:21 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int switchxd = 0;
 
 static int32_t	create_rgb(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -145,6 +147,14 @@ void key_func(mlx_key_data_t keydata, void *v_cub)
 			cub->pressed_down.is_bckwd = 1;
 			cub->pressed_down.is_frwd = 0;
 		}
+		//to be removed!!!!!
+		else if (keydata.key == 'G')
+		{
+			if (switchxd == 0)
+				switchxd = 1;
+			else
+				switchxd = 0;
+		}
 	}
 	else if (keydata.action == MLX_RELEASE)
 	{
@@ -196,7 +206,7 @@ void	dda(t_vec pos, t_vec vec, t_cub *cub, int32_t color)
 	step = fmax(fabs(vec.x), fabs(vec.y));
 	x_inc = vec.x / step;
 	y_inc = vec.y / step; 
-	for (int i = 0; i < step * 100; i++)
+	for (int i = 0; i < step; i++)
 	{
 		pos.x = pos.x + x_inc;
 		pos.y = pos.y + y_inc;
@@ -271,10 +281,18 @@ double	ray_dda(t_cub *cub, t_vec delta_dist, t_vec map_cords, t_vec ray)
 			map_cords.y += step.y;
 			side = 1;
 		}
-		if (cub->map[(int)map_cords.x][(int)map_cords.y].value == M_WALL)
+		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_WALL)
 			break ;
 	}
 	// should study and modify!!!!
+	if (side == 0 && ray.x > 0)
+		cub->line_color = create_rgb(255, 0, 0, 255);
+	else if (side == 0)
+		cub->line_color = create_rgb(0, 255, 0, 255);
+	else if (ray.y > 0)
+		cub->line_color = create_rgb(0, 0, 255, 255);
+	else
+		cub->line_color = create_rgb(255, 255, 0, 255);
 	if (side == 0)
 		perp_wall_dist = (side_dist.x - delta_dist.x);
 	else
@@ -304,7 +322,7 @@ void	verline(t_cub *cub, int drawStart, int drawEnd, int x)
 {
 	while (drawEnd >= drawStart)
 	{
-		ft_put_pixel(cub->s_map.img_s_map, x, drawStart, create_rgb(255, 0, 0, 255));
+		ft_put_pixel(cub->s_map.img_s_map, x, drawStart, cub->line_color);
 		drawStart++;
 	}
 }
@@ -330,29 +348,40 @@ void	move_process(t_cub *cub, t_vec *velo)
 	}
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
-	// draw_s_map(cub);
-	// player_square_draw(cub);
 	margin.x = cub->pos.x + cub->direction.x * 100;
 	margin.y = cub->pos.y + cub->direction.y * 100;
 	//should study and modify and put in a seprate func !!
-	for (int x = 0; x < WIDTH; x++)
+	if (switchxd == 0)
 	{
-		camera_x = 2 * x / (double)WIDTH - 1;
-		ray.x = (cub->direction.x + cub->cam_plane.x * camera_x);
-     	ray.y = (cub->direction.y + cub->cam_plane.y * camera_x);
-		perp_wall_dist = ray_distance(cub, ray);
-		int lineHeight = (int)(HEIGHT/ perp_wall_dist);
-		int drawStart = -lineHeight / 2 + HEIGHT/ 2;
-		if(drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + HEIGHT/ 2;
-		if(drawEnd >= HEIGHT)
-			drawEnd = HEIGHT - 1;
-		verline(cub, drawStart, drawEnd, x);
+		for (int x = 0; x < WIDTH; x++)
+		{
+			camera_x = 2 * x / (double)WIDTH - 1;
+			ray.x = (cub->direction.x + cub->cam_plane.x * camera_x);
+			ray.y = (cub->direction.y + cub->cam_plane.y * camera_x);
+			perp_wall_dist = ray_distance(cub, ray);
+			if (perp_wall_dist < 1)
+				perp_wall_dist = 1;
+			int lineHeight = (int)(HEIGHT/ perp_wall_dist);
+			int drawStart = (HEIGHT - lineHeight) / 2;
+			int drawEnd = drawStart + lineHeight;
+			verline(cub, drawStart, drawEnd, x);
+		}
 	}
-	// dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
-	// dda(margin, cub->cam_plane, cub, create_rgb(0, 0, 255, 255));
-	// dda(margin, vec_multiply(cub->cam_plane, -1), cub, create_rgb(0, 0, 255, 255));
+	else
+	{
+		draw_s_map(cub);
+		player_square_draw(cub);
+		for (int x = 0; x < 100; x++)
+		{
+			camera_x = 2 * x / (double)100 - 1;
+			ray.x = (cub->direction.x + cub->cam_plane.x * camera_x) * 1000;
+			ray.y = (cub->direction.y + cub->cam_plane.y * camera_x) * 1000;
+			dda(cub->pos, ray, cub, create_rgb(255, 0, 0, 255));
+		}
+		dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
+		dda(margin, cub->cam_plane, cub, create_rgb(0, 0, 255, 255));
+		dda(margin, vec_multiply(cub->cam_plane, -1), cub, create_rgb(0, 0, 255, 255));
+	}
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 
