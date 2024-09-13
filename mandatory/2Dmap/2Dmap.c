@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/13 17:27:18 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:07:33 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,15 +168,18 @@ void	dda(t_vec pos, t_vec vec, t_cub *cub, int32_t color)
 	double	step;
 	double	x_inc;
 	double	y_inc;
+	int		i;
 
+	i = 0;
 	step = fmax(fabs(vec.x), fabs(vec.y));
 	x_inc = vec.x / step;
-	y_inc = vec.y / step; 
-	for (int i = 0; i < step * 10; i++)
+	y_inc = vec.y / step;
+	while (i < step * 10)
 	{
 		pos.x = pos.x + x_inc;
 		pos.y = pos.y + y_inc;
 		ft_put_pixel(cub->s_map.img_s_map, pos.x, pos.y, color);
+		i++;
 	}
 }
 
@@ -247,10 +250,11 @@ double	ray_dda(t_cub *cub, t_vec delta_dist, t_vec map_cords, t_vec ray)
 			map_cords.y += step.y;
 			side = 1;
 		}
+		// why tho?
 		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_WALL)
 			break ;
 	}
-	// should study and modify!!!!
+	//printf("ray: y: %d\tx: %d\n", (int)map_cords.y, (int)map_cords.x);
 	if (side == 0 && ray.x > 0)
 		cub->line_color = create_rgb(255, 0, 0, 255);
 	else if (side == 0)
@@ -281,9 +285,10 @@ double	ray_distance(t_cub *cub, t_vec ray)
 		delta_dist.y = fabs(1 / ray.y);
 	else
 		delta_dist.y = INFINITY;
+	printf("pos: y: %d\tx: %d\ttile: %d\n", (int)map_cords.y, (int)map_cords.x, cub->tile_size);
 	return (ray_dda(cub, delta_dist, map_cords, ray));
 }
-//should study and modify!!
+
 void	verline(t_cub *cub, int drawStart, int drawEnd, int x)
 {
 	while (drawEnd >= drawStart)
@@ -380,8 +385,6 @@ static void	draw_player(t_cub *cub)
 
 int	mini_map(t_cub *cub)
 {
-	cub->pos.x = 60;
-	cub->pos.y = 60;
 	cub->s_map.img_s_map = NULL;
 	cub->s_map.mlx_s_map = mlx_init(WIDTH, HEIGHT, "Cub3d_2Dmap", false);
 	if (!cub->s_map.mlx_s_map)

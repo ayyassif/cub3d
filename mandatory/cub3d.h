@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/12 16:40:00 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:59:59 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef enum e_type
 	M_PLAYER_S,
 	M_PLAYER_E,
 	M_PLAYER_N,
-	M_VOID
+	M_VOID,
+	M_ERROR
 }	t_type;
 
 typedef enum e_id

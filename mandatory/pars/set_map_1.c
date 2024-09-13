@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/10 17:01:20 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:07:14 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ static t_type	set_typM_WALL_1(char c, t_cub *cub)
 {
 	if (c == ' ')
 		return (M_VOID);
-	if (c == '0')
+	else if (c == '0')
 		return (M_FLOOR);
-	if (c == '1')
+	else if (c == '1')
 		return (M_WALL);
-	if (c == 'W')
+	else if (c == 'W')
 		return (cub->direction.x = -1, cub->cam_plane.y = -0.66, M_PLAYER_W);
-	if (c == 'S')
+	else if (c == 'S')
 		return (cub->direction.y = 1, cub->cam_plane.x = -0.66, M_PLAYER_S);
-	if (c == 'E')
+	else if (c == 'E')
 		return (cub->direction.x = 1, cub->cam_plane.y = 0.66, M_PLAYER_E);
-	if (c == 'N')
+	else if (c == 'N')
 		return (cub->direction.y = -1, cub->cam_plane.x = 0.66, M_PLAYER_N);
 	else
-		return (9);
+		return (M_ERROR);
 }
 
 static t_type	set_typM_WALL_0(char c, t_cub *cub)
@@ -37,6 +37,16 @@ static t_type	set_typM_WALL_0(char c, t_cub *cub)
 	if (c != '\n')
 		return (set_typM_WALL_1(c, cub));
 	return (set_typM_WALL_1(' ', cub));
+}
+
+void	pos_player(t_cub *cub, t_type type, int x, int y)
+{
+	if (is_player(type))
+	{
+		cub->tile_size = 200 / cub->height;
+		cub->pos.x = x * cub->tile_size;
+		cub->pos.y = y * cub->tile_size;
+	}
 }
 
 static int	put_map(t_cub *cub)
@@ -54,10 +64,10 @@ static int	put_map(t_cub *cub)
 		k = -1;
 		while (tmp->line_map[i] && ++k < cub->width)
 		{
-			cub->map[j][k].value = set_typM_WALL_0(tmp->line_map[i], cub);
-			if (cub->map[j][k].value == 9)
+			cub->map[j][k].value = set_typM_WALL_0(tmp->line_map[i++], cub);
+			pos_player(cub, cub->map[j][k].value, k, j);
+			if (cub->map[j][k].value == M_ERROR)
 				return (-1);
-			i++;
 		}
 		while (++k < cub->width)
 			cub->map[j][k].value = set_typM_WALL_1(' ', cub);

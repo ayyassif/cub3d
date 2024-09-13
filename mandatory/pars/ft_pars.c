@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/12 16:14:24 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:07:03 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ int	ft_pars(t_cub *cub, char *name_file)
 	free_line_map(&cub->line_map);
 	if (pars_map(cub) == -1)
 		return (free_cub(cub), -1);
-	cub->tile_size = 200 / cub->height;
 	return (0);
 }
