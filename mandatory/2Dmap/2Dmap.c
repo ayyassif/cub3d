@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/12 17:40:07 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:27:18 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,9 +389,7 @@ int	mini_map(t_cub *cub)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	if (!cub->s_map.img_s_map)
 		return (-1);
-	draw_s_map(cub);
 	draw_player(cub);
-	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 	mlx_loop(cub->s_map.mlx_s_map);
 	return (0);
 }
