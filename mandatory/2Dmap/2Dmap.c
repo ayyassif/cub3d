@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/13 19:07:33 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:54:25 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,10 @@ void	key_func(mlx_key_data_t keydata, void *v_cub)
 {
 	t_cub	*cub;
 
+	puts("hi");
 	cub = (t_cub *)v_cub;
 	if (keydata.key == MLX_KEY_ESCAPE)
-		exit(0);
+		exit(0); //to free
 	if (keydata.action == MLX_PRESS)
 		key_pressed(keydata.key, cub);
 	else if (keydata.action == MLX_RELEASE)
@@ -139,7 +140,7 @@ void	key_func(mlx_key_data_t keydata, void *v_cub)
 			cub->pressed_down.turn_left_right = 0;
 		else if (keydata.key == 'A' || keydata.key == 'D')
 			cub->pressed_down.left_right = 0;
-		else if (keydata.key == 'W')
+		else if (keydata.key == 'W' || keydata.key == 'S')
 			cub->pressed_down.frwd_bckwd = 0;
 	}
 }
@@ -181,15 +182,6 @@ void	dda(t_vec pos, t_vec vec, t_cub *cub, int32_t color)
 		ft_put_pixel(cub->s_map.img_s_map, pos.x, pos.y, color);
 		i++;
 	}
-}
-
-int	is_wall_coll(t_cub cub ,double v1, double v2, double len)
-{
-	return (v1 + len < cub.height && v1 - len < cub.height
-		&& cub.map[(int)(v1 + len)][(int)(v2 + len)].value != M_WALL
-		&& cub.map[(int)(v1 - len)][(int)(v2 + len)].value != M_WALL
-		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL
-		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL);
 }
 
 t_vec	vec_multiply(t_vec vec, double multiplier)
@@ -285,7 +277,6 @@ double	ray_distance(t_cub *cub, t_vec ray)
 		delta_dist.y = fabs(1 / ray.y);
 	else
 		delta_dist.y = INFINITY;
-	printf("pos: y: %d\tx: %d\ttile: %d\n", (int)map_cords.y, (int)map_cords.x, cub->tile_size);
 	return (ray_dda(cub, delta_dist, map_cords, ray));
 }
 
@@ -298,15 +289,17 @@ void	verline(t_cub *cub, int drawStart, int drawEnd, int x)
 	}
 }
 
-void	ray_tracing(t_cub *cub, double perp_wall_dist)
+void	ray_casting(t_cub *cub, double perp_wall_dist)
 {
 	double	camera_x;
 	t_vec	ray;
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
+	int		x;
 
-	for (int x = 0; x < WIDTH; x++)
+	x = -1;
+	while (++x < WIDTH)
 	{
 		camera_x = 2 * x / (double)WIDTH - 1;
 		ray.x = (cub->direction.x + cub->cam_plane.x * camera_x);
@@ -319,6 +312,15 @@ void	ray_tracing(t_cub *cub, double perp_wall_dist)
 		drawEnd = drawStart + lineHeight;
 		verline(cub, drawStart, drawEnd, x);
 	}
+}
+
+int	is_wall_coll(t_cub cub ,double v1, double v2, double len)
+{
+	return ((int)(v1 + len) < cub.height && (int)(v1 - len) < cub.height
+		&& cub.map[(int)(v1 + len)][(int)(v2 + len)].value != M_WALL
+		&& cub.map[(int)(v1 - len)][(int)(v2 + len)].value != M_WALL
+		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL
+		&& cub.map[(int)(v1 + len)][(int)(v2 - len)].value != M_WALL);
 }
 
 void	move_process(t_cub *cub, t_vec *velo)
@@ -340,7 +342,7 @@ void	move_process(t_cub *cub, t_vec *velo)
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	perp_wall_dist = 0;
-	ray_tracing(cub, perp_wall_dist);
+	ray_casting(cub, perp_wall_dist);
 	draw_s_map(cub);
 	player_square_draw(cub);
 	dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0, 255));
@@ -355,7 +357,6 @@ void	loop_hook(void *v_cub)
 	int		theta;
 
 	cub = (t_cub *)v_cub;
-	velocity = cub->direction;
 	if (cub->pressed_down.turn_left_right)
 	{
 		cub->direction = vec_rotation(cub->direction,
@@ -363,7 +364,6 @@ void	loop_hook(void *v_cub)
 		cub->cam_plane = vec_rotation(cub->cam_plane,
 			cub->pressed_down.turn_left_right * ROT_ANG);
 	}
-	velocity = cub->direction;
 	theta = cub->pressed_down.left_right * 90;
 	if (cub->pressed_down.frwd_bckwd && cub->pressed_down.left_right)
 		theta = theta + cub->pressed_down.frwd_bckwd * theta / 2;
@@ -378,7 +378,6 @@ void	loop_hook(void *v_cub)
 
 static void	draw_player(t_cub *cub)
 {
-	player_square_draw(cub);
 	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
 	mlx_loop_hook(cub->s_map.mlx_s_map, loop_hook, cub);
 }
