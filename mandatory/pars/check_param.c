@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 20:09:11 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/04 18:06:13 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:09:03 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,22 @@ int	pars_map(t_cub *cub)
 	int		p;
 
 	p = 0;
-	ln = 0;
-	while (ln < cub->height)
+	ln = -1;
+	while (++ln < cub->height)
 	{
-		col = 0;
-		while (col < cub->width)
+		col = -1;
+		while (++col < cub->width)
 		{
 			if ((cub->map[ln][col].value == M_FLOOR
-				|| is_player(cub->map[ln][col].value))
+				|| cub->map[ln][col].value == M_PLAYER)
 				&& check_empty(cub, ln, col) == -1)
 				return (ft_putendl_fd("ERROR", 2), -1);
-			if (is_player(cub->map[ln][col].value))
+			if (cub->map[ln][col].value == M_PLAYER)
+			{
 				p++;
-			col++;
+				cub->map[ln][col].value = M_FLOOR;
+			}
 		}
-		ln++;
 	}
 	if (p != 1)
 		return (ft_putendl_fd("ERROR", 2), -1);

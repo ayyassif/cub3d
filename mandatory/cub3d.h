@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/13 19:24:43 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:19:08 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define HEIGHT 720
 
 # define SPEED 50
-# define ROT_ANG 1
+# define ROT_ANG 2
 
 //tmp
 # define TILE_SIZE 20
@@ -45,10 +45,7 @@ typedef enum e_type
 {
 	M_FLOOR,
 	M_WALL,
-	M_PLAYER_W,
-	M_PLAYER_S,
-	M_PLAYER_E,
-	M_PLAYER_N,
+	M_PLAYER,
 	M_VOID,
 	M_ERROR
 }	t_type;
@@ -141,14 +138,20 @@ void	free_texture(t_cub *cub);
 void	free_line_map(t_line_map **line_map);
 void	free_cub(t_cub *cub);
 
-int		is_player(t_type value);
 int		is_white_space(char c);
 
 void	ft_write_cub(t_cub *cub);
 
 //-------------------------------------------------------------
 
-int		mini_map(t_cub *cub);
+int		execution(t_cub *cub);
+void	loop_hook(void *v_cub);
+void	ray_casting(t_cub *cub, double perp_wall_dist);
+void	draw_square(t_cub *cub, int x, int y, int color);
+void	player_square_draw(t_cub *cub);
+void	dda(t_vec pos, t_vec vec, t_cub *cub, int color);
+void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x);
+int		create_rgb(int r, int g, int b);
 
 //----------------------------------------------------------------
 

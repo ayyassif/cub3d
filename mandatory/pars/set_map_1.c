@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/13 19:07:14 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:12:58 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static t_type	set_typM_WALL_1(char c, t_cub *cub)
 	else if (c == '1')
 		return (M_WALL);
 	else if (c == 'W')
-		return (cub->direction.x = -1, cub->cam_plane.y = -0.66, M_PLAYER_W);
+		return (cub->direction.x = -1, cub->cam_plane.y = -0.66, M_PLAYER);
 	else if (c == 'S')
-		return (cub->direction.y = 1, cub->cam_plane.x = -0.66, M_PLAYER_S);
+		return (cub->direction.y = 1, cub->cam_plane.x = -0.66, M_PLAYER);
 	else if (c == 'E')
-		return (cub->direction.x = 1, cub->cam_plane.y = 0.66, M_PLAYER_E);
+		return (cub->direction.x = 1, cub->cam_plane.y = 0.66, M_PLAYER);
 	else if (c == 'N')
-		return (cub->direction.y = -1, cub->cam_plane.x = 0.66, M_PLAYER_N);
+		return (cub->direction.y = -1, cub->cam_plane.x = 0.66, M_PLAYER);
 	else
 		return (M_ERROR);
 }
@@ -41,11 +41,11 @@ static t_type	set_typM_WALL_0(char c, t_cub *cub)
 
 void	pos_player(t_cub *cub, t_type type, int x, int y)
 {
-	if (is_player(type))
+	if (type == M_PLAYER)
 	{
 		cub->tile_size = 200 / cub->height;
-		cub->pos.x = x * cub->tile_size;
-		cub->pos.y = y * cub->tile_size;
+		cub->pos.x = (x + 0.5) * cub->tile_size;
+		cub->pos.y = (y + 0.5) * cub->tile_size;
 	}
 }
 

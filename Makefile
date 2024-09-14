@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
+#    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/09/01 09:53:47 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/09/14 10:59:30 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,9 @@ SRC = mandatory/ft_write_test.c \
 	mandatory/utils/libft_str.c mandatory/utils/libft_ptr_0.c \
 	mandatory/utils/libft_ptr_1.c mandatory/utils/cond.c \
 	mandatory/utils/ft_free.c \
-	mandatory/2Dmap/2Dmap.c \
+	mandatory/raycasting/draw.c mandatory/raycasting/execution.c \
+	mandatory/raycasting/loop_hook.c mandatory/raycasting/ray_casting.c \
+	
 	
 
 H_SRC = mandatory/cub3d.h mandatory/get_next_line/get_next_line.h
