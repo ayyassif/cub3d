@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/14 15:14:07 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:17:41 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x)
 
 	i = -1;
 	while (++i < drawStart)
-		ft_put_pixel(cub->s_map.img_s_map, x, i, create_rgb(0, 0, 0));
+		ft_put_pixel(cub->s_map.img_s_map, x, i, create_rgb(cub->ceiling.red, cub->ceiling.green, cub->ceiling.blue));
 	while (drawEnd >= ++drawStart)
 		ft_put_pixel(cub->s_map.img_s_map, x, drawStart, cub->line_color);
 	while (++drawEnd < HEIGHT)
-		ft_put_pixel(cub->s_map.img_s_map, x, drawEnd, create_rgb(10, 127, 0));
+		ft_put_pixel(cub->s_map.img_s_map, x, drawEnd, create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue));
 }
