@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 12:46:44 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:37:23 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ static int	set_texture(t_texture *texture, char *line)
 	j = 0;
 	texture->identifier = dir_picker(line);
 	if (texture->identifier == (t_id)-1)
-		return (ft_putendl_fd("ERROR", 2), -1);
+		return (ft_putendl_fd("ERROR8", 2), -1);
 	line += (i + 2);
 	while (line[i] && is_white_space(line[i]))
 		i++;
 	if (!i)
-		return (ft_putendl_fd("ERROR", 2), -1);
+		return (ft_putendl_fd("ERROR9", 2), -1);
 	while (line[i + j])
 		j++;
 	texture->path = ft_substr(line, i, j);
@@ -55,55 +55,58 @@ static int	set_texture(t_texture *texture, char *line)
 
 static int	set_colors(t_color *color, char *line)
 {
-	color->red = ft_atoi(line);
-	if (color->red < 0 || color->red > 255)
-		return (ft_putendl_fd("ERROR", 2), -1);
-	while (*line && *line != ',')
-		line++;
-	if (!(*line))
-		return (ft_putendl_fd("ERROR", 2), -1);
-	color->green = ft_atoi(++line);
-	if (color->green < 0 || color->green > 255)
-		return (ft_putendl_fd("ERROR", 2), -1);
-	while (*line && *line != ',')
-		line++;
-	if (!(*line))
-		return (ft_putendl_fd("ERROR", 2), -1);
-	color->blue = ft_atoi(++line);
-	if (color->blue < 0 || color->blue > 255)
-		return (ft_putendl_fd("ERROR", 2), -1);
-	if (*line == '-' || *line == '+')
-		line++;
-	while (*line && *line >= '0' && *line <= '9')
-		line++;
+	int	i;
+
+	i = -1;
+	while (++i >= -1)
+	{
+		while (*line && is_white_space(*line))
+			line++;
+		if (i == 0)
+			color->red = ft_atoi(line);
+		else if (i == 1)
+			color->green = ft_atoi(line);
+		else if (i == 2)
+			color->blue = ft_atoi(line);
+		while (*line && *line >= '0' && *line <= '9')
+			line++;
+		while (*line && is_white_space(*line))
+			line++;
+		if (*line != ',' || i == 2)
+			break ;
+		while (*line && *line == ',')
+			line++;
+	}
 	if (*line)
-		return (ft_putendl_fd("ERROR.", 2), -1);
+		return (-1);
 	return (0);
 }
 
-static int	set_floor_ceiling(t_cub *cub, char *line)
+static int	set_texture_color(t_cub *cub, char *line)
 {
-	int	j;
-	int	i;
+	int		j;
 
 	j = 0;
 	while (line[j] && !is_white_space(line[j]))
 		j++;
-	i = j;
-	while (line[i] && is_white_space(line[i]))
-		i++;
-	if (!ft_strncmp(line, "F", j))
+	if (!ft_strncmp(line, "NO", j) || !ft_strncmp(line, "SO", j)
+		|| !ft_strncmp(line, "WE", j) || !ft_strncmp(line, "EA", j))
 	{
-		if (set_colors(&cub->floor, line + i) == -1)
+		if (cub->texture_id == 4)
+			return (ft_putendl_fd("ERROR: duplicates textures", 2), -1);
+		if (set_texture(&cub->texture[cub->texture_id++], line) == -1)
 			return (-1);
+	}
+	else if (!ft_strncmp(line, "F", j))
+	{
+		if (set_colors(&cub->floor, line + j) == -1)
+			return (ft_putendl_fd("ERROR: floor color invalid", 2), -1);
 	}
 	else if (!ft_strncmp(line, "C", j))
 	{
-		if (set_colors(&cub->ceiling, line + i) == -1)
-			return (-1);
+		if (set_colors(&cub->ceiling, line + j) == -1)
+			return (ft_putendl_fd("ERROR: celling color invalid", 2), -1);
 	}
-	else
-		return (ft_putendl_fd("ERROR", 2), -1);
 	return (0);
 }
 
@@ -111,14 +114,11 @@ int	set_param(t_cub *cub, char *line, int i)
 {
 	size_t	len;
 
-	if (i < 5 && set_texture(&cub->texture[i - 1], line) == -1)
+	if (set_texture_color(cub, line) == -1)
 		return (-1);
-	if (i == 5 && check_texture(cub->texture) == -1)
+	if (i == 6 && (check_colors(&cub->floor, &cub->ceiling) == -1
+			|| check_texture(cub->texture) == -1))
 		return (-1);
-	if (i > 4 && i < 7 && set_floor_ceiling(cub, line) == -1)
-		return (-1);
-	if (i == 6 && check_colors(&cub->floor, &cub->ceiling) == -1)
-		return (ft_putendl_fd("ERROR", 2), -1);
 	if (i > 6)
 	{
 		len = ft_ofset_front(line);

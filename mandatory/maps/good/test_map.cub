@@ -1,0 +1,17 @@
+NO textures/paneling.png
+EA textures/Tileable3g.png
+SO textures/Tileable4c.png
+WE textures/Tileable6.png
+
+
+F 18,53,25
+C 153,204,255
+
+111111111111
+1         11
+1          1
+111111111111
+10E000000001
+111111111111
+11         1
+111111111111

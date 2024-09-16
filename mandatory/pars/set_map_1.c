@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/14 15:12:58 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:39:19 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static t_type	set_typM_WALL_1(char c, t_cub *cub)
+static t_type	set_type_map_1(char c, t_cub *cub)
 {
 	if (c == ' ')
 		return (M_VOID);
@@ -32,11 +32,11 @@ static t_type	set_typM_WALL_1(char c, t_cub *cub)
 		return (M_ERROR);
 }
 
-static t_type	set_typM_WALL_0(char c, t_cub *cub)
+static t_type	set_type_map_0(char c, t_cub *cub)
 {
 	if (c != '\n')
-		return (set_typM_WALL_1(c, cub));
-	return (set_typM_WALL_1(' ', cub));
+		return (set_type_map_1(c, cub));
+	return (set_type_map_1(' ', cub));
 }
 
 void	pos_player(t_cub *cub, t_type type, int x, int y)
@@ -64,13 +64,13 @@ static int	put_map(t_cub *cub)
 		k = -1;
 		while (tmp->line_map[i] && ++k < cub->width)
 		{
-			cub->map[j][k].value = set_typM_WALL_0(tmp->line_map[i++], cub);
+			cub->map[j][k].value = set_type_map_0(tmp->line_map[i++], cub);
 			pos_player(cub, cub->map[j][k].value, k, j);
 			if (cub->map[j][k].value == M_ERROR)
 				return (-1);
 		}
 		while (++k < cub->width)
-			cub->map[j][k].value = set_typM_WALL_1(' ', cub);
+			cub->map[j][k].value = set_type_map_1(' ', cub);
 		j++;
 		tmp = tmp->next;
 	}
@@ -93,6 +93,6 @@ int	creat_map(t_cub *cub)
 		i++;
 	}
 	if (put_map(cub) == -1)
-		return (free_cub(cub), ft_putendl_fd("ERROR", 2), -1);
+		return (free_cub(cub), ft_putendl_fd("ERROR7", 2), -1);
 	return (0);
 }
