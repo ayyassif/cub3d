@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/15 16:07:40 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:56:07 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	main(int ac, char **av)
 	if (ft_pars(&cub, av[1]) == -1)
 		return (close(cub.fd), -1);
 	close(cub.fd);
-	// if (execution(&cub) == -1)
-	// 	return (free_cub(&cub), -1);
-	ft_write_cub(&cub);	
+	if (execution(&cub) == -1)
+		return (free_cub(&cub), -1);
+	// ft_write_cub(&cub);	
 	free_cub(&cub);
 	return (0);
 }
