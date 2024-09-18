@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/14 15:09:58 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/18 09:52:54 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	textures(t_cub *cub, int side, t_vec ray)
 {
 	if (side == 0 && ray.x > 0)
-		cub->line_color = create_rgb(255, 0, 0); // EAST
+		cub->line_color = create_rgb(255, 50, 150); // EAST
 	else if (side == 0)
-		cub->line_color = create_rgb(0, 255, 0); // WEST
+		cub->line_color = create_rgb(100, 200, 100); // WEST
 	else if (ray.y > 0)
-		cub->line_color = create_rgb(0, 0, 255); // SOUTH
+		cub->line_color = create_rgb(50, 50, 200); // SOUTH
 	else
-		cub->line_color = create_rgb(255, 255, 0); // NORTH
+		cub->line_color = create_rgb(255, 200, 100); // NORTH
 }
 
 static t_vec	side_dist_setter(t_vec ray, t_vec *map_cords, t_vec delta_dist, t_vec *step)

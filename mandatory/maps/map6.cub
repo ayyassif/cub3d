@@ -1,10 +1,10 @@
-NO ./path_to_the_north_texture
-WE ./path_to_the_west_texture        
-SO ./path_to_the_south_texture
-EA ./path_to_the_east_texture
+NO ./path_to_the_north_texture.png
+WE ./path_to_the_west_texture.png
+SO ./path_to_the_south_texture.png
+EA ./path_to_the_east_texture.png
 
-F 0,0,0
-C 4,4,7
+C 0,0,0
+F 50,50,50
 
          
   111111111111   
