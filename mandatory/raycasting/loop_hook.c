@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/14 16:39:57 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:31:10 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ static void	move_process(t_cub *cub, t_vec *velo)
 {
 	t_vec	new_pos;
 	double	move_speed;
-	double	perp_wall_dist;
 	t_vec	map_cords;
 
 	map_cords.x = cub->pos.x / cub->tile_size;
@@ -126,8 +125,8 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	}
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
-	perp_wall_dist = 0;
-	ray_casting(cub, perp_wall_dist);
+	cub->perp_wall_dist = 0;
+	ray_casting(cub);
 	draw_s_map(cub);
 	player_square_draw(cub);
 	dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0));

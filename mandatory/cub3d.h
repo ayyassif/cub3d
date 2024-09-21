@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/21 12:27:00 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:54:40 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,13 @@ typedef struct s_cub
 	t_vec		cam_plane;
 	int			line_color;
 	int			tile_size;
+
+	int				side;
+	t_vec			side_dist;
+	double			perp_wall_dist;
+	t_vec			delta_dist;
+	double			tex_pos_x;
+	mlx_texture_t	*texture_png;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);
@@ -146,7 +153,7 @@ void	ft_write_cub(t_cub *cub);
 
 int		execution(t_cub *cub);
 void	loop_hook(void *v_cub);
-void	ray_casting(t_cub *cub, double perp_wall_dist);
+void	ray_casting(t_cub *cub);
 void	draw_square(t_cub *cub, int x, int y, int color);
 void	player_square_draw(t_cub *cub);
 void	dda(t_vec pos, t_vec vec, t_cub *cub, int color);
