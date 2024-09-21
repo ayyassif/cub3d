@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/16 11:37:23 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:25:30 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	set_colors(t_color *color, char *line)
 	int	i;
 
 	i = -1;
-	while (++i >= -1)
+	while (++i >= -1 && i < 3)
 	{
 		while (*line && is_white_space(*line))
 			line++;
@@ -68,18 +68,16 @@ static int	set_colors(t_color *color, char *line)
 			color->green = ft_atoi(line);
 		else if (i == 2)
 			color->blue = ft_atoi(line);
+		if (*line && (*line == '-' || *line == '+'))
+			line++;
 		while (*line && *line >= '0' && *line <= '9')
 			line++;
 		while (*line && is_white_space(*line))
 			line++;
-		if (*line != ',' || i == 2)
-			break ;
-		while (*line && *line == ',')
+		while (*line && *line == ',' && i != 2)
 			line++;
 	}
-	if (*line)
-		return (-1);
-	return (0);
+	return (*line * -1);
 }
 
 static int	set_texture_color(t_cub *cub, char *line)
@@ -99,12 +97,12 @@ static int	set_texture_color(t_cub *cub, char *line)
 	}
 	else if (!ft_strncmp(line, "F", j))
 	{
-		if (set_colors(&cub->floor, line + j) == -1)
+		if (set_colors(&cub->floor, line + j) < 0)
 			return (ft_putendl_fd("ERROR: floor color invalid", 2), -1);
 	}
 	else if (!ft_strncmp(line, "C", j))
 	{
-		if (set_colors(&cub->ceiling, line + j) == -1)
+		if (set_colors(&cub->ceiling, line + j) < 0)
 			return (ft_putendl_fd("ERROR: celling color invalid", 2), -1);
 	}
 	return (0);

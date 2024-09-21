@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/16 13:01:38 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:27:00 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct s_pressed_down
 	int	left_right;
 	int	turn_left_right;
 }		t_prsd_dwn;
-
 
 typedef struct s_line_map
 {

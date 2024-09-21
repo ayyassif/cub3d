@@ -4,7 +4,7 @@ SO ./path_to_the_south_texture.png
 EA ./path_to_the_east_texture.png
 
 C 0,0,0
-F 50,50,50
+F 50,50,+50
 
          
   111111111111   
