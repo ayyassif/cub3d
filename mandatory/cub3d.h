@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/21 15:54:40 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:09:26 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_texture
 {
 	t_id	identifier;
 	char	*path;
+	mlx_texture_t	*texture_png;
+	mlx_image_t		*tex_image;
 }			t_texture;
 
 typedef struct s_map
@@ -116,7 +118,6 @@ typedef struct s_cub
 	double			perp_wall_dist;
 	t_vec			delta_dist;
 	double			tex_pos_x;
-	mlx_texture_t	*texture_png;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);
@@ -128,7 +129,8 @@ void	set_cub(t_cub *cub);
 
 int		check_file_name(char *file);
 int		pars_map(t_cub *cub);
-int		check_texture(t_texture *texture);
+int	check_texture(t_texture *texture);
+
 int		check_colors(t_color *floor, t_color *ceiling);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -161,5 +163,6 @@ void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x);
 int		create_rgb(int r, int g, int b);
 
 //----------------------------------------------------------------
-
+void	set_tex(t_cub *cub);
+void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color);
 #endif

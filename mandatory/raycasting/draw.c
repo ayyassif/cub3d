@@ -6,13 +6,13 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/16 13:17:41 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:51:45 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	ft_put_pixel(mlx_image_t *image, uint32_t x,
+void	ft_put_pixel(mlx_image_t *image, uint32_t x,
 	uint32_t y, uint32_t color)
 {
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
@@ -86,13 +86,35 @@ void	dda(t_vec pos, t_vec vec, t_cub *cub, int color)
 
 void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x)
 {
-	int	i;
+	int			i;
+	double		tex_pos_y;
+	int			tmp_drawstart;
+	int			tmp_drawend;
+	uint32_t	tmp_value;
 
 	i = -1;
+	tmp_drawstart = drawStart;
+	tmp_drawend = drawEnd;
+	if(drawStart < 0)
+		drawStart = 0;
+	if (drawEnd >= HEIGHT)
+		drawEnd = HEIGHT - 1;
+	cub->tex_pos_x *= cub->texture[cub->texture_id].tex_image->width;
 	while (++i < drawStart)
 		ft_put_pixel(cub->s_map.img_s_map, x, i, create_rgb(cub->ceiling.red, cub->ceiling.green, cub->ceiling.blue));
 	while (drawEnd >= ++drawStart)
-		ft_put_pixel(cub->s_map.img_s_map, x, drawStart, cub->line_color);
+	{
+		tex_pos_y = (drawStart - tmp_drawstart) / (double)(tmp_drawend - tmp_drawstart);
+		tex_pos_y *= cub->texture[cub->texture_id].tex_image->height;
+		tmp_value = (int)tex_pos_y * cub->texture[cub->texture_id].tex_image->height + (int)cub->tex_pos_x;
+        int index = (tmp_value) * 4;
+        int r = cub->texture[cub->texture_id].tex_image->pixels[index];
+        int g = cub->texture[cub->texture_id].tex_image->pixels[index + 1];
+        int b = cub->texture[cub->texture_id].tex_image->pixels[index + 2];
+        int a = cub->texture[cub->texture_id].tex_image->pixels[index + 3];
+		int color = create_rgb(r, g, b);
+        ft_put_pixel(cub->s_map.img_s_map, x, drawStart, color);// ft_put_pixel(cub->s_map.img_s_map, x, drawStart, cub->texture[cub->texture_id].tex_image->pixels[tmp_value]);
+	}
 	while (++drawEnd < HEIGHT)
 		ft_put_pixel(cub->s_map.img_s_map, x, drawEnd, create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue));
 }

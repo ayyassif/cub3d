@@ -1,0 +1,15 @@
+NO /Users/hakaraou/Desktop/cub3d/mandatory/pics/north.png
+WE /Users/hakaraou/Desktop/cub3d/mandatory/pics/greystone.png
+SO /Users/hakaraou/Desktop/cub3d/mandatory/pics/purplestone.png
+EA /Users/hakaraou/Desktop/cub3d/mandatory/pics/redbrick.png
+
+
+C 0,0,0
+F 50,50,+50
+
+         
+11111
+10101
+10001
+10N01
+11111

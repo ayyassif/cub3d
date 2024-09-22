@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/21 15:58:15 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:50:21 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 static void	textures(t_cub *cub, t_vec ray)
 {
 	if (cub->side == 0 && ray.x > 0)
-		cub->texture_png = mlx_load_png(cub->texture[0].path);
-		// cub->line_color = create_rgb(255, 50, 150); // EAST
+		cub->texture_id = 0;
 	else if (cub->side == 0)
-		cub->texture_png = mlx_load_png(cub->texture[1].path);
-		// cub->line_color = create_rgb(100, 200, 100); // WEST
+		cub->texture_id = 1;
 	else if (ray.y > 0)
-		cub->texture_png = mlx_load_png(cub->texture[2].path);
-		// cub->line_color = create_rgb(50, 50, 200); // SOUTH
+		cub->texture_id = 2;
 	else
-		cub->texture_png = mlx_load_png(cub->texture[3].path);
-		// cub->line_color = create_rgb(255, 200, 100); // NORTH
+		cub->texture_id = 3;
 }
 
 static t_vec	side_dist_setter(t_vec ray, t_vec *map_cords, t_vec delta_dist, t_vec *step)
@@ -81,19 +77,22 @@ static void	ray_dda(t_cub *cub, t_vec map_cords, t_vec ray)
 	}
 }
 
-static void	ray_dda_1(t_cub *cub)
+static void	ray_dda_1(t_cub *cub, t_vec *ray)
 {
-	if (cub->side)
+	if (cub->side)	
 	{
 		cub->perp_wall_dist = cub->side_dist.y - cub->delta_dist.y;
-		cub->tex_pos_x = cub->pos.y + cub->direction.y * cub->perp_wall_dist;
+		cub->tex_pos_x = cub->pos.x / cub->tile_size + ray->x * cub->perp_wall_dist;
+		cub->tex_pos_x -= floor(cub->tex_pos_x);
+		// printf("vert %f %f %f %f %f\n", cub->pos.x, cub->perp_wall_dist, cub->tex_pos_x, ray->x, ray->y);
 	}
 	else
 	{
 		cub->perp_wall_dist = cub->side_dist.x - cub->delta_dist.x;
-		cub->tex_pos_x = cub->pos.x + cub->direction.x * cub->perp_wall_dist;
+		cub->tex_pos_x = cub->pos.y / cub->tile_size + ray->y * cub->perp_wall_dist;
+		cub->tex_pos_x -= floor(cub->tex_pos_x);
+		// printf("hori %f %f %f %f %f\n", cub->pos.y, cub->perp_wall_dist, cub->tex_pos_x, ray->x, ray->y);
 	}
-	cub->tex_pos_x -= (int)cub->tex_pos_x;
 }
 
 static void	ray_distance(t_cub *cub, t_vec ray)
@@ -111,7 +110,7 @@ static void	ray_distance(t_cub *cub, t_vec ray)
 	else
 		cub->delta_dist.y = INFINITY;
 	ray_dda(cub, map_cords, ray);
-	ray_dda_1(cub);
+	ray_dda_1(cub, &ray);
 	textures(cub, ray);
 }
 
@@ -133,11 +132,7 @@ void	ray_casting(t_cub *cub)
 		ray_distance(cub, ray);
 		lineHeight = (int)(HEIGHT / cub->perp_wall_dist);
 		drawStart = (HEIGHT - lineHeight) / 2;
-		if( drawStart < 0)
-			drawStart = 0;
-		drawEnd = drawStart + lineHeight;
-		if (drawEnd >= HEIGHT)
-			drawEnd = HEIGHT - 1;
+		drawEnd = (HEIGHT + lineHeight) / 2;	
 		ver_line(cub, drawStart, drawEnd, x);
 	}
 }

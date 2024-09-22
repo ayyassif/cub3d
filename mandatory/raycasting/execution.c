@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/14 15:09:48 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:41:23 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	hooking(t_cub *cub)
 }
 
 int	execution(t_cub *cub)
-{
+{	
 	cub->s_map.img_s_map = NULL;
 	cub->s_map.mlx_s_map = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!cub->s_map.mlx_s_map)
@@ -74,6 +74,7 @@ int	execution(t_cub *cub)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	if (!cub->s_map.img_s_map)
 		return (-1);
+	set_tex(cub);
 	hooking(cub);
 	mlx_loop(cub->s_map.mlx_s_map);
 	return (0);
