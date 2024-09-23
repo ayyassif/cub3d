@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/23 14:59:34 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:31:22 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x)
         int r = cub->texture[cub->texture_id].tex_image->pixels[index];
         int g = cub->texture[cub->texture_id].tex_image->pixels[index + 1];
         int b = cub->texture[cub->texture_id].tex_image->pixels[index + 2];
-        int a = cub->texture[cub->texture_id].tex_image->pixels[index + 3];
 		int color = create_rgb(r, g, b);
         ft_put_pixel(cub->s_map.img_s_map, x, drawStart, color);// ft_put_pixel(cub->s_map.img_s_map, x, drawStart, cub->texture[cub->texture_id].tex_image->pixels[tmp_value]);
 	}

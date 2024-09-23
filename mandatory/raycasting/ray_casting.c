@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/22 19:50:21 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:35:05 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void	textures(t_cub *cub, t_vec ray)
 		cub->texture_id = 3;
 }
 
-static t_vec	side_dist_setter(t_vec ray, t_vec *map_cords, t_vec delta_dist, t_vec *step)
+static t_vec	side_dist_setter(t_vec ray, t_vec *map_cords,
+								t_vec delta_dist, t_vec *step)
 {
 	t_vec	side_dist;
 
@@ -84,14 +85,12 @@ static void	ray_dda_1(t_cub *cub, t_vec *ray)
 		cub->perp_wall_dist = cub->side_dist.y - cub->delta_dist.y;
 		cub->tex_pos_x = cub->pos.x / cub->tile_size + ray->x * cub->perp_wall_dist;
 		cub->tex_pos_x -= floor(cub->tex_pos_x);
-		// printf("vert %f %f %f %f %f\n", cub->pos.x, cub->perp_wall_dist, cub->tex_pos_x, ray->x, ray->y);
 	}
 	else
 	{
 		cub->perp_wall_dist = cub->side_dist.x - cub->delta_dist.x;
 		cub->tex_pos_x = cub->pos.y / cub->tile_size + ray->y * cub->perp_wall_dist;
 		cub->tex_pos_x -= floor(cub->tex_pos_x);
-		// printf("hori %f %f %f %f %f\n", cub->pos.y, cub->perp_wall_dist, cub->tex_pos_x, ray->x, ray->y);
 	}
 }
 

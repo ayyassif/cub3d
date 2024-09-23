@@ -6,13 +6,13 @@
 #    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/09/22 17:14:09 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/09/23 19:29:30 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = #-g -fsanitize=address # -Wall -Wextra -Werror # -O3
+CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror # -O3
 
 NAME = cub3D
 
