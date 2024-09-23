@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/22 19:51:45 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:59:34 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x)
 	cub->tex_pos_x *= cub->texture[cub->texture_id].tex_image->width;
 	while (++i < drawStart)
 		ft_put_pixel(cub->s_map.img_s_map, x, i, create_rgb(cub->ceiling.red, cub->ceiling.green, cub->ceiling.blue));
-	while (drawEnd >= ++drawStart)
+	while (drawEnd > ++drawStart)
 	{
 		tex_pos_y = (drawStart - tmp_drawstart) / (double)(tmp_drawend - tmp_drawstart);
 		tex_pos_y *= cub->texture[cub->texture_id].tex_image->height;
