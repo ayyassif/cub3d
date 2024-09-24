@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:58:40 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 12:52:36 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:01:56 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	set_cub(t_cub *cub)
 	while (++i < 4)
 	{
 		cub->texture[i].path = NULL;
-		cub->texture[i].texture_png = NULL;
+		cub->texture[i].tex_png = NULL;
 	}
 	cub->height = 0;
 	cub->width = 0;
@@ -81,5 +81,5 @@ void	set_cub(t_cub *cub)
 	cub->pressed_down.frwd_bckwd = 0;
 	cub->pressed_down.left_right = 0;
 	cub->pressed_down.turn_left_right = 0;
-	cub->texture_id = 0;
+	cub->tex_id = 0;
 }

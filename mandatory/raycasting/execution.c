@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 12:45:35 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:34:40 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	key_pressed(keys_t key, t_cub *cub)
 {
 	if (key == MLX_KEY_LEFT)
 		cub->pressed_down.turn_left_right = -1;
-	else if (key ==  MLX_KEY_RIGHT)
+	else if (key == MLX_KEY_RIGHT)
 		cub->pressed_down.turn_left_right = 1;
 	else if (key == 'A')
 		cub->pressed_down.left_right = -1;
@@ -39,14 +39,16 @@ static void	key_func(mlx_key_data_t keydata, void *v_cub)
 
 	cub = (t_cub *)v_cub;
 	if (keydata.key == MLX_KEY_ESCAPE)
-		exit(0); //to free
+		(free_cub(cub), exit(0));
 	if (keydata.action == MLX_PRESS)
 		key_pressed(keydata.key, cub);
 	else if (keydata.action == MLX_RELEASE)
 	{
-		if (keydata.key == MLX_KEY_RIGHT && cub->pressed_down.turn_left_right == 1)
+		if (keydata.key == MLX_KEY_RIGHT
+			&& cub->pressed_down.turn_left_right == 1)
 			cub->pressed_down.turn_left_right = 0;
-		else if (keydata.key == MLX_KEY_LEFT && cub->pressed_down.turn_left_right == -1)
+		else if (keydata.key == MLX_KEY_LEFT
+			&& cub->pressed_down.turn_left_right == -1)
 			cub->pressed_down.turn_left_right = 0;
 		else if (keydata.key == 'A' && cub->pressed_down.left_right == -1)
 			cub->pressed_down.left_right = 0;
@@ -66,7 +68,7 @@ static void	hooking(t_cub *cub)
 }
 
 int	execution(t_cub *cub)
-{	
+{
 	cub->s_map.img_s_map = NULL;
 	cub->s_map.mlx_s_map = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!cub->s_map.mlx_s_map)
@@ -78,4 +80,3 @@ int	execution(t_cub *cub)
 	mlx_loop(cub->s_map.mlx_s_map);
 	return (0);
 }
-

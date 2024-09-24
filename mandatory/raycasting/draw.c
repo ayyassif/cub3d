@@ -6,18 +6,11 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/24 10:11:56 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:29:22 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	ft_put_pixel(mlx_image_t *image, uint32_t x,
-	uint32_t y, uint32_t color)
-{
-	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
-		mlx_put_pixel(image, x, y, color);
-}
 
 void	draw_square(t_cub *cub, int x, int y, int color)
 {
@@ -84,36 +77,42 @@ void	dda(t_vec pos, t_vec vec, t_cub *cub, int color)
 	}
 }
 
-void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x)
+static void	tex_to_wall(t_cub *cub, int drawStart, int tmp_start, int tmp_end)
+{
+	uint32_t	tmp_value;
+	int			index;
+	int			color;
+
+	cub->tex_pos_y = (drawStart - tmp_start) / (double)(tmp_end - tmp_start);
+	cub->tex_pos_y *= cub->texture[cub->tex_id].tex_png->height;
+	tmp_value = (int)cub->tex_pos_y * cub->texture[cub->tex_id].tex_png->height;
+	tmp_value += (int)cub->tex_pos_x;
+	index = tmp_value * 4;
+	color = color_from_pixel(cub, index);
+	ft_put_pixel(cub->s_map.img_s_map, cub->x, drawStart, color);
+}
+
+void	ver_line(t_cub *cub, int drawStart, int drawEnd)
 {
 	int			i;
-	double		tex_pos_y;
-	int			tmp_drawstart;
-	int			tmp_drawend;
-	uint32_t	tmp_value;
+	int			tmp_start;
+	int			tmp_end;
+	int			color;
 
 	i = -1;
-	tmp_drawstart = drawStart;
-	tmp_drawend = drawEnd;
-	if(drawStart < 0)
+	tmp_start = drawStart;
+	tmp_end = drawEnd;
+	if (drawStart < 0)
 		drawStart = 0;
 	if (drawEnd >= HEIGHT)
 		drawEnd = HEIGHT - 1;
-	cub->tex_pos_x *= cub->texture[cub->texture_id].texture_png->width;
+	cub->tex_pos_x *= cub->texture[cub->tex_id].tex_png->width;
+	color = create_rgb(cub->ceiling.red, cub->ceiling.green, cub->ceiling.blue);
 	while (++i < drawStart)
-		ft_put_pixel(cub->s_map.img_s_map, x, i, create_rgb(cub->ceiling.red, cub->ceiling.green, cub->ceiling.blue));
+		ft_put_pixel(cub->s_map.img_s_map, cub->x, i, color);
 	while (drawEnd > ++drawStart)
-	{
-		tex_pos_y = (drawStart - tmp_drawstart) / (double)(tmp_drawend - tmp_drawstart);
-		tex_pos_y *= cub->texture[cub->texture_id].texture_png->height;
-		tmp_value = (int)tex_pos_y * cub->texture[cub->texture_id].texture_png->height + (int)cub->tex_pos_x;
-        int index = (tmp_value) * 4;
-        int r = cub->texture[cub->texture_id].texture_png->pixels[index];
-        int g = cub->texture[cub->texture_id].texture_png->pixels[index + 1];
-        int b = cub->texture[cub->texture_id].texture_png->pixels[index + 2];
-		int color = create_rgb(r, g, b);
-        ft_put_pixel(cub->s_map.img_s_map, x, drawStart, color);// ft_put_pixel(cub->s_map.img_s_map, x, drawStart, cub->texture[cub->texture_id].tex_image->pixels[tmp_value]);
-	}
+		tex_to_wall(cub, drawStart, tmp_start, tmp_end);
+	color = create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue);
 	while (++drawEnd < HEIGHT)
-		ft_put_pixel(cub->s_map.img_s_map, x, drawEnd, create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue));
+		ft_put_pixel(cub->s_map.img_s_map, cub->x, drawEnd, color);
 }

@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 15:25:19 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:00:58 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ static int	set_texture_color(t_cub *cub, char *line)
 	if (!ft_strncmp(line, "NO", j) || !ft_strncmp(line, "SO", j)
 		|| !ft_strncmp(line, "WE", j) || !ft_strncmp(line, "EA", j))
 	{
-		if (cub->texture_id == 4)
+		if (cub->tex_id == 4)
 			return (ft_putendl_fd("ERROR: duplicates textures", 2), -1);
-		if (set_texture(&cub->texture[cub->texture_id++], line) == -1)
+		if (set_texture(&cub->texture[cub->tex_id++], line) == -1)
 			return (-1);
 	}
 	else if (!ft_strncmp(line, "F", j))

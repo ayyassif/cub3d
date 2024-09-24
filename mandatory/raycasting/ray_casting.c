@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/24 10:27:43 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:58:25 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	ray_dda(t_cub *cub, t_vec map_cords)
 {
 	t_vec	step;
 
-	cub->side_dist = side_dist_setter(cub->ray, &map_cords, cub->delta_dist, &step);
+	cub->side_dist = side_dist_setter(cub->ray, &map_cords,
+			cub->delta_dist, &step);
 	while (1)
 	{
 		if (cub->side_dist.x < cub->side_dist.y)
@@ -109,18 +110,17 @@ void	ray_casting(t_cub *cub)
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
-	int		x;
 
-	x = -1;
-	while (++x < WIDTH)
+	cub->x = -1;
+	while (++cub->x < WIDTH)
 	{
-		camera_x = 2 * x / (double)WIDTH - 1;
+		camera_x = 2 * cub->x / (double)WIDTH - 1;
 		cub->ray.x = (cub->direction.x + cub->cam_plane.x * camera_x);
 		cub->ray.y = (cub->direction.y + cub->cam_plane.y * camera_x);
 		ray_distance(cub);
 		lineheight = (int)(HEIGHT / cub->perp_wall_dist);
 		drawstart = (HEIGHT - lineheight) / 2;
-		drawend = (HEIGHT + lineheight) / 2;	
-		ver_line(cub, drawstart, drawend, x);
+		drawend = (HEIGHT + lineheight) / 2;
+		ver_line(cub, drawstart, drawend);
 	}
 }

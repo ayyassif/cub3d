@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 14:57:13 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:04:11 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_texture
 {
 	t_id	identifier;
 	char	*path;
-	mlx_texture_t	*texture_png;
+	mlx_texture_t	*tex_png;
 }			t_texture;
 
 typedef struct s_map
@@ -93,7 +93,7 @@ typedef struct s_line_map
 typedef struct s_cub
 {
 	t_texture	texture[4];
-	int			texture_id;
+	int			tex_id;
 	t_color		floor;
 	t_color		ceiling;
 	t_map		**map;
@@ -117,7 +117,9 @@ typedef struct s_cub
 	double			perp_wall_dist;
 	t_vec			delta_dist;
 	double			tex_pos_x;
+	double			 tex_pos_y;
 	t_vec			ray;
+	int				x;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);
@@ -159,11 +161,12 @@ void	ray_casting(t_cub *cub);
 void	draw_square(t_cub *cub, int x, int y, int color);
 void	player_square_draw(t_cub *cub);
 void	dda(t_vec pos, t_vec vec, t_cub *cub, int color);
-void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x);
+void	ver_line(t_cub *cub, int drawStart, int drawEnd);
 int		create_rgb(int r, int g, int b);
 
 //----------------------------------------------------------------
 void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color);
 void	textures(t_cub *cub);
+int	color_from_pixel(t_cub *cub, int index);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/22 19:05:50 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:29:31 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,52 +34,6 @@ static void	draw_s_map(t_cub *cub)
 	}
 }
 
-static int	ft_intlen(int n)
-{
-	int				len;
-	unsigned int	nb;
-
-	nb = n;
-	len = 0;
-	if (n < 0)
-	{
-		nb = -n;
-		len++;
-	}
-	if (!nb)
-		return (1);
-	while (nb)
-	{
-		len++;
-		nb /= 10;
-	}
-	return (len);
-}
-
-char	*ft_itoa(int n)
-{
-	int				len;
-	char			*str;
-	unsigned int	nb;
-
-	len = ft_intlen(n);
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	str[len] = '\0';
-	nb = n;
-	if (n < 0)
-		nb = -n;
-	while (len--)
-	{
-		str[len] = nb % 10 + '0';
-		nb /= 10;
-	}
-	if (n < 0)
-		str[0] = '-';
-	return (str);
-}
-
 static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 {
 	t_vec	d;
@@ -90,7 +44,7 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	d.x = (new_pos.x - cub->pos.x) / (double)cub->tile_size;
 	d.y = (new_pos.y - cub->pos.y) / (double)cub->tile_size;
 	step = fmax(fabs(d.x), fabs(d.y));
-	inc.x = (d.x / step) / (double)cub->tile_size;		
+	inc.x = (d.x / step) / (double)cub->tile_size;
 	inc.y = (d.y / step) / (double)cub->tile_size;
 	d.x = new_pos.x / (double)cub->tile_size;
 	d.y = new_pos.y / (double)cub->tile_size;
@@ -129,14 +83,14 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	ray_casting(cub);
 	draw_s_map(cub);
 	player_square_draw(cub);
-	dda(cub->pos ,cub->direction, cub, create_rgb(0, 255, 0));
+	dda(cub->pos, cub->direction, cub, create_rgb(0, 255, 0));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 
 static t_vec	vec_rotation(t_vec vec, double theta)
 {
 	t_vec	prime_vec;
-	
+
 	theta = theta * (M_PI / 180);
 	prime_vec.x = vec.x * (double)cosf(theta) - vec.y * (double)sinf(theta);
 	prime_vec.y = vec.x * (double)sinf(theta) + vec.y * (double)cosf(theta);
@@ -153,9 +107,9 @@ void	loop_hook(void *v_cub)
 	if (cub->pressed_down.turn_left_right)
 	{
 		cub->direction = vec_rotation(cub->direction,
-			cub->pressed_down.turn_left_right * ROT_ANG);
+				cub->pressed_down.turn_left_right * ROT_ANG);
 		cub->cam_plane = vec_rotation(cub->cam_plane,
-			cub->pressed_down.turn_left_right * ROT_ANG);
+				cub->pressed_down.turn_left_right * ROT_ANG);
 	}
 	theta = cub->pressed_down.left_right * 90;
 	if (cub->pressed_down.frwd_bckwd && cub->pressed_down.left_right)
