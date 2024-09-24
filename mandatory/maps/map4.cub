@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture
-WE ./path_to_the_west_texture        
-SO ./path_to_the_south_texture
-EA ./path_to_the_east_texture
+NO mandatory/textures/tex1.png
+WE mandatory/textures/tex2.png 
+SO mandatory/textures/tex3.png
+EA mandatory/textures/tex4.png
 
 F 0,0,3
 C 4,4,-0

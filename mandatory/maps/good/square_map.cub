@@ -1,13 +1,13 @@
-   WE                            we.png 
-NO      no.png
+   WE                            mandatory/textures/tex1.png
+NO      mandatory/textures/tex2.png
 
 
 
-SO so.png
+SO mandatory/textures/tex3.png
 
 F   69, 222, 199
 
-EA ea.png
+EA mandatory/textures/tex4.png
 
 
 
@@ -40,3 +40,6 @@ C 235, 198, 52
 100000000000000000000001
 100000000000000000000001
 111111111111111111111111
+
+
+

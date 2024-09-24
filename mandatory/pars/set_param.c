@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/22 19:05:05 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:25:19 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	set_colors(t_color *color, char *line)
 	int	i;
 
 	i = -1;
-	while (++i >= -1 && i < 3)
+	while (++i < 3)
 	{
 		while (*line && is_white_space(*line))
 			line++;

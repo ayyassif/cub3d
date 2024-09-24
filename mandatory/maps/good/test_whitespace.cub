@@ -6,7 +6,7 @@
 
 
 
-NO no.png
+NO mandatory/textures/tex1.png
 
 
 
@@ -15,9 +15,9 @@ NO no.png
 
 
 
-SO so.png
-                        WE we.png
-        EA ea.png            
+SO mandatory/textures/tex2.png
+                        WE mandatory/textures/tex3.png
+        EA mandatory/textures/tex4.png            
 
         F 20,           20,             20
 C 200,          200,200
@@ -37,6 +37,9 @@ C 200,          200,200
 11111           
 
         
+
+
+
 
 
 

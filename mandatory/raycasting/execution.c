@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/22 16:41:23 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:45:35 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	execution(t_cub *cub)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	if (!cub->s_map.img_s_map)
 		return (-1);
-	set_tex(cub);
 	hooking(cub);
 	mlx_loop(cub->s_map.mlx_s_map);
 	return (0);
 }
+

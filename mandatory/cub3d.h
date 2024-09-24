@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 10:27:30 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:57:13 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define HEIGHT 720
 
 # define SPEED 50
-# define ROT_ANG 2
+# define ROT_ANG 3
 
 //tmp
 # define TILE_SIZE 20
@@ -163,7 +163,6 @@ void	ver_line(t_cub *cub, int drawStart, int drawEnd, int x);
 int		create_rgb(int r, int g, int b);
 
 //----------------------------------------------------------------
-void	set_tex(t_cub *cub);
 void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color);
 void	textures(t_cub *cub);
 

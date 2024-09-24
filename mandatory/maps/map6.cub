@@ -1,7 +1,7 @@
-NO /Users/hakaraou/Desktop/cub3d/mandatory/textures/tex1.png
-WE /Users/hakaraou/Desktop/cub3d/mandatory/textures/tex2.png
-SO /Users/hakaraou/Desktop/cub3d/mandatory/textures/tex3.png
-EA /Users/hakaraou/Desktop/cub3d/mandatory/textures/tex4.png
+NO mandatory/textures/tex1.png
+WE mandatory/textures/tex2.png
+SO mandatory/textures/tex3.png
+EA mandatory/textures/tex4.png
 
 
 C 0,0,0

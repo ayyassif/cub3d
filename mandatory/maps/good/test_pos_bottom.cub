@@ -1,7 +1,7 @@
-NO textures/MultibrickD.png
-EA textures/wall.png
-SO textures/BookshelfL.png
-WE textures/TilesL.png
+NO mandatory/textures/tex1.png
+EA mandatory/textures/tex2.png
+SO mandatory/textures/tex3.png
+WE mandatory/textures/tex4.png
 
 F 20,20,20
 C 200,200,200

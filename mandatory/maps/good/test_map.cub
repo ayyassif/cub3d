@@ -1,7 +1,7 @@
-NO textures/paneling.png
-EA textures/Tileable3g.png
-SO textures/Tileable4c.png
-WE textures/Tileable6.png
+NO mandatory/textures/tex1.png
+EA mandatory/textures/tex2.png
+SO mandatory/textures/tex3.png
+WE mandatory/textures/tex4.png
 
 
 F 18,53,25

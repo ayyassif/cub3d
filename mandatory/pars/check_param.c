@@ -6,33 +6,38 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 20:09:11 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 10:12:15 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:48:52 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	set_tex(t_cub *cub)
+static int	check_open_tex(t_texture *texture)
 {
 	int	i;
+	int	len;
 
 	i = -1;
 	while (++i < 4)
-		cub->texture[i].texture_png = mlx_load_png(cub->texture[i].path);
+	{
+		len = ft_strlen(texture[i].path);
+		if (!(len >= 4 && !(ft_strcmp(texture[i].path + len - 4, ".png"))))
+			return (ft_putendl_fd("ERROR: textures not png", 2), -1);
+		if (open(texture[i].path, O_RDONLY) == -1)
+			return (ft_putendl_fd("ERROR: textures not found", 2), -1);
+		texture[i].texture_png = mlx_load_png(texture[i].path);
+	}
+	return (0);
 }
 
 int	check_texture(t_texture *texture)
 {
 	int		i;
 	int		j;
-	size_t	len;
 
 	i = -1;
 	while (++i < 3 && texture[i].path)
 	{
-		len = ft_strlen(texture[i].path);
-		if (!(len >= 4 && !(ft_strcmp(texture[i].path + len - 4, ".png"))))
-			return (ft_putendl_fd("ERROR: textures not png", 2), -1);
 		j = i;
 		while (++j < 4 && texture[j].path)
 			if (texture[i].identifier == texture[j].identifier)
@@ -42,10 +47,7 @@ int	check_texture(t_texture *texture)
 	}
 	if (i < 4 && !texture[i].path)
 		return (ft_putendl_fd("ERROR: missing textures", 2), -1);
-	len = ft_strlen(texture[i].path);
-	if (!(len >= 4 && !(ft_strcmp(texture[i].path + len - 4, ".png"))))
-		return (ft_putendl_fd("ERROR: textures not png", 2), -1);
-	return (0);
+	return (check_open_tex(texture));
 }
 
 int	check_colors(t_color *floor, t_color *ceiling)

@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:42:05 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/16 11:25:57 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:25:14 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int	ft_atoi(char *str)
 		c = c * 10 + (*str - '0');
 		str++;
 	}
-	if (*str && *str != ',')
-		return (-1);
 	return (c * sign);
 }
 
