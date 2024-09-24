@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/08/30 12:59:04 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:14:17 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	free_texture(t_cub *cub)
 	while (++i < 4 && cub->texture[i].path)
 	{
 		if (cub->texture[i].path)
+		{
+			mlx_delete_texture(cub->texture[i].texture_png);
 			free(cub->texture[i].path);
+		}
 	}
 }
 

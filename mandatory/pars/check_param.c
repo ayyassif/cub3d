@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 20:09:11 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/22 19:05:13 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:12:15 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	set_tex(t_cub *cub)
 
 	i = -1;
 	while (++i < 4)
-	{
 		cub->texture[i].texture_png = mlx_load_png(cub->texture[i].path);
-		cub->texture[i].tex_image =  mlx_texture_to_image(cub->s_map.mlx_s_map, cub->texture[i].texture_png);
-	}
 }
 
 int	check_texture(t_texture *texture)

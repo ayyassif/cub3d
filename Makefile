@@ -6,7 +6,7 @@
 #    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/09/23 19:29:30 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/09/24 10:28:14 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC = mandatory/ft_write_test.c \
 	mandatory/utils/ft_free.c \
 	mandatory/raycasting/draw.c mandatory/raycasting/execution.c \
 	mandatory/raycasting/loop_hook.c mandatory/raycasting/ray_casting.c \
+	mandatory/raycasting/tex_color.c \
 	
 	
 

@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/22 19:09:26 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:27:30 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_texture
 	t_id	identifier;
 	char	*path;
 	mlx_texture_t	*texture_png;
-	mlx_image_t		*tex_image;
 }			t_texture;
 
 typedef struct s_map
@@ -118,6 +117,7 @@ typedef struct s_cub
 	double			perp_wall_dist;
 	t_vec			delta_dist;
 	double			tex_pos_x;
+	t_vec			ray;
 }				t_cub;
 
 int		ft_pars(t_cub *cub, char *name_file);
@@ -165,4 +165,6 @@ int		create_rgb(int r, int g, int b);
 //----------------------------------------------------------------
 void	set_tex(t_cub *cub);
 void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color);
+void	textures(t_cub *cub);
+
 #endif
