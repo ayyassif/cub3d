@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:30:58 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 19:32:06 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:13:55 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	pars_map(t_cub *cub)
 			if ((cub->map[ln][col].value == M_FLOOR
 				|| cub->map[ln][col].value == M_PLAYER)
 				&& check_empty(cub, ln, col) == -1)
-				return (ft_putendl_fd("ERROR: invalid wall", 2), -1);
+				return (ft_putendl_fd("ERROR:\n\tinvalid wall", 2), -1);
 			if (cub->map[ln][col].value == M_PLAYER)
 			{
 				p++;
@@ -52,6 +52,6 @@ int	pars_map(t_cub *cub)
 		}
 	}
 	if (p != 1)
-		return (ft_putendl_fd("ERROR: number of player", 2), -1);
+		return (ft_putendl_fd("ERROR:\n\tnumber of player", 2), -1);
 	return (0);
 }

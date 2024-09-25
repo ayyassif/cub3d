@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 12:15:36 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:13:55 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ int	creat_map(t_cub *cub)
 		i++;
 	}
 	if (put_map(cub) == -1)
-		return (free_cub(cub), ft_putendl_fd("ERROR7", 2), -1);
+		return (free_cub(cub), ft_putendl_fd("ERROR:\n\tmap error", 2), -1);
 	return (0);
 }

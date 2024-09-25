@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 18:00:58 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:22:48 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ static int	set_texture(t_texture *texture, char *line)
 	i = 0;
 	j = 0;
 	texture->identifier = dir_picker(line);
-	if (texture->identifier == (t_id)-1)
-		return (ft_putendl_fd("ERROR8", 2), -1);
 	line += (i + 2);
 	while (line[i] && is_white_space(line[i]))
 		i++;
 	if (!i)
-		return (ft_putendl_fd("ERROR9", 2), -1);
+		return (ft_putendl_fd("ERROR:\n\tmissing textures", 2), -1);
 	while (line[i + j])
 		j++;
 	texture->path = ft_substr(line, i, j);
@@ -91,19 +89,19 @@ static int	set_texture_color(t_cub *cub, char *line)
 		|| !ft_strncmp(line, "WE", j) || !ft_strncmp(line, "EA", j))
 	{
 		if (cub->tex_id == 4)
-			return (ft_putendl_fd("ERROR: duplicates textures", 2), -1);
+			return (ft_putendl_fd("ERROR:\n\tduplicates textures", 2), -1);
 		if (set_texture(&cub->texture[cub->tex_id++], line) == -1)
 			return (-1);
 	}
 	else if (!ft_strncmp(line, "F", j))
 	{
 		if (set_colors(&cub->floor, line + j) < 0)
-			return (ft_putendl_fd("ERROR: floor color invalid", 2), -1);
+			return (ft_putendl_fd("ERROR:\n\tfloor color invalid", 2), -1);
 	}
 	else if (!ft_strncmp(line, "C", j))
 	{
 		if (set_colors(&cub->ceiling, line + j) < 0)
-			return (ft_putendl_fd("ERROR: celling color invalid", 2), -1);
+			return (ft_putendl_fd("ERROR:\n\tcelling color invalid", 2), -1);
 	}
 	return (0);
 }

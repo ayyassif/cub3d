@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/24 18:58:25 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:19:33 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,14 @@ static void	ray_dda_1(t_cub *cub)
 		cub->perp_wall_dist = cub->side_dist.y - cub->delta_dist.y;
 		cub->tex_pos_x = cub->pos.x / cub->tile_size;
 		cub->tex_pos_x += cub->ray.x * cub->perp_wall_dist;
-		cub->tex_pos_x -= floor(cub->tex_pos_x);
 	}
 	else
 	{
 		cub->perp_wall_dist = cub->side_dist.x - cub->delta_dist.x;
 		cub->tex_pos_x = cub->pos.y / cub->tile_size;
 		cub->tex_pos_x += cub->ray.y * cub->perp_wall_dist;
-		cub->tex_pos_x -= floor(cub->tex_pos_x);
 	}
+	cub->tex_pos_x -= floor(cub->tex_pos_x);
 }
 
 static void	ray_distance(t_cub *cub)
