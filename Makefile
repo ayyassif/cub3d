@@ -6,13 +6,13 @@
 #    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/09/24 19:31:34 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/09/25 13:09:07 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror # -O3
+CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror
 
 NAME = cub3D
 
@@ -22,15 +22,15 @@ SRC = mandatory/ft_write_test.c \
 	mandatory/main.c \
 	mandatory/get_next_line/get_next_line.c \
 	mandatory/get_next_line/get_next_line_utils.c \
-	mandatory/pars/ft_pars.c mandatory/pars/set_param.c \
-	mandatory/pars/set_map_0.c mandatory/pars/set_map_1.c \
 	mandatory/pars/check_param_0.c mandatory/pars/check_param_1.c \
+	mandatory/pars/set_map_0.c mandatory/pars/set_map_1.c \
+	mandatory/pars/ft_pars.c mandatory/pars/set_param.c \
+	mandatory/raycasting/tex_color.c \
+	mandatory/raycasting/draw.c mandatory/raycasting/execution.c \
+	mandatory/raycasting/loop_hook.c mandatory/raycasting/ray_casting.c \
 	mandatory/utils/libft_str.c mandatory/utils/libft_ptr_0.c \
 	mandatory/utils/libft_ptr_1.c mandatory/utils/cond.c \
 	mandatory/utils/ft_free.c \
-	mandatory/raycasting/draw.c mandatory/raycasting/execution.c \
-	mandatory/raycasting/loop_hook.c mandatory/raycasting/ray_casting.c \
-	mandatory/raycasting/tex_color.c \
 	
 	
 

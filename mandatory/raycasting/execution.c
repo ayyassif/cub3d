@@ -6,16 +6,11 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 17:34:40 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:50:08 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	create_rgb(int t, int r, int g)
-{
-	return (t << 24 | r << 16 | g << 8 | 255);
-}
 
 static void	key_pressed(keys_t key, t_cub *cub)
 {
@@ -33,13 +28,20 @@ static void	key_pressed(keys_t key, t_cub *cub)
 		cub->pressed_down.frwd_bckwd = 1;
 }
 
+static void	esc_exit(t_cub *cub)
+{
+	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
+	free_cub(cub);
+	exit(0);
+}
+
 static void	key_func(mlx_key_data_t keydata, void *v_cub)
 {
 	t_cub	*cub;
 
 	cub = (t_cub *)v_cub;
 	if (keydata.key == MLX_KEY_ESCAPE)
-		(free_cub(cub), exit(0));
+		esc_exit(cub);
 	if (keydata.action == MLX_PRESS)
 		key_pressed(keydata.key, cub);
 	else if (keydata.action == MLX_RELEASE)

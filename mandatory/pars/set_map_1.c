@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/16 11:39:19 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:15:36 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_type	set_type_map_0(char c, t_cub *cub)
 	return (set_type_map_1(' ', cub));
 }
 
-void	pos_player(t_cub *cub, t_type type, int x, int y)
+static void	pos_player(t_cub *cub, t_type type, int x, int y)
 {
 	if (type == M_PLAYER)
 	{

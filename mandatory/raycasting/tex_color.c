@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:21:26 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/24 19:29:35 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:48:21 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,9 @@ void	ft_put_pixel(mlx_image_t *image, uint32_t x,
 {
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
 		mlx_put_pixel(image, x, y, color);
+}
+
+int	create_rgb(int t, int r, int g)
+{
+	return (t << 24 | r << 16 | g << 8 | 255);
 }
