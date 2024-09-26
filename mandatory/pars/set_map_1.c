@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 16:13:55 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:21:18 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ static void	pos_player(t_cub *cub, t_type type, int x, int y)
 {
 	if (type == M_PLAYER)
 	{
-		cub->tile_size = 200 / cub->height;
-		cub->pos.x = (x + 0.5) * cub->tile_size;
-		cub->pos.y = (y + 0.5) * cub->tile_size;
+		cub->pos.x = (x + 0.5) * TILE_SIZE;
+		cub->pos.y = (y + 0.5) * TILE_SIZE;
 	}
 }
 

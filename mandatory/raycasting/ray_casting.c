@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/25 13:19:33 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:21:38 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ static void	ray_dda_1(t_cub *cub)
 	if (cub->side)
 	{
 		cub->perp_wall_dist = cub->side_dist.y - cub->delta_dist.y;
-		cub->tex_pos_x = cub->pos.x / cub->tile_size;
+		cub->tex_pos_x = cub->pos.x / TILE_SIZE;
 		cub->tex_pos_x += cub->ray.x * cub->perp_wall_dist;
 	}
 	else
 	{
 		cub->perp_wall_dist = cub->side_dist.x - cub->delta_dist.x;
-		cub->tex_pos_x = cub->pos.y / cub->tile_size;
+		cub->tex_pos_x = cub->pos.y / TILE_SIZE;
 		cub->tex_pos_x += cub->ray.y * cub->perp_wall_dist;
 	}
 	cub->tex_pos_x -= floor(cub->tex_pos_x);
@@ -88,8 +88,8 @@ static void	ray_distance(t_cub *cub)
 {
 	t_vec	map_cords;
 
-	map_cords.x = cub->pos.x / cub->tile_size;
-	map_cords.y = cub->pos.y / cub->tile_size;
+	map_cords.x = cub->pos.x / TILE_SIZE;
+	map_cords.y = cub->pos.y / TILE_SIZE;
 	if (cub->ray.x)
 		cub->delta_dist.x = fabs(1 / cub->ray.x);
 	else

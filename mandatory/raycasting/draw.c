@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/26 11:46:57 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 23:00:48 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	draw_square(t_cub *cub, int x, int y, int color)
+void	draw_square(t_cub *cub, double x, double y, int color)
 {
-	int	x_max;
-	int	y_max;
-	int	x_tmp;
+	double	x_max;
+	double	y_max;
+	double	x_tmp;
 
 	x_tmp = x;
-	x_max = x + cub->tile_size;
-	y_max = y + cub->tile_size;
+	x_max = x + TILE_SIZE;
+	y_max = y + TILE_SIZE;
+	printf("%.2f\n", x / TILE_SIZE);
 	while (y < y_max)
 	{
 		x = x_tmp;
 		while (x < x_max)
 		{
-			if (x == x_max - cub->tile_size || y == y_max - cub->tile_size)
+			if (x == x_max - TILE_SIZE || y == y_max - TILE_SIZE)
 				ft_put_pixel(cub->s_map.img_s_map, x, y,
 					create_rgb(0, 150, 0));
 			else
@@ -39,16 +40,16 @@ void	draw_square(t_cub *cub, int x, int y, int color)
 
 void	player_square_draw(t_cub *cub)
 {
-	t_vec		pos;
-	size_t		x;
-	size_t		y;
+	size_t	x;
+	size_t	y;
+	size_t	pos;
 
-	pos = cub->pos;
-	y = pos.y;
-	while (y <= pos.y + 1)
+	pos = (M_MAP + 0.5) * TILE_SIZE;
+	y = pos;
+	while (y <= pos + 1)
 	{
-		x = pos.x;
-		while (x <= pos.x + 1)
+		x = pos;
+		while (x <= pos + 1)
 		{
 			ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 0, 0));
 			x++;

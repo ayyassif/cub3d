@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/26 12:06:03 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 23:05:49 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,35 @@
 
 static void	draw_s_map(t_cub *cub)
 {
-	size_t	x;
-	size_t	y;
+	t_vec	start;
+	t_vec	end;
+	t_vec	tmp;
 
-	y = 0;
-	while (y < cub->height)
+	start.x = cub->pos.x / TILE_SIZE - M_MAP;
+	start.y = cub->pos.y / TILE_SIZE - M_MAP;
+	end.x = cub->pos.x / TILE_SIZE + M_MAP;
+	end.y = cub->pos.y / TILE_SIZE + M_MAP;
+	tmp.y = start.y;
+	while (tmp.y < end.y)
 	{
-		x = 0;
-		while (x < cub->width)
+		tmp.x = start.x;
+		while (tmp.x < end.x)
 		{
-			draw_square(cub, x * cub->tile_size,
-				y * cub->tile_size, create_rgb(0, 0, 0));
-			if (cub->map[y][x].value == M_WALL)
-				draw_square(cub, x * cub->tile_size,
-					y * cub->tile_size, create_rgb(100, 150, 100));
-			x++;
+			if (tmp.y >= 0 && tmp.y <= cub->height
+				&& tmp.x >= 0 && tmp.x <= cub->width)
+			{
+				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_FLOOR)
+					draw_square(cub, (tmp.x - (int)start.x + 1) * TILE_SIZE,
+						(tmp.y - start.y) * TILE_SIZE, create_rgb(0, 0, 0));
+				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_WALL)
+					draw_square(cub, (tmp.x - (int)start.x + 1) * TILE_SIZE,
+						(tmp.y - start.y) * TILE_SIZE, create_rgb(100, 150, 100));
+			}
+			tmp.x++;
 		}
-		y++;
+		tmp.y++;
 	}
+	player_square_draw(cub);
 }
 
 static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
@@ -41,13 +52,13 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	double	step;
 	int		i;
 
-	d.x = (new_pos.x - cub->pos.x) / (double)cub->tile_size;
-	d.y = (new_pos.y - cub->pos.y) / (double)cub->tile_size;
+	d.x = (new_pos.x - cub->pos.x) / (double)TILE_SIZE;
+	d.y = (new_pos.y - cub->pos.y) / (double)TILE_SIZE;
 	step = fmax(fabs(d.x), fabs(d.y));
-	inc.x = (d.x / step) / (double)cub->tile_size;
-	inc.y = (d.y / step) / (double)cub->tile_size;
-	d.x = new_pos.x / (double)cub->tile_size;
-	d.y = new_pos.y / (double)cub->tile_size;
+	inc.x = (d.x / step) / (double)TILE_SIZE;
+	inc.y = (d.y / step) / (double)TILE_SIZE;
+	d.x = new_pos.x / (double)TILE_SIZE;
+	d.y = new_pos.y / (double)TILE_SIZE;
 	i = -1;
 	while (++i < step)
 	{
@@ -68,8 +79,8 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	double	move_speed;
 	t_vec	map_cords;
 
-	map_cords.x = cub->pos.x / cub->tile_size;
-	map_cords.y = cub->pos.y / cub->tile_size;
+	map_cords.x = cub->pos.x / TILE_SIZE;
+	map_cords.y = cub->pos.y / TILE_SIZE;
 	if (velo)
 	{
 		move_speed = SPEED * cub->s_map.mlx_s_map->delta_time;
@@ -82,7 +93,6 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	cub->perp_wall_dist = 0;
 	ray_casting(cub);
 	draw_s_map(cub);
-	player_square_draw(cub);
 	dda(cub->pos, cub->direction, cub, create_rgb(0, 255, 0));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
@@ -113,9 +123,9 @@ void	loop_hook(void *v_cub)
 	if (cub->pressed_down.turn_left_right)
 	{
 		cub->direction = vec_rotation(cub->direction,
-				cub->pressed_down.turn_left_right * ROT_ANG);
+				cub->pressed_down.turn_left_right * ROT_ANG * cub->s_map.mlx_s_map->delta_time);
 		cub->cam_plane = vec_rotation(cub->cam_plane,
-				cub->pressed_down.turn_left_right * ROT_ANG);
+				cub->pressed_down.turn_left_right * ROT_ANG * cub->s_map.mlx_s_map->delta_time);
 	}
 	theta = cub->pressed_down.left_right * 90;
 	if (cub->pressed_down.frwd_bckwd && cub->pressed_down.left_right)

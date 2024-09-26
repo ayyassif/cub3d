@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/26 12:05:49 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 22:45:20 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 
 # define HEIGHT 720
 # define WIDTH 960
-# define ROT_ANG 3
+# define ROT_ANG 100
+# define M_MAP 5
+# define TILE_SIZE 20
 # define SPEED 50
 
 typedef enum e_id
@@ -136,7 +138,7 @@ int		set_line_map(t_line_map **line_map, char *line);
 								/*EXECUTION*/
 /*===========================================================================*/
 void	dda(t_vec pos, t_vec vec, t_cub *cub, int color);
-void	draw_square(t_cub *cub, int x, int y, int color);
+void	draw_square(t_cub *cub, double x, double y, int color);
 void	ver_line(t_cub *cub, int drawStart, int drawEnd);
 void	ft_put_pixel(mlx_image_t *image,
 			uint32_t x, uint32_t y, uint32_t color);
