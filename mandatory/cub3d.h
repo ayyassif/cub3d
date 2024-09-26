@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 13:08:09 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:05:49 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ typedef struct s_cub
 	t_color		floor;
 	t_map		**map;
 	t_s_map		s_map;
+
+
+	int			start;
 }		t_cub;
 
 /*===========================================================================*/
@@ -143,7 +146,8 @@ void	loop_hook(void *v_cub);
 void	textures(t_cub *cub);
 int		execution(t_cub *cub);
 int		create_rgb(int t, int r, int g);
-int		color_from_pixel(t_cub *cub, int index);
+int		color_from_pixel(mlx_texture_t *texture, int index);
+
 
 /*===========================================================================*/
 								/*UTILS*/
@@ -161,5 +165,9 @@ void	free_cub(t_cub *cub);
 void	free_texture(t_cub *cub);
 void	ft_putendl_fd(char *s, int fd);
 void	free_line_map(t_line_map **line_map);
+
+//----------------------------------
+int	intro(t_cub *cub);
+//-------------------------------
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 11:50:08 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:06:48 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ static void	key_func(mlx_key_data_t keydata, void *v_cub)
 	cub = (t_cub *)v_cub;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		esc_exit(cub);
+//-------------------------------
+
+	if (keydata.key == MLX_KEY_ENTER)
+		cub->start = 1;
+//-------------------------------
+
 	if (keydata.action == MLX_PRESS)
 		key_pressed(keydata.key, cub);
 	else if (keydata.action == MLX_RELEASE)
@@ -71,6 +77,11 @@ static void	hooking(t_cub *cub)
 
 int	execution(t_cub *cub)
 {
+//-------------------------------
+
+	cub->start = 0;
+//-------------------------------
+
 	cub->s_map.img_s_map = NULL;
 	cub->s_map.mlx_s_map = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!cub->s_map.mlx_s_map)
@@ -78,6 +89,11 @@ int	execution(t_cub *cub)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	if (!cub->s_map.img_s_map)
 		return (-1);
+//-------------------------------
+
+	intro(cub);
+//-------------------------------
+
 	hooking(cub);
 	mlx_loop(cub->s_map.mlx_s_map);
 	return (0);

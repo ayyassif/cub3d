@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:21:26 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 11:48:21 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:46:24 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	textures(t_cub *cub)
 	}
 }
 
-int	color_from_pixel(t_cub *cub, int index)
+int	color_from_pixel(mlx_texture_t *texture, int index)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	r = cub->texture[cub->tex_id].tex_png->pixels[index];
-	g = cub->texture[cub->tex_id].tex_png->pixels[index + 1];
-	b = cub->texture[cub->tex_id].tex_png->pixels[index + 2];
+	r = texture->pixels[index];
+	g = texture->pixels[index + 1];
+	b = texture->pixels[index + 2];
 	return (create_rgb(r, g, b));
 }
 

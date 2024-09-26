@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/24 17:29:31 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:06:03 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ void	loop_hook(void *v_cub)
 	int		theta;
 
 	cub = (t_cub *)v_cub;
+//-------------------------------
+
+	if (cub->start == 0)
+		return ;
+//-------------------------------
+
 	if (cub->pressed_down.turn_left_right)
 	{
 		cub->direction = vec_rotation(cub->direction,
