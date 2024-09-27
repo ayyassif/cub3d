@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/27 15:19:30 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:54:48 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	ray_casting(t_cub *cub);
 void	loop_hook(void *v_cub);
 void	textures(t_cub *cub);
 int		execution(t_cub *cub);
-int		create_rgb(int t, int r, int g);
+int		create_rgb(int r, int g, int b);
 int		color_from_pixel(mlx_texture_t *texture, int index);
 
 

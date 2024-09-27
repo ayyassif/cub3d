@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/27 15:49:11 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:05:44 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	draw_s_map(t_cub *cub)
 				&& tmp.x >= 0 && tmp.x <= cub->width)
 			{
 				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_FLOOR)
-					draw_square(cub, ((int)tmp.x - start.x) * TILE_SIZE,
-						((int)tmp.y - start.y) * TILE_SIZE, create_rgb(cub->ceiling.red, cub->ceiling.green, cub->ceiling.blue));
+					draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE,
+						((int)tmp.y - start.y + 1) * TILE_SIZE, create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue));
 				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_WALL)
-					draw_square(cub, ((int)tmp.x - start.x) * TILE_SIZE,
-						((int)tmp.y - start.y) * TILE_SIZE, create_rgb(100, 150, 100));
+					draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE,
+						((int)tmp.y - start.y + 1) * TILE_SIZE, create_rgb(100, 150, 100));
 			}
 			tmp.x++;
 		}
@@ -72,6 +72,32 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	if (cub->map[(int)map_cords.y][(int)d.x].value != M_WALL)
 		cub->pos.x = new_pos.x;
 }
+void	map_background(t_cub *cub)
+{
+	mlx_texture_t* texture = mlx_load_png("mandatory/textures/map_frame.png");
+	int	map_height;
+	int	map_width;
+	
+	map_height = 11 * TILE_SIZE;
+	map_width = 11 * TILE_SIZE;
+	if (!texture)
+		exit(1);
+	int	y = -1;
+	while (++y < map_height)
+	{
+		int	x = -1;
+			double t_y = y / (double)map_height;
+			t_y *= texture->height;
+		while (++x < map_width)
+		{
+			double t_x = x / (double)map_width;
+			t_x *= texture->width;
+			int index = ((int)t_y * texture->width + (int)t_x) * 4;
+			if (texture->pixels[index + 4] != 0)
+				ft_put_pixel(cub->s_map.img_s_map, x, y, color_from_pixel(texture, index));
+		}
+	}
+}
 
 static void	move_process(t_cub *cub, t_vec *velo)
 {
@@ -92,6 +118,7 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	cub->perp_wall_dist = 0;
 	ray_casting(cub);
+	map_background(cub);
 	draw_s_map(cub);
 	dda(cub->direction, cub, create_rgb(0, 255, 0));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);

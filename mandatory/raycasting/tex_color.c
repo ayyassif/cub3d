@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tex_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:21:26 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/26 11:46:24 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:54:30 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_put_pixel(mlx_image_t *image, uint32_t x,
 		mlx_put_pixel(image, x, y, color);
 }
 
-int	create_rgb(int t, int r, int g)
+int	create_rgb(int r, int g, int b)
 {
-	return (t << 24 | r << 16 | g << 8 | 255);
+	return (r << 24 | g << 16 | b << 8 | 255);
 }

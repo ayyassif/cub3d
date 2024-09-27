@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/27 15:22:02 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:06:28 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 
 void	draw_square(t_cub *cub, double x, double y, int color)
 {
-	double	x_max;
-	double	y_max;
+	t_vec	max;
+	int		limit;
 	double	x_tmp;
 
+	limit = TILE_SIZE * 10;
 	x_tmp = x;
-	x_max = x + TILE_SIZE;
-	y_max = y + TILE_SIZE;
-	while (y < y_max)
+	max.x = x + TILE_SIZE;
+	max.y = y + TILE_SIZE;
+	while (y < max.y)
 	{
 		x = x_tmp;
-		while (x < x_max)
+		while (x < max.x)
 		{
-			// if (x == x_max - TILE_SIZE || y == y_max - TILE_SIZE)
+			// if (x == max.x - TILE_SIZE || y == max.y - TILE_SIZE)
 			// 	ft_put_pixel(cub->s_map.img_s_map, x, y,
 			// 		create_rgb(0, 150, 0));
 			// else
+			if (x > TILE_SIZE && x < limit && y > TILE_SIZE && y < limit)
 				ft_put_pixel(cub->s_map.img_s_map, x, y, color);
 			x++;
 		}
@@ -43,7 +45,7 @@ void	player_square_draw(t_cub *cub)
 	size_t	y;
 	size_t	pos;
 
-	pos = M_MAP * TILE_SIZE;
+	pos = (M_MAP + 1) * TILE_SIZE;
 	y = pos - 1;
 	while (y <= pos + 1)
 	{
@@ -65,8 +67,8 @@ void	dda(t_vec dirct, t_cub *cub, int color)
 	int		i;
 	t_vec	pos;
 
-	pos.x = M_MAP * TILE_SIZE;
-	pos.y = M_MAP * TILE_SIZE;
+	pos.x = (M_MAP + 1) * TILE_SIZE;
+	pos.y = (M_MAP + 1) * TILE_SIZE;
 	i = 0;
 	step = fmax(fabs(dirct.x), fabs(dirct.y));
 	x_inc = dirct.x / step;
