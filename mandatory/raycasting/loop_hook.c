@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/26 23:05:49 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:20:09 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	draw_s_map(t_cub *cub)
 				&& tmp.x >= 0 && tmp.x <= cub->width)
 			{
 				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_FLOOR)
-					draw_square(cub, (tmp.x - (int)start.x + 1) * TILE_SIZE,
-						(tmp.y - start.y) * TILE_SIZE, create_rgb(0, 0, 0));
+					draw_square(cub, ((int)tmp.x - start.x) * TILE_SIZE,
+						((int)tmp.y - start.y) * TILE_SIZE, create_rgb(0, 0, 0));
 				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_WALL)
-					draw_square(cub, (tmp.x - (int)start.x + 1) * TILE_SIZE,
-						(tmp.y - start.y) * TILE_SIZE, create_rgb(100, 150, 100));
+					draw_square(cub, ((int)tmp.x - start.x) * TILE_SIZE,
+						((int)tmp.y - start.y) * TILE_SIZE, create_rgb(100, 150, 100));
 			}
 			tmp.x++;
 		}
@@ -93,7 +93,7 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	cub->perp_wall_dist = 0;
 	ray_casting(cub);
 	draw_s_map(cub);
-	dda(cub->pos, cub->direction, cub, create_rgb(0, 255, 0));
+	dda(cub->direction, cub, create_rgb(0, 255, 0));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 

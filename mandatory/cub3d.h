@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/26 22:45:20 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:19:30 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		set_line_map(t_line_map **line_map, char *line);
 /*===========================================================================*/
 								/*EXECUTION*/
 /*===========================================================================*/
-void	dda(t_vec pos, t_vec vec, t_cub *cub, int color);
+void	dda(t_vec vec, t_cub *cub, int color);
 void	draw_square(t_cub *cub, double x, double y, int color);
 void	ver_line(t_cub *cub, int drawStart, int drawEnd);
 void	ft_put_pixel(mlx_image_t *image,

@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/26 23:00:48 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:22:02 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@ void	draw_square(t_cub *cub, double x, double y, int color)
 	x_tmp = x;
 	x_max = x + TILE_SIZE;
 	y_max = y + TILE_SIZE;
-	printf("%.2f\n", x / TILE_SIZE);
 	while (y < y_max)
 	{
 		x = x_tmp;
 		while (x < x_max)
 		{
-			if (x == x_max - TILE_SIZE || y == y_max - TILE_SIZE)
-				ft_put_pixel(cub->s_map.img_s_map, x, y,
-					create_rgb(0, 150, 0));
-			else
+			// if (x == x_max - TILE_SIZE || y == y_max - TILE_SIZE)
+			// 	ft_put_pixel(cub->s_map.img_s_map, x, y,
+			// 		create_rgb(0, 150, 0));
+			// else
 				ft_put_pixel(cub->s_map.img_s_map, x, y, color);
 			x++;
 		}
@@ -44,11 +43,11 @@ void	player_square_draw(t_cub *cub)
 	size_t	y;
 	size_t	pos;
 
-	pos = (M_MAP + 0.5) * TILE_SIZE;
-	y = pos;
+	pos = M_MAP * TILE_SIZE;
+	y = pos - 1;
 	while (y <= pos + 1)
 	{
-		x = pos;
+		x = pos - 1;
 		while (x <= pos + 1)
 		{
 			ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 0, 0));
@@ -58,17 +57,20 @@ void	player_square_draw(t_cub *cub)
 	}
 }
 
-void	dda(t_vec pos, t_vec vec, t_cub *cub, int color)
+void	dda(t_vec dirct, t_cub *cub, int color)
 {
 	double	step;
 	double	x_inc;
 	double	y_inc;
 	int		i;
+	t_vec	pos;
 
+	pos.x = M_MAP * TILE_SIZE;
+	pos.y = M_MAP * TILE_SIZE;
 	i = 0;
-	step = fmax(fabs(vec.x), fabs(vec.y));
-	x_inc = vec.x / step;
-	y_inc = vec.y / step;
+	step = fmax(fabs(dirct.x), fabs(dirct.y));
+	x_inc = dirct.x / step;
+	y_inc = dirct.y / step;
 	while (i < step * 10)
 	{
 		pos.x = pos.x + x_inc;
