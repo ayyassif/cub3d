@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/27 15:20:09 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:49:11 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	draw_s_map(t_cub *cub)
 			{
 				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_FLOOR)
 					draw_square(cub, ((int)tmp.x - start.x) * TILE_SIZE,
-						((int)tmp.y - start.y) * TILE_SIZE, create_rgb(0, 0, 0));
+						((int)tmp.y - start.y) * TILE_SIZE, create_rgb(cub->ceiling.red, cub->ceiling.green, cub->ceiling.blue));
 				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_WALL)
 					draw_square(cub, ((int)tmp.x - start.x) * TILE_SIZE,
 						((int)tmp.y - start.y) * TILE_SIZE, create_rgb(100, 150, 100));
