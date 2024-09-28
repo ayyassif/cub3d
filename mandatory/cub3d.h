@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/28 09:34:41 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:20:55 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include "get_next_line/get_next_line.h"
 # include <stdio.h> // tmp
 
-# define HEIGHT 720
-# define WIDTH 960
+# define HEIGHT 800
+# define WIDTH 1200
 # define ROT_ANG 100
 # define M_MAP 5
 # define TILE_SIZE 20

@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/26 12:05:44 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:19:34 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void f() {
 //-------------------------------
 int	intro(t_cub *cub)
 {
-  	mlx_texture_t* texture = mlx_load_png("mandatory/textures/intro.png");
+  	mlx_texture_t* texture = mlx_load_png("mandatory/textures/DON'T FORGET TO.png");
 	if (!texture)
 		exit(1);
 	int	y = -1;
