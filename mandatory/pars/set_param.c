@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 16:22:48 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:04:24 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static int	set_colors(t_color *color, char *line)
 			color->blue = ft_atoi(line);
 		if (*line && (*line == '-' || *line == '+'))
 			line++;
+		if (*line && (*line < '0' || *line > '9'))
+			return (-1);
 		while (*line && *line >= '0' && *line <= '9')
 			line++;
 		while (*line && is_white_space(*line))

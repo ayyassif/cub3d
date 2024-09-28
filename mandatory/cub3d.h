@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/27 15:54:48 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:59:03 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,6 @@ typedef struct s_cub
 	t_color		floor;
 	t_map		**map;
 	t_s_map		s_map;
-
-
-	int			start;
 }		t_cub;
 
 /*===========================================================================*/
@@ -167,9 +164,5 @@ void	free_cub(t_cub *cub);
 void	free_texture(t_cub *cub);
 void	ft_putendl_fd(char *s, int fd);
 void	free_line_map(t_line_map **line_map);
-
-//----------------------------------
-int	intro(t_cub *cub);
-//-------------------------------
 
 #endif

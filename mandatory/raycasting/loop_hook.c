@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/27 18:05:44 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:58:01 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,6 @@ void	loop_hook(void *v_cub)
 	int		theta;
 
 	cub = (t_cub *)v_cub;
-//-------------------------------
-
-	if (cub->start == 0)
-		return ;
-//-------------------------------
-
 	if (cub->pressed_down.turn_left_right)
 	{
 		cub->direction = vec_rotation(cub->direction,
