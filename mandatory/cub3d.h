@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/28 14:59:03 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:43:18 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,9 @@ int		set_line_map(t_line_map **line_map, char *line);
 /*===========================================================================*/
 								/*EXECUTION*/
 /*===========================================================================*/
-void	dda(t_vec vec, t_cub *cub, int color);
-void	draw_square(t_cub *cub, double x, double y, int color);
 void	ver_line(t_cub *cub, int drawStart, int drawEnd);
 void	ft_put_pixel(mlx_image_t *image,
 			uint32_t x, uint32_t y, uint32_t color);
-void	player_square_draw(t_cub *cub);
 void	ray_casting(t_cub *cub);
 void	loop_hook(void *v_cub);
 void	textures(t_cub *cub);

@@ -3,47 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/28 14:58:01 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:47:27 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-static void	draw_s_map(t_cub *cub)
-{
-	t_vec	start;
-	t_vec	end;
-	t_vec	tmp;
-
-	start.x = cub->pos.x / TILE_SIZE - M_MAP;
-	start.y = cub->pos.y / TILE_SIZE - M_MAP;
-	end.x = cub->pos.x / TILE_SIZE + M_MAP;
-	end.y = cub->pos.y / TILE_SIZE + M_MAP;
-	tmp.y = start.y;
-	while (tmp.y < end.y)
-	{
-		tmp.x = start.x;
-		while (tmp.x < end.x)
-		{
-			if (tmp.y >= 0 && tmp.y <= cub->height
-				&& tmp.x >= 0 && tmp.x <= cub->width)
-			{
-				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_FLOOR)
-					draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE,
-						((int)tmp.y - start.y + 1) * TILE_SIZE, create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue));
-				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_WALL)
-					draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE,
-						((int)tmp.y - start.y + 1) * TILE_SIZE, create_rgb(100, 150, 100));
-			}
-			tmp.x++;
-		}
-		tmp.y++;
-	}
-	player_square_draw(cub);
-}
 
 static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 {
@@ -118,9 +85,6 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	cub->perp_wall_dist = 0;
 	ray_casting(cub);
-	map_background(cub);
-	draw_s_map(cub);
-	dda(cub->direction, cub, create_rgb(0, 255, 0));
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 
