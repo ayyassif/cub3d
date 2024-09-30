@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"mlx42.h": "c",
+		"unistd.h": "c",
+		"fcntl.h": "c"
+	}
+}

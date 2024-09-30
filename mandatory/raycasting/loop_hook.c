@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/27 18:05:44 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:04:15 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,15 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	if (cub->map[(int)map_cords.y][(int)d.x].value != M_WALL)
 		cub->pos.x = new_pos.x;
 }
+
 void	map_background(t_cub *cub)
 {
 	mlx_texture_t* texture = mlx_load_png("mandatory/textures/map_frame.png");
 	int	map_height;
 	int	map_width;
 	
-	map_height = 11 * TILE_SIZE;
-	map_width = 11 * TILE_SIZE;
+	map_height = (M_MAP * 2 + 1) * TILE_SIZE;
+	map_width = (M_MAP * 2 + 1) * TILE_SIZE;
 	if (!texture)
 		exit(1);
 	int	y = -1;
@@ -134,6 +135,21 @@ static t_vec	vec_rotation(t_vec vec, double theta)
 	return (prime_vec);
 }
 
+void	mouse_hook(t_cub *cub)
+{
+	int	w_center;
+
+	w_center = WIDTH / 2;
+	mlx_get_mouse_pos(cub->s_map.mlx_s_map, &cub->x_cursor, &cub->y_cursor);
+	if (cub->x_cursor > w_center)
+		cub->pressed_down.turn_left_right = 1;
+	else if (cub->x_cursor < w_center)
+		cub->pressed_down.turn_left_right = -1;
+	else if (cub->is_rot_pressed == 0)
+		cub->pressed_down.turn_left_right = 0;
+	mlx_set_mouse_pos(cub->s_map.mlx_s_map, WIDTH / 2, HEIGHT / 2);
+}
+
 void	loop_hook(void *v_cub)
 {
 	t_cub	*cub;
@@ -141,12 +157,8 @@ void	loop_hook(void *v_cub)
 	int		theta;
 
 	cub = (t_cub *)v_cub;
-//-------------------------------
-
 	if (cub->start == 0)
 		return ;
-//-------------------------------
-
 	if (cub->pressed_down.turn_left_right)
 	{
 		cub->direction = vec_rotation(cub->direction,
@@ -164,4 +176,5 @@ void	loop_hook(void *v_cub)
 		move_process(cub, NULL);
 	else
 		move_process(cub, &velocity);
+	mouse_hook(cub);
 }

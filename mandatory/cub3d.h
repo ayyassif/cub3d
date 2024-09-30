@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/28 11:20:55 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:01:32 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include "get_next_line/get_next_line.h"
 # include <stdio.h> // tmp
 
-# define HEIGHT 800
-# define WIDTH 1200
+# define HEIGHT 720
+# define WIDTH 960
 # define ROT_ANG 100
 # define M_MAP 5
 # define TILE_SIZE 20
@@ -116,8 +116,9 @@ typedef struct s_cub
 	t_color		floor;
 	t_map		**map;
 	t_s_map		s_map;
-
-
+	int32_t		x_cursor;
+	int32_t		y_cursor;
+	int			is_rot_pressed;
 	int			start;
 }		t_cub;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/26 12:06:48 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:04:56 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	key_pressed(keys_t key, t_cub *cub)
 {
+	if (key == MLX_KEY_LEFT || key == MLX_KEY_RIGHT)
+		cub->is_rot_pressed = 1;
 	if (key == MLX_KEY_LEFT)
 		cub->pressed_down.turn_left_right = -1;
 	else if (key == MLX_KEY_RIGHT)
@@ -42,16 +44,14 @@ static void	key_func(mlx_key_data_t keydata, void *v_cub)
 	cub = (t_cub *)v_cub;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		esc_exit(cub);
-//-------------------------------
-
 	if (keydata.key == MLX_KEY_ENTER)
 		cub->start = 1;
-//-------------------------------
-
 	if (keydata.action == MLX_PRESS)
 		key_pressed(keydata.key, cub);
 	else if (keydata.action == MLX_RELEASE)
 	{
+		if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_LEFT)
+			cub->is_rot_pressed = 0;
 		if (keydata.key == MLX_KEY_RIGHT
 			&& cub->pressed_down.turn_left_right == 1)
 			cub->pressed_down.turn_left_right = 0;
@@ -69,6 +69,7 @@ static void	key_func(mlx_key_data_t keydata, void *v_cub)
 	}
 }
 
+
 static void	hooking(t_cub *cub)
 {
 	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
@@ -77,11 +78,9 @@ static void	hooking(t_cub *cub)
 
 int	execution(t_cub *cub)
 {
-//-------------------------------
-
 	cub->start = 0;
-//-------------------------------
-
+	cub->is_rot_pressed = 0;
+	mlx_set_mouse_pos(cub->s_map.mlx_s_map, WIDTH / 2, HEIGHT / 2);
 	cub->s_map.img_s_map = NULL;
 	cub->s_map.mlx_s_map = mlx_init(WIDTH, HEIGHT, "Cub3D", false);
 	if (!cub->s_map.mlx_s_map)
@@ -89,11 +88,8 @@ int	execution(t_cub *cub)
 	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
 	if (!cub->s_map.img_s_map)
 		return (-1);
-//-------------------------------
-
+	mlx_set_cursor_mode(cub->s_map.mlx_s_map, MLX_MOUSE_HIDDEN);
 	intro(cub);
-//-------------------------------
-
 	hooking(cub);
 	mlx_loop(cub->s_map.mlx_s_map);
 	return (0);
