@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/26 21:21:38 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:02:59 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_vec	side_dist_setter(t_vec ray, t_vec *map_cords,
 	return (side_dist);
 }
 
-static void	ray_dda(t_cub *cub, t_vec map_cords)
+static int	ray_dda(t_cub *cub, t_vec map_cords)
 {
 	t_vec	step;
 
@@ -63,8 +63,13 @@ static void	ray_dda(t_cub *cub, t_vec map_cords)
 			cub->side = 1;
 		}
 		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_WALL)
-			break ;
+			return (1);
+		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR)
+			return (2);
+		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_COIN)
+			return (3);
 	}
+	return (0);
 }
 
 static void	ray_dda_1(t_cub *cub)
@@ -87,6 +92,7 @@ static void	ray_dda_1(t_cub *cub)
 static void	ray_distance(t_cub *cub)
 {
 	t_vec	map_cords;
+	int		type_tex;
 
 	map_cords.x = cub->pos.x / TILE_SIZE;
 	map_cords.y = cub->pos.y / TILE_SIZE;
@@ -98,9 +104,9 @@ static void	ray_distance(t_cub *cub)
 		cub->delta_dist.y = fabs(1 / cub->ray.y);
 	else
 		cub->delta_dist.y = INFINITY;
-	ray_dda(cub, map_cords);
+	type_tex = ray_dda(cub, map_cords);
 	ray_dda_1(cub);
-	textures(cub);
+	textures(cub, type_tex);
 }
 
 void	ray_casting(t_cub *cub)

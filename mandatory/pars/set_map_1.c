@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/26 21:21:18 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:14:14 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static t_type	set_type_map_1(char c, t_cub *cub)
 		return (M_FLOOR);
 	else if (c == '1')
 		return (M_WALL);
+	else if (c == '2')
+		return (M_DOOR);
+	else if (c == '3')
+		return (M_COIN);
 	else if (c == 'W')
 		return (cub->direction.x = -1, cub->cam_plane.y = -0.66, M_PLAYER);
 	else if (c == 'S')

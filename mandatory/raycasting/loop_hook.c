@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/30 17:04:15 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:06:25 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	i = -1;
 	while (++i < step)
 	{
-		if (cub->map[(int)d.y][(int)map_cords.x].value != M_WALL)
+		if (cub->map[(int)d.y][(int)map_cords.x].value != M_WALL)//hna zid 7ta lbab
 			d.y += inc.y;
 		if (cub->map[(int)map_cords.y][(int)d.x].value != M_WALL)
 			d.x += inc.x;

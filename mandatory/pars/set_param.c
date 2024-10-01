@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/28 09:42:17 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:08:27 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,21 @@ static int	set_texture_color(t_cub *cub, char *line)
 	return (0);
 }
 
+int	set_door_coin(t_cub *cub)
+{
+	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/door2.png");
+	if (!cub->texture[4].tex_png)
+		return (-1);
+	cub->texture[4].identifier = E_DR;
+	cub->texture[4].path = NULL;
+	cub->texture[5].tex_png = mlx_load_png("mandatory/textures/door1.png");
+	if (!cub->texture[5].tex_png)
+		return (-1);
+	cub->texture[5].identifier = E_CN;
+	cub->texture[5].path = NULL;
+	return (0);	
+}
+
 int	set_param(t_cub *cub, char *line, int i)
 {
 	size_t	len;
@@ -128,5 +143,7 @@ int	set_param(t_cub *cub, char *line, int i)
 		if (set_line_map(&cub->line_map, line) == -1)
 			return (-1);
 	}
+	if (set_door_coin(cub) == -1)
+		return (-1);
 	return (0);
 }

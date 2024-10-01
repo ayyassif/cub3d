@@ -3,34 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   tex_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:21:26 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/27 15:54:30 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/01 11:02:35 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	textures(t_cub *cub)
+void	textures(t_cub *cub, int type_tex)
 {
 	cub->tex_id = 0;
-	if (cub->side == 0 && cub->ray.x > 0)
+	if (type_tex == 2)
+		cub->tex_id = 4;
+	if (type_tex == 3)
+		cub->tex_id = 5;
+	if (cub->side == 0 && cub->ray.x > 0 && type_tex == 1)
 	{
 		while (cub->texture[cub->tex_id].identifier != E_EA)
 			cub->tex_id++;
 	}
-	else if (cub->side == 0)
+	else if (cub->side == 0 && type_tex == 1)
 	{
 		while (cub->texture[cub->tex_id].identifier != E_WE)
 			cub->tex_id++;
 	}
-	else if (cub->ray.y > 0)
+	else if (cub->ray.y > 0 && type_tex == 1)
 	{
 		while (cub->texture[cub->tex_id].identifier != E_SO)
 			cub->tex_id++;
 	}
-	else
+	else if (type_tex == 1)
 	{
 		while (cub->texture[cub->tex_id].identifier != E_NO)
 			cub->tex_id++;

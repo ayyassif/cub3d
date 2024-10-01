@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:30:58 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 16:13:55 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:16:12 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	pars_map(t_cub *cub)
 		while (++col < cub->width)
 		{
 			if ((cub->map[ln][col].value == M_FLOOR
-				|| cub->map[ln][col].value == M_PLAYER)
+				|| cub->map[ln][col].value == M_PLAYER
+				|| cub->map[ln][col].value == M_DOOR
+				|| cub->map[ln][col].value == M_COIN)
 				&& check_empty(cub, ln, col) == -1)
 				return (ft_putendl_fd("ERROR:\n\tinvalid wall", 2), -1);
 			if (cub->map[ln][col].value == M_PLAYER)
