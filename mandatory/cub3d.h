@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 10:58:31 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:37:00 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef enum e_id
 	E_WE,
 	E_EA,
 	E_DR,
-	E_CN
 }		t_id;
 
 typedef enum e_type
@@ -108,7 +107,7 @@ typedef struct s_cub
 	t_vec			side_dist;
 	t_vec			pos;
 	t_vec			ray;
-	t_texture		texture[6];
+	t_texture		texture[5];
 	int				tile_size;
 	int				tex_id;
 	int				endl;

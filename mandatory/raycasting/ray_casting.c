@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/01 11:02:59 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:33:55 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ static int	ray_dda(t_cub *cub, t_vec map_cords)
 			return (1);
 		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR)
 			return (2);
-		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_COIN)
-			return (3);
 	}
 	return (0);
 }

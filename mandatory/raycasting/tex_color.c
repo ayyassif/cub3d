@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:21:26 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 11:02:35 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:34:05 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	textures(t_cub *cub, int type_tex)
 	cub->tex_id = 0;
 	if (type_tex == 2)
 		cub->tex_id = 4;
-	if (type_tex == 3)
-		cub->tex_id = 5;
 	if (cub->side == 0 && cub->ray.x > 0 && type_tex == 1)
 	{
 		while (cub->texture[cub->tex_id].identifier != E_EA)
