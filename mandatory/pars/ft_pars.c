@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 10:59:53 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:39:56 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static int	creat_cub_1(t_cub *cub)
 			cub->ofset_front = ft_ofset_front(line_map_file);
 		if (i > 7 && !is_line_space(line_map_file, i, cub) && cub->endl == 1)
 			return (free_texture(cub), ft_putendl_fd("ERROR:\n\tmore lines", 2),
-				free(line_map_file), -1);
+	
+				free(line_map_file),-1);
 		if (set_param(cub, line_map_file, i++) == -1)
 			return (free_texture(cub), free(line_map_file), -1);
 	}
@@ -79,6 +80,12 @@ int	ft_pars(t_cub *cub, char *name_file)
 	cub->direction.y = 0;
 	cub->cam_plane.x = 0;
 	cub->cam_plane.y = 0;
+	int	i = -1;
+	while (++i < 6)
+	{
+		cub->coin.tex_coin[i].path = NULL;
+		cub->coin.tex_coin[i].tex_png = NULL;
+	}
 	if (creat_cub_0(cub, name_file) == -1)
 		return (free_line_map(&cub->line_map), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;

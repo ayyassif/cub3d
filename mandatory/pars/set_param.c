@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 15:35:39 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:42:44 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,38 @@ static int	set_texture_color(t_cub *cub, char *line)
 	return (0);
 }
 
-int	set_door(t_cub *cub)
+int	set_door_coin(t_cub *cub)
 {
-	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/door2.png");
+	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/door2_s.png");
 	if (!cub->texture[4].tex_png)
 		return (-1);
-	cub->texture[4].identifier = E_DR;
-	cub->texture[4].path = NULL;
+	cub->coin.tex_coin[4].identifier = E_DR;
+	cub->coin.tex_coin[4].path = NULL;
+	int	i = 0;
+	while (i < 6)
+	{
+		cub->coin.tex_coin[i].identifier = E_CN;
+		cub->coin.tex_coin[i].path = NULL;
+		i++;
+	}
+	cub->coin.tex_coin[0].tex_png = mlx_load_png("mandatory/textures/1.png");
+	if (!cub->coin.tex_coin[0].tex_png)
+		return (-1);
+	cub->coin.tex_coin[1].tex_png = mlx_load_png("mandatory/textures/2.png");
+	if (!cub->coin.tex_coin[1].tex_png)
+		return (-1);
+	cub->coin.tex_coin[2].tex_png = mlx_load_png("mandatory/textures/3.png");
+	if (!cub->coin.tex_coin[2].tex_png)
+		return (-1);
+	cub->coin.tex_coin[3].tex_png = mlx_load_png("mandatory/textures/4.png");
+	if (!cub->coin.tex_coin[3].tex_png)
+		return (-1);
+	cub->coin.tex_coin[4].tex_png = mlx_load_png("mandatory/textures/5.png");
+	if (!cub->coin.tex_coin[4].tex_png)
+		return (-1);
+	cub->coin.tex_coin[5].tex_png = mlx_load_png("mandatory/textures/6.png");
+	if (!cub->coin.tex_coin[5].tex_png)
+		return (-1);
 	return (0);	
 }
 
@@ -124,11 +149,14 @@ int	set_param(t_cub *cub, char *line, int i)
 
 	if (set_texture_color(cub, line) == -1)
 		return (-1);
+	
 	if (i == 6 && (check_colors(&cub->floor, &cub->ceiling) == -1
 			|| check_texture(cub->texture) == -1))
 		return (-1);
+
 	if (i > 6)
 	{
+
 		len = ft_ofset_front(line);
 		if (cub->ofset_front > len)
 			cub->ofset_front = len;
@@ -138,7 +166,7 @@ int	set_param(t_cub *cub, char *line, int i)
 		if (set_line_map(&cub->line_map, line) == -1)
 			return (-1);
 	}
-	if (set_door(cub) == -1)
+	if (set_door_coin(cub) == -1)
 		return (-1);
 	return (0);
 }
