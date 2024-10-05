@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/01 11:06:25 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:07:46 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int is_collision(t_type value)
+{
+	if (value == M_WALL || value == M_DOOR_CLOSED)
+		return (1);
+	return (0);
+}
 
 static void	draw_s_map(t_cub *cub)
 {
 	t_vec	start;
 	t_vec	end;
 	t_vec	tmp;
+	int		color;
 
 	start.x = cub->pos.x / TILE_SIZE - M_MAP;
 	start.y = cub->pos.y / TILE_SIZE - M_MAP;
@@ -31,12 +39,14 @@ static void	draw_s_map(t_cub *cub)
 			if (tmp.y >= 0 && tmp.y <= cub->height
 				&& tmp.x >= 0 && tmp.x <= cub->width)
 			{
+				color = 0xff000000;
 				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_FLOOR)
-					draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE,
-						((int)tmp.y - start.y + 1) * TILE_SIZE, create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue));
-				if (cub->map[(int)tmp.y][(int)tmp.x].value == M_WALL)
-					draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE,
-						((int)tmp.y - start.y + 1) * TILE_SIZE, create_rgb(100, 150, 100));
+					color = create_rgb(cub->floor.red, cub->floor.green, cub->floor.blue);
+				else if (cub->map[(int)tmp.y][(int)tmp.x].value == M_WALL)
+					color = create_rgb(100, 150, 100);
+				else if (cub->map[(int)tmp.y][(int)tmp.x].value == M_DOOR_CLOSED || cub->map[(int)tmp.y][(int)tmp.x].value == M_DOOR_OPEN)
+					color = create_rgb(139, 69, 19);
+				draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE, ((int)tmp.y - start.y + 1) * TILE_SIZE, color);
 			}
 			tmp.x++;
 		}
@@ -62,14 +72,14 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	i = -1;
 	while (++i < step)
 	{
-		if (cub->map[(int)d.y][(int)map_cords.x].value != M_WALL)//hna zid 7ta lbab
+		if (!is_collision(cub->map[(int)d.y][(int)map_cords.x].value))//hna zid 7ta lbab
 			d.y += inc.y;
-		if (cub->map[(int)map_cords.y][(int)d.x].value != M_WALL)
+		if (!is_collision(cub->map[(int)map_cords.y][(int)d.x].value))
 			d.x += inc.x;
 	}
-	if (cub->map[(int)d.y][(int)map_cords.x].value != M_WALL)
+	if (!is_collision(cub->map[(int)d.y][(int)map_cords.x].value))
 		cub->pos.y = new_pos.y;
-	if (cub->map[(int)map_cords.y][(int)d.x].value != M_WALL)
+	if (!is_collision(cub->map[(int)map_cords.y][(int)d.x].value))
 		cub->pos.x = new_pos.x;
 }
 

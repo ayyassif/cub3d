@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 16:12:11 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:55:11 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef enum e_type
 	M_PLAYER,
 	M_FLOOR,
 	M_ERROR,
-	M_DOOR,
+	M_DOOR_OPEN,
+	M_DOOR_CLOSED,
 	M_COIN,
 	M_WALL,
 	M_VOID
@@ -117,6 +118,7 @@ typedef struct s_cub
 	t_coin			coin;
 	int				tile_size;
 	int				tex_id;
+	t_vec			focused;
 	int				endl;
 	int				side;
 	int				fd;

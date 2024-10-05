@@ -6,11 +6,26 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/05 10:25:10 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:59:26 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void door_interaction(t_cub *cub)
+{
+	int	f_x;
+	int	f_y;
+
+	f_x = (int)cub->focused.x;
+	f_y = (int)cub->focused.y;
+	if (f_x == -1)
+		return ;
+	if (cub->map[f_y][f_x].value == M_DOOR_CLOSED)
+		cub->map[f_y][f_x].value = M_DOOR_OPEN;
+	else if (cub->map[f_y][f_x].value == M_DOOR_OPEN)
+		cub->map[f_y][f_x].value = M_DOOR_CLOSED;
+}
 
 static void	key_pressed(keys_t key, t_cub *cub)
 {
@@ -28,6 +43,8 @@ static void	key_pressed(keys_t key, t_cub *cub)
 		cub->pressed_down.frwd_bckwd = -1;
 	else if (key == 'S')
 		cub->pressed_down.frwd_bckwd = 1;
+	else if (key == 'E')
+		door_interaction(cub);
 }
 
 static void	esc_exit(t_cub *cub)

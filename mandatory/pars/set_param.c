@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_param.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 16:42:44 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:11:07 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,22 +122,22 @@ int	set_door_coin(t_cub *cub)
 		cub->coin.tex_coin[i].path = NULL;
 		i++;
 	}
-	cub->coin.tex_coin[0].tex_png = mlx_load_png("mandatory/textures/1.png");
+	cub->coin.tex_coin[0].tex_png = mlx_load_png("mandatory/textures/collectable_1.png");
 	if (!cub->coin.tex_coin[0].tex_png)
 		return (-1);
-	cub->coin.tex_coin[1].tex_png = mlx_load_png("mandatory/textures/2.png");
+	cub->coin.tex_coin[1].tex_png = mlx_load_png("mandatory/textures/collectable_2.png");
 	if (!cub->coin.tex_coin[1].tex_png)
 		return (-1);
-	cub->coin.tex_coin[2].tex_png = mlx_load_png("mandatory/textures/3.png");
+	cub->coin.tex_coin[2].tex_png = mlx_load_png("mandatory/textures/collectable_3.png");
 	if (!cub->coin.tex_coin[2].tex_png)
 		return (-1);
-	cub->coin.tex_coin[3].tex_png = mlx_load_png("mandatory/textures/4.png");
+	cub->coin.tex_coin[3].tex_png = mlx_load_png("mandatory/textures/collectable_4.png");
 	if (!cub->coin.tex_coin[3].tex_png)
 		return (-1);
-	cub->coin.tex_coin[4].tex_png = mlx_load_png("mandatory/textures/5.png");
+	cub->coin.tex_coin[4].tex_png = mlx_load_png("mandatory/textures/collectable_5.png");
 	if (!cub->coin.tex_coin[4].tex_png)
 		return (-1);
-	cub->coin.tex_coin[5].tex_png = mlx_load_png("mandatory/textures/6.png");
+	cub->coin.tex_coin[5].tex_png = mlx_load_png("mandatory/textures/collectable_6.png");
 	if (!cub->coin.tex_coin[5].tex_png)
 		return (-1);
 	return (0);	
@@ -156,7 +156,6 @@ int	set_param(t_cub *cub, char *line, int i)
 
 	if (i > 6)
 	{
-
 		len = ft_ofset_front(line);
 		if (cub->ofset_front > len)
 			cub->ofset_front = len;

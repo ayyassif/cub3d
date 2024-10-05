@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/01 15:33:55 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:02:42 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,14 @@ static t_vec	side_dist_setter(t_vec ray, t_vec *map_cords,
 static int	ray_dda(t_cub *cub, t_vec map_cords)
 {
 	t_vec	step;
+	int		setted;
+	size_t	i;
 
+	setted = 0;
 	cub->side_dist = side_dist_setter(cub->ray, &map_cords,
 			cub->delta_dist, &step);
-	while (1)
+	i = 0;
+	while (++i)
 	{
 		if (cub->side_dist.x < cub->side_dist.y)
 		{
@@ -62,9 +66,20 @@ static int	ray_dda(t_cub *cub, t_vec map_cords)
 			map_cords.y += step.y;
 			cub->side = 1;
 		}
+		if (!setted && cub->ray.x == cub->direction.x && cub->ray.y == cub->direction.y
+			&& cub->map[(int)map_cords.y][(int)map_cords.x].value != M_FLOOR
+			&& cub->map[(int)map_cords.y][(int)map_cords.x].value != M_COIN)
+		{
+			if (i <= 2 && (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR_CLOSED
+				|| cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR_OPEN))
+				cub->focused = map_cords;
+			else
+				cub->focused.x = -1;
+			setted = 1;
+		}
 		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_WALL)
 			return (1);
-		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR)
+		if (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR_CLOSED)
 			return (2);
 	}
 	return (0);
