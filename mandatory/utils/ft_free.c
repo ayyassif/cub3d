@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 16:44:28 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:41:32 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void	free_texture(t_cub *cub)
 	if (cub->texture[4].tex_png)
 		mlx_delete_texture(cub->texture[i].tex_png);
 	i = -1;
-	while (++i < 6)
-	{
-		if (cub->coin.tex_coin[i].tex_png)
-			mlx_delete_texture(cub->coin.tex_coin[i].tex_png);
-	}
 }
 
 void	free_line_map(t_line_map **line_map)

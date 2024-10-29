@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/05 16:47:36 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:56:29 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,6 @@ int	ft_pars(t_cub *cub, char *name_file)
 	cub->direction.y = 0;
 	cub->cam_plane.x = 0;
 	cub->cam_plane.y = 0;
-	int	i = -1;
-	while (++i < 6)
-	{
-		cub->coin.tex_coin[i].path = NULL;
-		cub->coin.tex_coin[i].tex_png = NULL;
-	}
 	if (creat_cub_0(cub, name_file) == -1)
 		return (free_line_map(&cub->line_map), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;

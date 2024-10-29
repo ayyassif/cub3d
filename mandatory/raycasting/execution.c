@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/05 16:59:26 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:44:19 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,25 @@
 
 void door_interaction(t_cub *cub)
 {
-	int	f_x;
-	int	f_y;
+	double	f_x;
+	double	f_y;
+	double	d_x;
+	double	d_y;
+	double	distance;
 
-	f_x = (int)cub->focused.x;
-	f_y = (int)cub->focused.y;
+	f_x = (int)cub->focused.x + 0.5;
+	f_y = (int)cub->focused.y + 0.5;
 	if (f_x == -1)
 		return ;
-	if (cub->map[f_y][f_x].value == M_DOOR_CLOSED)
-		cub->map[f_y][f_x].value = M_DOOR_OPEN;
-	else if (cub->map[f_y][f_x].value == M_DOOR_OPEN)
-		cub->map[f_y][f_x].value = M_DOOR_CLOSED;
+	d_x = cub->pos.x / TILE_SIZE - f_x;
+	d_y = cub->pos.y / TILE_SIZE - f_y;
+	distance = sqrt(d_x * d_x + d_y * d_y);
+	if (distance > 3)
+		return ;
+	if (cub->map[(int)f_y][(int)f_x].value == M_DOOR_CLOSED)
+		cub->map[(int)f_y][(int)f_x].value = M_DOOR_OPEN;
+	else if (cub->map[(int)f_y][(int)f_x].value == M_DOOR_OPEN)
+		cub->map[(int)f_y][(int)f_x].value = M_DOOR_CLOSED;
 }
 
 static void	key_pressed(keys_t key, t_cub *cub)

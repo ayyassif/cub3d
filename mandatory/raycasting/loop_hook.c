@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/05 11:07:46 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:17:04 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,53 @@ void	map_background(t_cub *cub)
 	}
 }
 
+
+int	items(t_cub *cub)
+{
+  	mlx_texture_t* texture = mlx_load_png(cub->sword);
+	int	item_height;
+	int	item_width;
+
+	item_height = texture->height - 1;
+	item_width = texture->width - 1;
+	if (!texture)
+		exit(1);
+	int	y = -1;
+	while (++y < item_height)
+	{
+		int	x = -1;
+		double t_y = y / (double)item_height;
+		t_y *= texture->height;
+		while (++x < item_width)
+		{
+			double t_x = x / (double)item_width;
+			t_x *= texture->width;
+			int index = ((int)t_y * texture->width + (int)t_x) * 4;
+			if (texture->pixels[index + 4] != 0)
+				ft_put_pixel(cub->s_map.img_s_map, WIDTH - item_width + x, HEIGHT - item_height + y, color_from_pixel(texture, index));
+		}
+	}
+	return (0);
+}
+
+void	animat_items(t_cub *cub)
+{
+	static int		counter;
+	static double	timer;
+	
+	timer += cub->s_map.mlx_s_map->delta_time;
+	if (timer >= 0.16)
+	{
+		counter++;
+		if (counter > 31)
+			counter = 0;
+		cub->sword[38] = counter / 10 + '0';
+		cub->sword[39] = counter % 10 + '0';
+		timer -= 0.16;
+	}
+	items(cub);
+}
+
 static void	move_process(t_cub *cub, t_vec *velo)
 {
 	t_vec	new_pos;
@@ -132,6 +179,7 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	map_background(cub);
 	draw_s_map(cub);
 	dda(cub->direction, cub, create_rgb(0, 255, 0));
+	animat_items(cub);
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
 }
 

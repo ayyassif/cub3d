@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/05 18:02:42 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:29:23 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	ray_dda(t_cub *cub, t_vec map_cords)
 			&& cub->map[(int)map_cords.y][(int)map_cords.x].value != M_FLOOR
 			&& cub->map[(int)map_cords.y][(int)map_cords.x].value != M_COIN)
 		{
-			if (i <= 2 && (cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR_CLOSED
+			if ((cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR_CLOSED
 				|| cub->map[(int)map_cords.y][(int)map_cords.x].value == M_DOOR_OPEN))
 				cub->focused = map_cords;
 			else
