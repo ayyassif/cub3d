@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/29 16:17:04 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:27:45 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,14 +145,17 @@ void	animat_items(t_cub *cub)
 	static double	timer;
 	
 	timer += cub->s_map.mlx_s_map->delta_time;
-	if (timer >= 0.16)
+	if ((timer >= 0.16 && (cub->pressed_down.frwd_bckwd || cub->pressed_down.left_right)) || timer >= 0.5)
 	{
 		counter++;
 		if (counter > 31)
 			counter = 0;
 		cub->sword[38] = counter / 10 + '0';
 		cub->sword[39] = counter % 10 + '0';
-		timer -= 0.16;
+		if (cub->pressed_down.frwd_bckwd || cub->pressed_down.left_right)
+			timer -= 0.16;
+		else
+			timer -= 0.5;
 	}
 	items(cub);
 }
