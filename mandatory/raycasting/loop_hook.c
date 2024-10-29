@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/29 16:35:39 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:32:42 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,12 +204,15 @@ void	mouse_hook(t_cub *cub)
 
 	w_center = WIDTH / 2;
 	mlx_get_mouse_pos(cub->s_map.mlx_s_map, &cub->x_cursor, &cub->y_cursor);
-	if (cub->x_cursor > w_center)
-		cub->pressed_down.turn_left_right = 1;
-	else if (cub->x_cursor < w_center)
-		cub->pressed_down.turn_left_right = -1;
-	else if (cub->is_rot_pressed == 0)
-		cub->pressed_down.turn_left_right = 0;
+	if (!cub->is_rot_pressed)
+	{
+		if (cub->x_cursor > w_center)
+			cub->pressed_down.turn_left_right = 1;
+		else if (cub->x_cursor < w_center)
+			cub->pressed_down.turn_left_right = -1;
+		else
+			cub->pressed_down.turn_left_right = 0;
+	}
 	mlx_set_mouse_pos(cub->s_map.mlx_s_map, WIDTH / 2, HEIGHT / 2);
 }
 

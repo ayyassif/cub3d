@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/29 08:44:19 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:36:44 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	key_func(mlx_key_data_t keydata, void *v_cub)
 		esc_exit(cub);
 	if (keydata.key == MLX_KEY_ENTER)
 		cub->start = 1;
-	if (keydata.action == MLX_PRESS)
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 		key_pressed(keydata.key, cub);
 	else if (keydata.action == MLX_RELEASE)
 	{
