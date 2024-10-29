@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/29 15:06:28 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:34:15 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ typedef struct s_cub
 	int				is_rot_pressed;
 	int				start;
 	char			*sword;
+	mlx_texture_t	*sword_tex;
+	mlx_texture_t	*map_tex;
 }		t_cub;
 
 /*===========================================================================*/

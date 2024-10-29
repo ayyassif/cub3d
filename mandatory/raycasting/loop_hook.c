@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/10/29 16:27:45 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:35:39 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,27 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 
 void	map_background(t_cub *cub)
 {
-	mlx_texture_t* texture = mlx_load_png("mandatory/textures/map_frame.png");
+	cub->map_tex = mlx_load_png("mandatory/textures/map_frame.png");
 	int	map_height;
 	int	map_width;
 	
 	map_height = (M_MAP * 2 + 1) * TILE_SIZE;
 	map_width = (M_MAP * 2 + 1) * TILE_SIZE;
-	if (!texture)
+	if (!cub->map_tex)
 		exit(1);
 	int	y = -1;
 	while (++y < map_height)
 	{
 		int	x = -1;
 			double t_y = y / (double)map_height;
-			t_y *= texture->height;
+			t_y *= cub->map_tex->height;
 		while (++x < map_width)
 		{
 			double t_x = x / (double)map_width;
-			t_x *= texture->width;
-			int index = ((int)t_y * texture->width + (int)t_x) * 4;
-			if (texture->pixels[index + 4] != 0)
-				ft_put_pixel(cub->s_map.img_s_map, x, y, color_from_pixel(texture, index));
+			t_x *= cub->map_tex->width;
+			int index = ((int)t_y * cub->map_tex->width + (int)t_x) * 4;
+			if (cub->map_tex->pixels[index + 4] != 0)
+				ft_put_pixel(cub->s_map.img_s_map, x, y, color_from_pixel(cub->map_tex, index));
 		}
 	}
 }
@@ -113,27 +113,27 @@ void	map_background(t_cub *cub)
 
 int	items(t_cub *cub)
 {
-  	mlx_texture_t* texture = mlx_load_png(cub->sword);
+  	cub->sword_tex = mlx_load_png(cub->sword);
 	int	item_height;
 	int	item_width;
 
-	item_height = texture->height - 1;
-	item_width = texture->width - 1;
-	if (!texture)
+	item_height = cub->sword_tex->height - 1;
+	item_width = cub->sword_tex->width - 1;
+	if (!cub->sword_tex)
 		exit(1);
 	int	y = -1;
 	while (++y < item_height)
 	{
 		int	x = -1;
 		double t_y = y / (double)item_height;
-		t_y *= texture->height;
+		t_y *= cub->sword_tex->height;
 		while (++x < item_width)
 		{
 			double t_x = x / (double)item_width;
-			t_x *= texture->width;
-			int index = ((int)t_y * texture->width + (int)t_x) * 4;
-			if (texture->pixels[index + 4] != 0)
-				ft_put_pixel(cub->s_map.img_s_map, WIDTH - item_width + x, HEIGHT - item_height + y, color_from_pixel(texture, index));
+			t_x *= cub->sword_tex->width;
+			int index = ((int)t_y * cub->sword_tex->width + (int)t_x) * 4;
+			if (cub->sword_tex->pixels[index + 4] != 0)
+				ft_put_pixel(cub->s_map.img_s_map, WIDTH - item_width + x, HEIGHT - item_height + y, color_from_pixel(cub->sword_tex, index));
 		}
 	}
 	return (0);
@@ -184,6 +184,8 @@ static void	move_process(t_cub *cub, t_vec *velo)
 	dda(cub->direction, cub, create_rgb(0, 255, 0));
 	animat_items(cub);
 	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
+	mlx_delete_texture(cub->map_tex);
+	mlx_delete_texture(cub->sword_tex);
 }
 
 static t_vec	vec_rotation(t_vec vec, double theta)
