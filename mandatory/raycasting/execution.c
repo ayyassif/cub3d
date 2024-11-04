@@ -6,13 +6,13 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/29 19:36:44 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:45:03 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void door_interaction(t_cub *cub)
+void	door_interaction(t_cub *cub)
 {
 	double	f_x;
 	double	f_y;
@@ -62,6 +62,26 @@ static void	esc_exit(t_cub *cub)
 	exit(0);
 }
 
+void	key_released(keys_t key, t_cub *cub)
+{
+	if (key == MLX_KEY_RIGHT || key == MLX_KEY_LEFT)
+		cub->is_rot_pressed = 0;
+	if (key == MLX_KEY_RIGHT
+		&& cub->pressed_down.turn_left_right == 1)
+		cub->pressed_down.turn_left_right = 0;
+	else if (key == MLX_KEY_LEFT
+		&& cub->pressed_down.turn_left_right == -1)
+		cub->pressed_down.turn_left_right = 0;
+	else if (key == 'A' && cub->pressed_down.left_right == -1)
+		cub->pressed_down.left_right = 0;
+	else if (key == 'D' && cub->pressed_down.left_right == 1)
+		cub->pressed_down.left_right = 0;
+	else if (key == 'W' && cub->pressed_down.frwd_bckwd == -1)
+		cub->pressed_down.frwd_bckwd = 0;
+	else if (key == 'S' && cub->pressed_down.frwd_bckwd == 1)
+		cub->pressed_down.frwd_bckwd = 0;
+}
+
 static void	key_func(mlx_key_data_t keydata, void *v_cub)
 {
 	t_cub	*cub;
@@ -74,31 +94,18 @@ static void	key_func(mlx_key_data_t keydata, void *v_cub)
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 		key_pressed(keydata.key, cub);
 	else if (keydata.action == MLX_RELEASE)
-	{
-		if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_LEFT)
-			cub->is_rot_pressed = 0;
-		if (keydata.key == MLX_KEY_RIGHT
-			&& cub->pressed_down.turn_left_right == 1)
-			cub->pressed_down.turn_left_right = 0;
-		else if (keydata.key == MLX_KEY_LEFT
-			&& cub->pressed_down.turn_left_right == -1)
-			cub->pressed_down.turn_left_right = 0;
-		else if (keydata.key == 'A' && cub->pressed_down.left_right == -1)
-			cub->pressed_down.left_right = 0;
-		else if (keydata.key == 'D' && cub->pressed_down.left_right == 1)
-			cub->pressed_down.left_right = 0;
-		else if (keydata.key == 'W' && cub->pressed_down.frwd_bckwd == -1)
-			cub->pressed_down.frwd_bckwd = 0;
-		else if (keydata.key == 'S' && cub->pressed_down.frwd_bckwd == 1)
-			cub->pressed_down.frwd_bckwd = 0;
-	}
+		key_released(keydata.key, cub);
 }
 
-
-static void	hooking(t_cub *cub)
+static int	hooking(t_cub *cub)
 {
 	mlx_key_hook(cub->s_map.mlx_s_map, key_func, cub);
-	mlx_loop_hook(cub->s_map.mlx_s_map, loop_hook, cub);
+	if (mlx_loop_hook(cub->s_map.mlx_s_map, loop_hook, cub) == false);
+	{
+		ft_putendl_fd("the hook was not added successfully", STDERR_FILENO);
+		return (-1);
+	}
+	return (0);
 }
 
 int	execution(t_cub *cub)
@@ -113,7 +120,10 @@ int	execution(t_cub *cub)
 	if (!cub->s_map.img_s_map)
 		return (-1);
 	mlx_set_cursor_mode(cub->s_map.mlx_s_map, MLX_MOUSE_HIDDEN);
-	intro(cub);
+	if (draw_image(cub, TX_INTRO,
+		mlx_load_png("mandatory/textures/DON'T FORGET TO (1).png"))
+		|| mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0))
+		return (-1);
 	hooking(cub);
 	mlx_loop(cub->s_map.mlx_s_map);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 16:44:14 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:37:08 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,6 @@
 void f() {
 	system("leaks cub3D");
 }
-//-------------------------------
-int	intro(t_cub *cub)
-{
-  	mlx_texture_t* texture = mlx_load_png("mandatory/textures/DON'T FORGET TO (1).png");
-	if (!texture)
-		exit(1);
-	int	y = -1;
-	while (++y < HEIGHT)
-	{
-		int	x = -1;
-			double t_y = y / (double)HEIGHT;
-			t_y *= texture->height;
-		while (++x < WIDTH)
-		{
-			double t_x = x / (double)WIDTH;
-			t_x *= texture->width;
-			int index = ((int)t_y * texture->width + (int)t_x) * 4;
-			ft_put_pixel(cub->s_map.img_s_map, x, y, color_from_pixel(texture, index));
-		}
-		
-	}
-	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
-	mlx_delete_texture(texture);
-	return (0);
-}
-//-------------------------------
 
 int	main(int ac, char **av)
 {

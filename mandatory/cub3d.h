@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/29 16:34:15 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:36:31 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ typedef enum e_type
 	M_ERROR,
 	M_DOOR_OPEN,
 	M_DOOR_CLOSED,
-	M_COIN,
 	M_WALL,
 	M_VOID
 }		t_type;
+
+typedef enum e_tx_img
+{
+	TX_MAP,
+	TX_ITEM,
+	TX_INTRO
+}	t_tx_img;
 
 typedef struct s_map
 {
@@ -127,8 +133,6 @@ typedef struct s_cub
 	int				is_rot_pressed;
 	int				start;
 	char			*sword;
-	mlx_texture_t	*sword_tex;
-	mlx_texture_t	*map_tex;
 }		t_cub;
 
 /*===========================================================================*/
@@ -159,7 +163,7 @@ void    textures(t_cub *cub, int type_tex);
 int		execution(t_cub *cub);
 int		create_rgb(int r, int g, int b);
 int		color_from_pixel(mlx_texture_t *texture, int index);
-
+int		draw_image(t_cub *cub, t_tx_img tx_img, mlx_texture_t *texture);
 
 /*===========================================================================*/
 								/*UTILS*/
@@ -179,7 +183,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	free_line_map(t_line_map **line_map);
 
 //----------------------------------
-int	intro(t_cub *cub);
+//int	intro(t_cub *cub);
 //-------------------------------
 
 #endif

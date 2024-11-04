@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/28 09:43:49 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:47:27 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ void	draw_square(t_cub *cub, double x, double y, int color)
 		x = x_tmp;
 		while (x < max.x)
 		{
-			// if (x == max.x - TILE_SIZE || y == max.y - TILE_SIZE)
-			// 	ft_put_pixel(cub->s_map.img_s_map, x, y,
-			// 		create_rgb(0, 150, 0));
-			// else
 			if (x > TILE_SIZE && x < limit && y > TILE_SIZE && y < limit)
 				ft_put_pixel(cub->s_map.img_s_map, x, y, color);
 			x++;

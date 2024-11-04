@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/05 11:01:19 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:12:53 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ static t_type	set_type_map_1(char c, t_cub *cub)
 		return (M_FLOOR);
 	else if (c == '1')
 		return (M_WALL);
-	else if (c == '2')
+	else if (c == 'D')
 		return (M_DOOR_CLOSED);
-	else if (c == '3')
-		return (M_COIN);
 	else if (c == 'W')
 		return (cub->direction.x = -1, cub->cam_plane.y = -0.66, M_PLAYER);
 	else if (c == 'S')

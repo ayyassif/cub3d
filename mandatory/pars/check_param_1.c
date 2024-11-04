@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:30:58 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/05 11:07:33 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:12:35 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	pars_map(t_cub *cub)
 		{
 			if ((cub->map[ln][col].value == M_FLOOR
 				|| cub->map[ln][col].value == M_PLAYER
-				|| cub->map[ln][col].value == M_DOOR_CLOSED
-				|| cub->map[ln][col].value == M_COIN)
+				|| cub->map[ln][col].value == M_DOOR_CLOSED)
 				&& check_empty(cub, ln, col) == -1)
 				return (ft_putendl_fd("ERROR:\n\tinvalid wall", 2), -1);
 			if (cub->map[ln][col].value == M_PLAYER)
