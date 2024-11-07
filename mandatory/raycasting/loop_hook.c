@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/04 14:32:31 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:20:03 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ int	draw_image(t_cub *cub, t_tx_img tx_img, mlx_texture_t *texture)
 		return (-1);
 	start.x = 0;
 	start.y = 0;
+	size.y = HEIGHT;
+	size.x = WIDTH;
 	if (tx_img == TX_MAP)
 	{
 		size.y = (M_MAP * 2 + 1) * TILE_SIZE;
@@ -137,11 +139,6 @@ int	draw_image(t_cub *cub, t_tx_img tx_img, mlx_texture_t *texture)
 		size.x = texture->width - 1;
 		start.x = WIDTH - size.x;
 		start.y = HEIGHT - size.y;
-	}
-	else
-	{
-		size.y = HEIGHT;
-		size.x = WIDTH;
 	}
 	tx_loop(cub, size, start, texture);
 	return (0);
@@ -166,11 +163,30 @@ int	animat_items(t_cub *cub)
 		else
 			timer -= 0.5;
 	}
-	draw_image(cub, TX_ITEM, mlx_load_png(cub->sword));
+	if (draw_image(cub, TX_ITEM, mlx_load_png(cub->sword)))
+		return (-1);
 	return (0);
 }
 
-static void	move_process(t_cub *cub, t_vec *velo)
+int	fill_window(t_cub *cub)
+{
+	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
+	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
+	if (!cub->s_map.img_s_map)
+		return (-1);
+	ray_casting(cub);
+	if (draw_image(cub, TX_MAP,
+			mlx_load_png("mandatory/textures/map_frame.png"))
+		|| animat_items(cub))
+		return (-1);
+	draw_s_map(cub);
+	dda(cub->direction, cub, create_rgb(0, 255, 0));
+	if (mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0))
+		return (-1);
+	return (0);
+}
+
+static void	move_process(t_cub *cub, t_vec velo)
 {
 	t_vec	new_pos;
 	double	move_speed;
@@ -178,24 +194,10 @@ static void	move_process(t_cub *cub, t_vec *velo)
 
 	map_cords.x = cub->pos.x / TILE_SIZE;
 	map_cords.y = cub->pos.y / TILE_SIZE;
-	if (velo)
-	{
-		move_speed = SPEED * cub->s_map.mlx_s_map->delta_time;
-		new_pos.x = cub->pos.x + velo->x * move_speed;
-		new_pos.y = cub->pos.y + velo->y * move_speed;
-		wall_coll(cub, new_pos, map_cords);
-	}
-	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
-	cub->s_map.img_s_map = mlx_new_image(cub->s_map.mlx_s_map, WIDTH, HEIGHT);
-	cub->perp_wall_dist = 0;
-	ray_casting(cub);
-	draw_image(cub, TX_MAP, mlx_load_png("mandatory/textures/map_frame.png"));
-	draw_s_map(cub);
-	dda(cub->direction, cub, create_rgb(0, 255, 0));
-	animat_items(cub);
-	mlx_image_to_window(cub->s_map.mlx_s_map, cub->s_map.img_s_map, 0, 0);
-	// mlx_delete_texture(cub->map_tex);
-	// mlx_delete_texture(cub->sword_tex);
+	move_speed = SPEED * cub->s_map.mlx_s_map->delta_time;
+	new_pos.x = cub->pos.x + velo.x * move_speed;
+	new_pos.y = cub->pos.y + velo.y * move_speed;
+	wall_coll(cub, new_pos, map_cords);
 }
 
 static t_vec	vec_rotation(t_vec vec, double theta)
@@ -255,9 +257,13 @@ void	loop_hook(void *v_cub)
 	else if (cub->pressed_down.frwd_bckwd == 1)
 		theta = 180;
 	velocity = vec_rotation(cub->direction, theta);
-	if (cub->pressed_down.frwd_bckwd != -1 && theta == 0)
-		move_process(cub, NULL);
-	else
-		move_process(cub, &velocity);
+	if (!(cub->pressed_down.frwd_bckwd != -1 && theta == 0))
+		move_process(cub, velocity);
+	if (fill_window(cub))
+	{
+		mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
+		free_cub(cub);
+		exit(-1);
+	}
 	mouse_hook(cub);
 }

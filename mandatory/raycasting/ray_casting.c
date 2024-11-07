@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/04 14:18:06 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:16:35 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	ray_casting(t_cub *cub)
 	int		drawend;
 
 	cub->x = -1;
+	cub->perp_wall_dist = 0;
 	while (++cub->x < WIDTH)
 	{
 		camera_x = 2 * cub->x / (double)WIDTH - 1;
