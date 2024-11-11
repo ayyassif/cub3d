@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_param.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/29 11:41:03 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:17:11 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,16 @@ static int	set_texture_color(t_cub *cub, char *line)
 	}
 	return (0);
 }
+
 int	set_param(t_cub *cub, char *line, int i)
 {
 	size_t	len;
 
 	if (set_texture_color(cub, line) == -1)
 		return (-1);
-	
 	if (i == 6 && (check_colors(&cub->floor, &cub->ceiling) == -1
 			|| check_texture(cub->texture) == -1))
 		return (-1);
-
 	if (i > 6)
 	{
 		len = ft_ofset_front(line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/29 11:56:29 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:19:14 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ static int	creat_cub_1(t_cub *cub)
 			cub->ofset_front = ft_ofset_front(line_map_file);
 		if (i > 7 && !is_line_space(line_map_file, i, cub) && cub->endl == 1)
 			return (free_texture(cub), ft_putendl_fd("ERROR:\n\tmore lines", 2),
-	
-				free(line_map_file),-1);
+					free(line_map_file), -1);
 		if (set_param(cub, line_map_file, i++) == -1)
 			return (free_texture(cub), free(line_map_file), -1);
 	}
