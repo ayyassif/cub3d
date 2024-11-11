@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/07 15:03:45 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:03:26 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_texture(t_cub *cub)
 			mlx_delete_texture(cub->texture[i].tex_png);
 	}
 	if (cub->texture[4].tex_png)
-		mlx_delete_texture(cub->texture[i].tex_png);
+		mlx_delete_texture(cub->texture[4].tex_png);
 	i = -1;
 }
 
