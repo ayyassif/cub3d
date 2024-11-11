@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/11 14:14:15 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:36:39 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	execution(t_cub *cub)
 		return (-1);
 	mlx_set_cursor_mode(cub->s_map.mlx_s_map, MLX_MOUSE_HIDDEN);
 	if (draw_image(cub, TX_INTRO,
-			mlx_load_png("mandatory/textures/DON'T FORGET TO (1).png"))
+			mlx_load_png("mandatory/textures/DON'T FORGET TO.png"))
 		|| mlx_image_to_window(cub->s_map.mlx_s_map,
 			cub->s_map.img_s_map, 0, 0))
 		return (-1);
