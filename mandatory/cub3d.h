@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/04 14:36:31 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:17:00 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,10 @@ int		execution(t_cub *cub);
 int		create_rgb(int r, int g, int b);
 int		color_from_pixel(mlx_texture_t *texture, int index);
 int		draw_image(t_cub *cub, t_tx_img tx_img, mlx_texture_t *texture);
+void	door_interaction(t_cub *cub);
+void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords);
+void	key_func(mlx_key_data_t keydata, void *v_cub);
+void	mouse_hook(t_cub *cub);
 
 /*===========================================================================*/
 								/*UTILS*/
@@ -172,6 +176,8 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_ofset_front(char *line);
 int		is_white_space(char c);
+int		is_non_empty(t_type value);
+int		is_collision(t_type value);
 int		ft_atoi(char *str);
 char	*ft_strtrim(char *s1);
 char	*ft_back_strtrim(char *s1);

@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:58:40 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/11 13:18:10 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:36:15 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,4 @@ void	set_cub(t_cub *cub)
 	cub->pressed_down.left_right = 0;
 	cub->pressed_down.turn_left_right = 0;
 	cub->tex_id = 0;
-	cub->sword = ft_strdup("mandatory/textures/sword walking/sword00.png");
-	if (!cub->sword)
-		return ; //return ERROR!!!!
 }

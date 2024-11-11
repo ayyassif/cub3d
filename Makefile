@@ -6,7 +6,7 @@
 #    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/11 12:59:45 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/11/11 14:11:18 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,10 @@ SRC = mandatory/ft_write_test.c \
 	mandatory/pars/check_param_0.c mandatory/pars/check_param_1.c \
 	mandatory/pars/set_map_0.c mandatory/pars/set_map_1.c \
 	mandatory/pars/ft_pars.c mandatory/pars/set_param.c \
-	mandatory/raycasting/tex_color.c \
+	mandatory/raycasting/tex_color.c mandatory/raycasting/hooking.c \
 	mandatory/raycasting/draw.c mandatory/raycasting/execution.c \
 	mandatory/raycasting/loop_hook.c mandatory/raycasting/ray_casting.c \
+	mandatory/raycasting/collision.c \
 	mandatory/utils/libft_str.c mandatory/utils/libft_ptr_0.c \
 	mandatory/utils/libft_ptr_1.c mandatory/utils/cond.c \
 	mandatory/utils/ft_free.c \

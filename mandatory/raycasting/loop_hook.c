@@ -6,18 +6,11 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/11 13:13:54 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:16:22 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	is_collision(t_type value)
-{
-	if (value == M_WALL || value == M_DOOR_CLOSED)
-		return (1);
-	return (0);
-}
 
 void	map_square(t_cub *cub, t_vec tmp, t_vec	start)
 {
@@ -60,34 +53,6 @@ static void	draw_s_map(t_cub *cub)
 		tmp.y++;
 	}
 	player_square_draw(cub);
-}
-
-static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
-{
-	t_vec	d;
-	t_vec	inc;
-	double	step;
-	int		i;
-
-	d.x = (new_pos.x - cub->pos.x) / (double)TILE_SIZE;
-	d.y = (new_pos.y - cub->pos.y) / (double)TILE_SIZE;
-	step = fmax(fabs(d.x), fabs(d.y));
-	inc.x = (d.x / step) / (double)TILE_SIZE;
-	inc.y = (d.y / step) / (double)TILE_SIZE;
-	d.x = new_pos.x / (double)TILE_SIZE;
-	d.y = new_pos.y / (double)TILE_SIZE;
-	i = -1;
-	while (++i < step)
-	{
-		if (!is_collision(cub->map[(int)d.y][(int)map_cords.x].value))
-			d.y += inc.y;
-		if (!is_collision(cub->map[(int)map_cords.y][(int)d.x].value))
-			d.x += inc.x;
-	}
-	if (!is_collision(cub->map[(int)d.y][(int)map_cords.x].value))
-		cub->pos.y = new_pos.y;
-	if (!is_collision(cub->map[(int)map_cords.y][(int)d.x].value))
-		cub->pos.x = new_pos.x;
 }
 
 void	tx_loop(t_cub *cub, t_vec size, t_vec start, mlx_texture_t *texture)
@@ -208,24 +173,6 @@ static t_vec	vec_rotation(t_vec vec, double theta)
 	prime_vec.x = vec.x * (double)cosf(theta) - vec.y * (double)sinf(theta);
 	prime_vec.y = vec.x * (double)sinf(theta) + vec.y * (double)cosf(theta);
 	return (prime_vec);
-}
-
-void	mouse_hook(t_cub *cub)
-{
-	int	w_center;
-
-	w_center = WIDTH / 2;
-	mlx_get_mouse_pos(cub->s_map.mlx_s_map, &cub->x_cursor, &cub->y_cursor);
-	if (!cub->is_rot_pressed)
-	{
-		if (cub->x_cursor > w_center)
-			cub->pressed_down.turn_left_right = 1;
-		else if (cub->x_cursor < w_center)
-			cub->pressed_down.turn_left_right = -1;
-		else
-			cub->pressed_down.turn_left_right = 0;
-	}
-	mlx_set_mouse_pos(cub->s_map.mlx_s_map, WIDTH / 2, HEIGHT / 2);
 }
 
 void	rotation(t_cub *cub)
