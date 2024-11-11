@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:00:56 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/11 18:43:15 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/11 20:36:39 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,6 @@ static void	key_pressed(keys_t key, t_cub *cub)
 		door_interaction(cub);
 }
 
-static void	esc_exit(t_cub *cub)
-{
-	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
-	free_cub(cub);
-	exit(0);
-}
-
 static void	key_released(keys_t key, t_cub *cub)
 {
 	if (key == MLX_KEY_RIGHT || key == MLX_KEY_LEFT)
@@ -75,6 +68,13 @@ static void	key_released(keys_t key, t_cub *cub)
 		cub->pressed_down.frwd_bckwd = 0;
 	else if (key == 'S' && cub->pressed_down.frwd_bckwd == 1)
 		cub->pressed_down.frwd_bckwd = 0;
+}
+
+static void	esc_exit(t_cub *cub)
+{
+	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
+	free_cub(cub);
+	exit(0);
 }
 
 void	key_func(mlx_key_data_t keydata, void *v_cub)
