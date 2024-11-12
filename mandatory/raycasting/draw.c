@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/12 11:26:53 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:54:07 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	player_square_draw(t_cub *cub)
 	size_t	pos;
 
 	pos = (M_MAP + 1) * TILE_SIZE;
-	y = pos - 1;
-	while (y <= pos + 1)
+	y = pos - 2;
+	while (y <= pos + 2)
 	{
-		x = pos - 1;
-		while (x <= pos + 1)
+		x = pos - 2;
+		while (x <= pos + 2)
 		{
 			ft_put_pixel(cub->s_map.img_s_map, x, y, create_rgb(255, 0, 0));
 			x++;
