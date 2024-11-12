@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 10:21:26 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/10/01 15:34:05 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:22:09 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	color_from_pixel(mlx_texture_t *texture, int index)
 void	ft_put_pixel(mlx_image_t *image, uint32_t x,
 	uint32_t y, uint32_t color)
 {
-	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT)
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 		mlx_put_pixel(image, x, y, color);
 }
 
