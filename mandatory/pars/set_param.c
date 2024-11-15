@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/12 11:13:33 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:19:52 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,5 @@ int	set_param(t_cub *cub, char *line, int i)
 		if (set_line_map(&cub->line_map, line) == -1)
 			return (-1);
 	}
-	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/bonus/door.png");
-	if (!cub->texture[4].tex_png)
-		return (-1);
 	return (0);
 }

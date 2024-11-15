@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/12 14:46:43 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:24:28 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	animat_items(t_cub *cub)
 		else
 			timer -= 0.5;
 	}
-	if (draw_image(cub, TX_ITEM, mlx_load_png(cub->sword)))
+	if (draw_image(cub, TX_ITEM, mlx_load_png(cub->sword)))//leaks fd
 		return (-1);
 	return (0);
 }
@@ -141,7 +141,7 @@ int	fill_window(t_cub *cub)
 		return (-1);
 	ray_casting(cub);
 	if (draw_image(cub, TX_MAP,
-			mlx_load_png("mandatory/textures/bonus/map_frame.png"))
+			mlx_load_png("mandatory/textures/bonus/map_frame.png"))//leaks fd
 		|| animat_items(cub))
 		return (-1);
 	draw_s_map(cub);

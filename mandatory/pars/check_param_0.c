@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 20:09:11 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/12 11:15:03 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:15:12 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	check_open_tex(t_texture *texture)
 {
 	int	i;
 	int	len;
+	int	fd;
 
 	i = -1;
 	while (++i < 4)
@@ -25,8 +26,10 @@ static int	check_open_tex(t_texture *texture)
 		len = ft_strlen(texture[i].path);
 		if (!(len >= 4 && !(ft_strcmp(texture[i].path + len - 4, ".png"))))
 			return (ft_putendl_fd("ERROR:\n\ttextures not png", 2), -1);
-		if (open(texture[i].path, O_RDONLY) == -1)
+		fd = open(texture[i].path, O_RDONLY);
+		if (fd == -1)
 			return (ft_putendl_fd("ERROR:\n\ttextures not found", 2), -1);
+		close(fd);
 		texture[i].tex_png = mlx_load_png(texture[i].path);
 		if (!texture[i].tex_png)
 			return (-1);

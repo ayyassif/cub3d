@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/11 13:37:48 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:19:56 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ int	ft_pars(t_cub *cub, char *name_file)
 	cub->cam_plane.y = 0;
 	cub->sword = ft_strdup("mandatory/textures/sword walking/sword00.png");
 	if (!cub->sword)
+		return (-1);
+	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/bonus/door.png");//leaks
+	if (!cub->texture[4].tex_png)
 		return (-1);
 	if (creat_cub_0(cub, name_file) == -1)
 		return (free_line_map(&cub->line_map), -1);
