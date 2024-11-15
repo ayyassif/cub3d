@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:18:59 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:03:30 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include "../MLX42.h"
+# include "../.MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include <stdio.h> // tmp
 
