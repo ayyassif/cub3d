@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:46:17 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:50:26 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ static void	esc_exit(t_cub *cub)
 {
 	mlx_delete_image(cub->s_map.mlx_s_map, cub->s_map.img_s_map);
 	free_cub(cub);
-	int i = 2;
-	while (++i < OPEN_MAX)
-		close (i);// leaks fd 9adithom bhad l3iba
 	exit(0);
 }
 

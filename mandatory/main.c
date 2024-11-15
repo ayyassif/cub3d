@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:46:24 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:49:59 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ atexit(f);
 		return (free_cub(&cub), -1);
 	// ft_write_cub(&cub);	
 	free_cub(&cub);
-	int i = 2;
-	while (++i < OPEN_MAX)
-		close (i);// leaks fd 9adithom bhad l3iba
 	mlx_delete_image(cub.s_map.mlx_s_map, cub.s_map.img_s_map);
 	return (0);
 }
