@@ -6,19 +6,20 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/28 14:57:37 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:30:41 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 void f() {
 	system("leaks cub3D");
+	system("lsof -c cub3D");
 }
 
 int	main(int ac, char **av)
 {
 	t_cub	cub;
-//atexit(f);
+atexit(f);
 	if (ac != 2 || check_file_name(av[1]))
 		return (ft_putendl_fd("ERROR:\n\tinvalid parametre", 2), -1);
 	if (ft_pars(&cub, av[1]) == -1)
