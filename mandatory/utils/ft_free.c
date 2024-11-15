@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 18:21:59 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:47:51 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	free_texture(t_cub *cub)
 	}
 	if (cub->texture[4].tex_png)
 		mlx_delete_texture(cub->texture[4].tex_png);
-	i = -1;
 }
 
 void	free_line_map(t_line_map **line_map)
