@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:19:56 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:20:06 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static int	creat_cub_1(t_cub *cub)
 		if (i == 7)
 			cub->ofset_front = ft_ofset_front(line_map_file);
 		if (i > 7 && !is_line_space(line_map_file, i, cub) && cub->endl == 1)
-			return (free_texture(cub), ft_putendl_fd("ERROR:\n\tmore lines", 2),
+			return (ft_putendl_fd("ERROR:\n\tmore lines", 2),
 				free(line_map_file), -1);
 		if (set_param(cub, line_map_file, i++) == -1)
-			return (free_texture(cub), free(line_map_file), -1);
+			return (free(line_map_file), -1);
 	}
 	return (cub->height = i - 7, 0);
 }
@@ -86,13 +86,13 @@ int	ft_pars(t_cub *cub, char *name_file)
 	if (!cub->texture[4].tex_png)
 		return (-1);
 	if (creat_cub_0(cub, name_file) == -1)
-		return (free_line_map(&cub->line_map), -1);
+		return (free_line_map(&cub->line_map), free_cub(cub), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;
 	if (cub->height == 0)
-		return (free_line_map(&cub->line_map),
+		return (free_line_map(&cub->line_map), free_cub(cub),
 			ft_putendl_fd("ERROR:\n\tmessing map", 2), -1);
 	if (creat_map(cub) == -1)
-		return (free_line_map(&cub->line_map), -1);
+		return (free_cub(cub), free_line_map(&cub->line_map), -1);
 	free_line_map(&cub->line_map);
 	if (pars_map(cub) == -1)
 		return (free_cub(cub), -1);

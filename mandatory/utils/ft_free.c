@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:48:40 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:21:59 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	free_cub(t_cub *cub)
 	free_texture(cub);
 	free(cub->sword);
 	free_map(cub);
+	close(cub->fd);
 	int i = 2;
 	while (++i < OPEN_MAX)
 		close (i);// leaks fd 9adithom bhad l3iba
