@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:50:04 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:39:34 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ void	free_texture(t_cub *cub)
 	while (++i < 4 && cub->texture[i].path)
 	{
 		if (cub->texture[i].path)
-		{
-			if (cub->texture[i].tex_png)
-				mlx_delete_texture(cub->texture[i].tex_png);
 			free(cub->texture[i].path);
-		}
+		if (cub->texture[i].tex_png)
+			mlx_delete_texture(cub->texture[i].tex_png);
 	}
 }
 
@@ -67,6 +65,7 @@ void	free_cub(t_cub *cub)
 {
 	free_texture(cub);
 	free_map(cub);
+	close(cub->fd);
 	int i = 2;
 	while (++i < OPEN_MAX)
 		close (i);// leaks fd 9adithom bhad l3iba
