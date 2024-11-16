@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 17:00:55 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:33:13 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef enum e_id
 	E_SO,
 	E_WE,
 	E_EA,
-	E_DR,
-	E_CN
 }		t_id;
 
 typedef enum e_type
@@ -42,23 +40,9 @@ typedef enum e_type
 	M_PLAYER,
 	M_FLOOR,
 	M_ERROR,
-	M_DOOR_OPEN,
-	M_DOOR_CLOSED,
 	M_WALL,
 	M_VOID
 }		t_type;
-
-typedef enum e_tx_img
-{
-	TX_MAP,
-	TX_ITEM,
-	TX_INTRO
-}	t_tx_img;
-
-typedef struct s_map
-{
-	t_type	value;
-}		t_map;
 
 typedef struct s_vec
 {
@@ -66,11 +50,11 @@ typedef struct s_vec
 	double	y;
 }		t_vec;
 
-typedef struct s_s_map
+typedef struct s_mlx
 {
-	mlx_image_t	*img_s_map;
-	mlx_t		*mlx_s_map;
-}		t_s_map;
+	mlx_image_t	*img;
+	mlx_t		*mlx_handle;
+}		t_mlx;
 
 typedef struct s_line_map
 {
@@ -118,7 +102,6 @@ typedef struct s_cub
 	t_texture		texture[5];
 	int				tile_size;
 	int				tex_id;
-	t_vec			focused;
 	int				endl;
 	int				side;
 	int				fd;
@@ -126,13 +109,8 @@ typedef struct s_cub
 	t_line_map		*line_map;
 	t_color			ceiling;
 	t_color			floor;
-	t_map			**map;
-	t_s_map			s_map;
-	int32_t			x_cursor;
-	int32_t			y_cursor;
-	int				is_rot_pressed;
-	int				start;
-	char			*sword;
+	t_type			**map;
+	t_mlx			mlx;
 }		t_cub;
 
 /*===========================================================================*/
@@ -151,23 +129,17 @@ int		set_line_map(t_line_map **line_map, char *line);
 /*===========================================================================*/
 								/*EXECUTION*/
 /*===========================================================================*/
-void	dda(t_vec vec, t_cub *cub, int color);
-void	draw_square(t_cub *cub, double x, double y, int color);
 void	ver_line(t_cub *cub, int drawStart, int drawEnd);
 void	ft_put_pixel(mlx_image_t *image,
 			uint32_t x, uint32_t y, uint32_t color);
-void	player_square_draw(t_cub *cub);
 void	ray_casting(t_cub *cub);
 void	loop_hook(void *v_cub);
-void	textures(t_cub *cub, int type_tex);
+void	textures(t_cub *cub);
 int		execution(t_cub *cub);
 int		create_rgb(int r, int g, int b);
 int		color_from_pixel(mlx_texture_t *texture, int index);
-int		draw_image(t_cub *cub, t_tx_img tx_img, mlx_texture_t *texture);
-void	door_interaction(t_cub *cub);
 void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords);
 void	key_func(mlx_key_data_t keydata, void *v_cub);
-void	mouse_hook(t_cub *cub);
 
 /*===========================================================================*/
 								/*UTILS*/

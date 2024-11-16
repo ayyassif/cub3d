@@ -6,7 +6,7 @@
 /*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 17:01:49 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:29:46 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	main(int ac, char **av)
 	if (execution(&cub) == -1)
 		return (free_cub(&cub), -1);
 	free_cub(&cub);
-	mlx_delete_image(cub.s_map.mlx_s_map, cub.s_map.img_s_map);
+	mlx_delete_image(cub.mlx.mlx_handle, cub.mlx.img);
 	return (0);
 }

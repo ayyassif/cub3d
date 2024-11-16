@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 18:19:27 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:34:51 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static t_type	set_type_map_1(char c, t_cub *cub)
 		return (M_FLOOR);
 	else if (c == '1')
 		return (M_WALL);
-	else if (c == 'D')
-		return (M_DOOR_CLOSED);
 	else if (c == 'W')
 		return (cub->direction.x = -1, cub->cam_plane.y = -0.66, M_PLAYER);
 	else if (c == 'S')
@@ -65,13 +63,13 @@ static int	put_map(t_cub *cub)
 		k = -1;
 		while (tmp->line_map[i] && ++k < cub->width)
 		{
-			cub->map[j][k].value = set_type_map_0(tmp->line_map[i++], cub);
-			pos_player(cub, cub->map[j][k].value, k, j);
-			if (cub->map[j][k].value == M_ERROR)
+			cub->map[j][k] = set_type_map_0(tmp->line_map[i++], cub);
+			pos_player(cub, cub->map[j][k], k, j);
+			if (cub->map[j][k] == M_ERROR)
 				return (-1);
 		}
 		while (++k < cub->width)
-			cub->map[j][k].value = set_type_map_1(' ', cub);
+			cub->map[j][k] = set_type_map_1(' ', cub);
 		j++;
 		tmp = tmp->next;
 	}
@@ -83,12 +81,12 @@ int	creat_map(t_cub *cub)
 	size_t	i;
 
 	i = 0;
-	cub->map = malloc(sizeof(t_map *) * cub->height);
+	cub->map = malloc(sizeof(t_type *) * cub->height);
 	if (!cub->map)
 		return (ft_putendl_fd("error: malloc", 2), -1);
 	while (i < cub->height)
 	{
-		cub->map[i] = malloc(sizeof(t_map) * cub->width);
+		cub->map[i] = malloc(sizeof(t_type) * cub->width);
 		if (!cub->map[i])
 			return (ft_putendl_fd("error: malloc", 2), -1);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 17:16:03 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:40:33 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	free_cub(t_cub *cub)
 	int	i;
 
 	free_texture(cub);
-	free(cub->sword);
 	free_map(cub);
 	close(cub->fd);
 	i = 2;

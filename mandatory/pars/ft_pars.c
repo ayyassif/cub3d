@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pars.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 17:22:06 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:35:24 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,6 @@ static int	creat_cub_0(t_cub *cub, char *name_file)
 int	ft_pars(t_cub *cub, char *name_file)
 {
 	set_cub(cub);
-	cub->sword = ft_strdup("mandatory/textures/sword walking/sword00.png");
-	if (!cub->sword)
-		return (-1);
-	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/bonus/door.png");
-	if (!cub->texture[4].tex_png)
-		return (free(cub->sword), -1);
 	if (creat_cub_0(cub, name_file) == -1)
 		return (free_line_map(&cub->line_map), free_cub(cub), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;

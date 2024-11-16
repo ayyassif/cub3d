@@ -6,7 +6,7 @@
 #    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/16 17:01:24 by ayyassif         ###   ########.fr        #
+#    Updated: 2024/11/16 17:40:02 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,6 @@ all: mlx $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(MLX_ARCHIVE) -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(OBJ) -o $(NAME)
-
 
 mandatory/%.o: mandatory/%.c $(H_SRC)
 	@$(CC) $(CFLAGS) -c -o $@ $<

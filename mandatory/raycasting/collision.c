@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:10:19 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/11 14:10:38 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:10:17 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	i = -1;
 	while (++i < step)
 	{
-		if (!is_collision(cub->map[(int)d.y][(int)map_cords.x].value))
+		if (!is_collision(cub->map[(int)d.y][(int)map_cords.x]))
 			d.y += inc.y;
-		if (!is_collision(cub->map[(int)map_cords.y][(int)d.x].value))
+		if (!is_collision(cub->map[(int)map_cords.y][(int)d.x]))
 			d.x += inc.x;
 	}
-	if (!is_collision(cub->map[(int)d.y][(int)map_cords.x].value))
+	if (!is_collision(cub->map[(int)d.y][(int)map_cords.x]))
 		cub->pos.y = new_pos.y;
-	if (!is_collision(cub->map[(int)map_cords.y][(int)d.x].value))
+	if (!is_collision(cub->map[(int)map_cords.y][(int)d.x]))
 		cub->pos.x = new_pos.x;
 }
