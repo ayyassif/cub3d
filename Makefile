@@ -6,7 +6,7 @@
 #    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/16 16:53:28 by ayyassif         ###   ########.fr        #
+#    Updated: 2024/11/16 17:01:24 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ MLX_ARCHIVE = .MLX42/build/libmlx42.a
 
 B_NAME = cub3d_bonus
 
-SRC = mandatory/ft_write_test.c \
-	mandatory/main.c \
+SRC = mandatory/main.c \
 	mandatory/get_next_line/get_next_line.c \
 	mandatory/get_next_line/get_next_line_utils.c \
 	mandatory/pars/check_param_0.c mandatory/pars/check_param_1.c \
@@ -37,8 +36,7 @@ SRC = mandatory/ft_write_test.c \
 
 H_SRC = mandatory/cub3d.h mandatory/get_next_line/get_next_line.h
 
-B_SRC = bonus/ft_write_test.c \
-	bonus/main.c \
+B_SRC = bonus/main.c \
 	bonus/get_next_line/get_next_line.c \
 	bonus/get_next_line/get_next_line_utils.c \
 	bonus/pars/check_param_0.c bonus/pars/check_param_1.c \

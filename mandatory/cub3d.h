@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 18:03:30 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:00:55 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	ft_put_pixel(mlx_image_t *image,
 void	player_square_draw(t_cub *cub);
 void	ray_casting(t_cub *cub);
 void	loop_hook(void *v_cub);
-void    textures(t_cub *cub, int type_tex);
+void	textures(t_cub *cub, int type_tex);
 int		execution(t_cub *cub);
 int		create_rgb(int r, int g, int b);
 int		color_from_pixel(mlx_texture_t *texture, int index);
