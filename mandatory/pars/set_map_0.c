@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:58:40 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/11 13:36:15 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:23:38 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@ int	ft_ofset_front(char *line)
 	return (i);
 }
 
+static void	set_cub_0(t_cub *cub)
+{
+	cub->tex_id = 0;
+	cub->direction.x = 0;
+	cub->direction.y = 0;
+	cub->cam_plane.x = 0;
+	cub->cam_plane.y = 0;
+}
+
 void	set_cub(t_cub *cub)
 {
 	int	i;
@@ -81,5 +90,5 @@ void	set_cub(t_cub *cub)
 	cub->pressed_down.frwd_bckwd = 0;
 	cub->pressed_down.left_right = 0;
 	cub->pressed_down.turn_left_right = 0;
-	cub->tex_id = 0;
+	set_cub_0(cub);
 }

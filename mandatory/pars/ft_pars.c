@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 16:15:22 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:22:06 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,12 @@ static int	creat_cub_0(t_cub *cub, char *name_file)
 int	ft_pars(t_cub *cub, char *name_file)
 {
 	set_cub(cub);
-	cub->direction.x = 0;
-	cub->direction.y = 0;
-	cub->cam_plane.x = 0;
-	cub->cam_plane.y = 0;
 	cub->sword = ft_strdup("mandatory/textures/sword walking/sword00.png");
 	if (!cub->sword)
 		return (-1);
-	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/bonus/door.png");//leaks
+	cub->texture[4].tex_png = mlx_load_png("mandatory/textures/bonus/door.png");
 	if (!cub->texture[4].tex_png)
-		return (-1);
+		return (free(cub->sword), -1);
 	if (creat_cub_0(cub, name_file) == -1)
 		return (free_line_map(&cub->line_map), free_cub(cub), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;
@@ -92,8 +88,8 @@ int	ft_pars(t_cub *cub, char *name_file)
 		return (free_line_map(&cub->line_map), free_cub(cub),
 			ft_putendl_fd("ERROR:\n\tmessing map", 2), -1);
 	if (cub->height >= 1024 || cub->width >= 1024)
-	return (free_line_map(&cub->line_map), free_cub(cub),
-		ft_putendl_fd("ERROR:\n\tmap too big", 2), -1);
+		return (free_line_map(&cub->line_map), free_cub(cub),
+			ft_putendl_fd("ERROR:\n\tmap too big", 2), -1);
 	if (creat_map(cub) == -1)
 		return (free_cub(cub), free_line_map(&cub->line_map), -1);
 	free_line_map(&cub->line_map);
