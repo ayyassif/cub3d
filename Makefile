@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
+#    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/16 15:59:27 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/11/16 16:53:28 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,22 @@ SRC = mandatory/ft_write_test.c \
 
 H_SRC = mandatory/cub3d.h mandatory/get_next_line/get_next_line.h
 
-B_SRC =
+B_SRC = bonus/ft_write_test.c \
+	bonus/main.c \
+	bonus/get_next_line/get_next_line.c \
+	bonus/get_next_line/get_next_line_utils.c \
+	bonus/pars/check_param_0.c bonus/pars/check_param_1.c \
+	bonus/pars/set_map_0.c bonus/pars/set_map_1.c \
+	bonus/pars/ft_pars.c bonus/pars/set_param.c \
+	bonus/raycasting/tex_color.c bonus/raycasting/hooking.c \
+	bonus/raycasting/draw.c bonus/raycasting/execution.c \
+	bonus/raycasting/loop_hook.c bonus/raycasting/ray_casting.c \
+	bonus/raycasting/collision.c \
+	bonus/utils/libft_str.c bonus/utils/libft_ptr_0.c \
+	bonus/utils/libft_ptr_1.c bonus/utils/cond.c \
+	bonus/utils/ft_free.c \
 
-HB_SRC =
+HB_SRC = bonus/cub3d.h bonus/get_next_line/get_next_line.h
 
 OBJ = $(SRC:.c=.o)
 
@@ -50,19 +63,20 @@ all: mlx $(NAME)
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(MLX_ARCHIVE) -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(OBJ) -o $(NAME)
 
-mlx:
-	@cd .MLX42 && cmake -B build && cmake --build build -j4
 
 mandatory/%.o: mandatory/%.c $(H_SRC)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-bonus: $(B_NAME)
+bonus: mlx $(B_NAME)
 
 $(B_NAME): $(B_OBJ)
-	@$(CC) $(CFLAGS) $(B_OBJ) -o $(B_NAME)
+	@$(CC) $(CFLAGS) $(MLX_ARCHIVE) -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(B_OBJ) -o $(B_NAME)
 
 bonus/%.o: bonus/%.c $(HB_SRC)
 	@$(CC) $(CFLAGS) -c -o $@ $<
+
+mlx:
+	@cd .MLX42 && cmake -B build && cmake --build build -j4
 
 clean:
 	@rm -f $(OBJ) $(B_OBJ)
