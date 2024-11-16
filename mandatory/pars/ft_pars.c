@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 16:16:10 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:28:48 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int	ft_pars(t_cub *cub, char *name_file)
 		return (free_line_map(&cub->line_map), free_cub(cub),
 			ft_putendl_fd("ERROR:\n\tmessing map", 2), -1);
 	if (cub->height >= 1024 || cub->width >= 1024)
-	return (free_line_map(&cub->line_map), free_cub(cub),
-		ft_putendl_fd("ERROR:\n\tmap too big", 2), -1);
+		return (free_line_map(&cub->line_map), free_cub(cub),
+			ft_putendl_fd("ERROR:\n\tmap too big", 2), -1);
 	if (creat_map(cub) == -1)
 		return (free_cub(cub), free_line_map(&cub->line_map), -1);
 	free_line_map(&cub->line_map);

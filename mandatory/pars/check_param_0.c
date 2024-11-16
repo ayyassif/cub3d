@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 20:09:11 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:31:36 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:30:29 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	check_texture(t_texture *texture)
 		j = i;
 		while (++j < 4 && texture[j].path)
 			if (texture[i].identifier == texture[j].identifier)
-				return (ft_putendl_fd("ERROR:\n\tduplicate type of texture", 2), -1);
+				return (ft_putendl_fd("ERROR:\n\tduplicate type of texture", 2),
+					-1);
 		if (j < 4 && !texture[j].path)
 			return (ft_putendl_fd("ERROR:\n\tmissing textures", 2), -1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/09/30 11:47:27 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:28:33 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ static void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 	if (cub->map[(int)map_cords.y][(int)d.x].value != M_WALL)
 		cub->pos.x = new_pos.x;
 }
+
 void	map_background(t_cub *cub)
 {
-	mlx_texture_t* texture = mlx_load_png("mandatory/textures/map_frame.png");
+	mlx_texture_t	*texture = mlx_load_png("mandatory/textures/map_frame.png");
 	int	map_height;
 	int	map_width;
 	
