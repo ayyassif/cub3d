@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
+#    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/15 18:24:09 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/11/16 13:49:14 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 NAME = cub3D
+
+MLX_ARCHIVE = .MLX42/build/libmlx42.a
 
 B_NAME = cub3d_bonus
 
@@ -32,8 +34,6 @@ SRC = mandatory/ft_write_test.c \
 	mandatory/utils/libft_str.c mandatory/utils/libft_ptr_0.c \
 	mandatory/utils/libft_ptr_1.c mandatory/utils/cond.c \
 	mandatory/utils/ft_free.c \
-	
-	
 
 H_SRC = mandatory/cub3d.h mandatory/get_next_line/get_next_line.h
 
@@ -45,28 +45,32 @@ OBJ = $(SRC:.c=.o)
 
 B_OBJ = $(B_SRC:.c=.o)
 
-all : $(NAME) clean
+all: mlx $(NAME)
 
-$(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(OBJ) -o $(NAME)
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(MLX_ARCHIVE) -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" $(OBJ) -o $(NAME)
+
+mlx:
+	@cd .MLX42 && cmake -B build && cmake --build build -j4
 
 mandatory/%.o: mandatory/%.c $(H_SRC)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-bonus : $(B_NAME)
+bonus: $(B_NAME)
 
-$(B_NAME) : $(B_OBJ)
+$(B_NAME): $(B_OBJ)
 	@$(CC) $(CFLAGS) $(B_OBJ) -o $(B_NAME)
 
 bonus/%.o: bonus/%.c $(HB_SRC)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-clean :
+clean:
 	@rm -f $(OBJ) $(B_OBJ)
+	@cd .MLX42/build && make clean
 
-fclean : clean
-	@rm -f $(NAME) $(B_NAME)
-	
-re : fclean all
+fclean: clean
+	@rm -rf $(NAME) $(B_NAME) .MLX42/build
 
-.PHONY : all clean fclean re bonus
+re: fclean all
+
+.PHONY: clean
