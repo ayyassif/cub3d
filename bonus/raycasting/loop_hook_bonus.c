@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/17 12:09:59 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/17 12:23:19 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int	animat_items(t_cub *cub)
 		else
 			timer -= 0.5;
 	}
-	printf("%s\n", cub->sword);
 	if (draw_image(cub, TX_ITEM, mlx_load_png(cub->sword)))
 		return (-1);
 	return (0);

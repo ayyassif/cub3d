@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pars_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 12:08:46 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:39:47 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	is_line_space(char *line, int i, t_cub *cub)
 	j = -1;
 	while (is_white_space(line[++j]))
 		;
+	if (ft_strlen(line) > 1 && j == (int)(ft_strlen(line)) && i <= 6)
+		return (2);
 	if (line[j])
 		return (0);
 	if (i > 7)
@@ -48,13 +50,13 @@ static int	creat_cub_1(t_cub *cub)
 		line_map_file = get_next_line(cub->fd);
 		if (!line_map_file)
 			break ;
-		if (is_line_space(line_map_file, i, cub))
+		if (is_line_space(line_map_file, i, cub) == 1)
 			continue ;
+		if (is_line_space(line_map_file, i, cub) == 2)
+			return (ft_putendl_fd("ERROR:\n\tnon empty line", 2), -1);
 		line_map_file = ft_strtrim_line(line_map_file, i);
 		if (!line_map_file)
 			return (ft_putendl_fd("error: malloc", 2), -1);
-		if (i == 7)
-			cub->ofset_front = ft_ofset_front(line_map_file);
 		if (i > 7 && !is_line_space(line_map_file, i, cub) && cub->endl == 1)
 			return (ft_putendl_fd("ERROR:\n\tmore lines", 2),
 				free(line_map_file), -1);

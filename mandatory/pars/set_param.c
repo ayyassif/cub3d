@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/15 12:19:52 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:40:08 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int	set_param(t_cub *cub, char *line, int i)
 {
 	size_t	len;
 
+	if (i == 7)
+		cub->ofset_front = ft_ofset_front(line);
 	if (set_texture_color(cub, line) == -1)
 		return (-1);
 	if (i == 6 && (check_colors(&cub->floor, &cub->ceiling) == -1
