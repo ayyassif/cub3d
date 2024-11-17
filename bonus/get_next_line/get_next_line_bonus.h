@@ -6,12 +6,12 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:42:41 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 11:23:23 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:46:10 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>

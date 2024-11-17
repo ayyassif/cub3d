@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/17 15:48:28 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:45:29 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ int	fill_window(t_cub *cub)
 	if (!cub->mlx.img)
 		return (-1);
 	ray_casting(cub);
-
 	if (draw_image(cub, TX_MAP,
 			mlx_load_png("bonus/textures/bonus/map_frame.png"))
 		|| animat_items(cub))
