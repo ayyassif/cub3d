@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 18:33:13 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/17 11:23:57 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include "../.MLX42.h"
 # include "get_next_line/get_next_line.h"
-# include <stdio.h> // tmp
 
 # define HEIGHT 720
 # define WIDTH 960
@@ -99,7 +98,7 @@ typedef struct s_cub
 	t_vec			side_dist;
 	t_vec			pos;
 	t_vec			ray;
-	t_texture		texture[5];
+	t_texture		texture[4];
 	int				tile_size;
 	int				tex_id;
 	int				endl;

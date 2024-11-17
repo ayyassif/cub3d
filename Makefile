@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
+#    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/16 17:40:02 by ayyassif         ###   ########.fr        #
+#    Updated: 2024/11/17 11:21:44 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,21 +36,21 @@ SRC = mandatory/main.c \
 
 H_SRC = mandatory/cub3d.h mandatory/get_next_line/get_next_line.h
 
-B_SRC = bonus/main.c \
-	bonus/get_next_line/get_next_line.c \
-	bonus/get_next_line/get_next_line_utils.c \
-	bonus/pars/check_param_0.c bonus/pars/check_param_1.c \
-	bonus/pars/set_map_0.c bonus/pars/set_map_1.c \
-	bonus/pars/ft_pars.c bonus/pars/set_param.c \
-	bonus/raycasting/tex_color.c bonus/raycasting/hooking.c \
-	bonus/raycasting/draw.c bonus/raycasting/execution.c \
-	bonus/raycasting/loop_hook.c bonus/raycasting/ray_casting.c \
-	bonus/raycasting/collision.c \
-	bonus/utils/libft_str.c bonus/utils/libft_ptr_0.c \
-	bonus/utils/libft_ptr_1.c bonus/utils/cond.c \
-	bonus/utils/ft_free.c \
+B_SRC = bonus/main_bonus.c \
+	bonus/get_next_line/get_next_line_bonus.c \
+	bonus/get_next_line/get_next_line_utils_bonus.c \
+	bonus/pars/check_param_0_bonus.c bonus/pars/check_param_1_bonus.c \
+	bonus/pars/set_map_0_bonus.c bonus/pars/set_map_1_bonus.c \
+	bonus/pars/ft_pars_bonus.c bonus/pars/set_param_bonus.c \
+	bonus/raycasting/tex_color_bonus.c bonus/raycasting/hooking_bonus.c \
+	bonus/raycasting/draw_bonus.c bonus/raycasting/execution_bonus.c \
+	bonus/raycasting/loop_hook_bonus.c bonus/raycasting/ray_casting_bonus.c \
+	bonus/raycasting/collision_bonus.c \
+	bonus/utils/libft_str_bonus.c bonus/utils/libft_ptr_0_bonus.c \
+	bonus/utils/libft_ptr_1_bonus.c bonus/utils/cond_bonus.c \
+	bonus/utils/ft_free_bonus.c \
 
-HB_SRC = bonus/cub3d.h bonus/get_next_line/get_next_line.h
+HB_SRC = bonus/cub3d_bonus.h bonus/get_next_line/get_next_line_bonus.h
 
 OBJ = $(SRC:.c=.o)
 

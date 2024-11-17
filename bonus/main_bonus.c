@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 11:42:41 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 11:23:50 by hakaraou         ###   ########.fr       */
+/*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
+/*   Updated: 2024/11/17 11:31:37 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "cub3d_bonus.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
+int	main(int ac, char **av)
+{
+	t_cub	cub;
 
-char	*get_next_line(int fd);
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *s);
-
-#endif
+	if (ac != 2 || check_file_name(av[1]))
+		return (ft_putendl_fd("ERROR:\n\tinvalid parametre", 2), -1);
+	if (ft_pars(&cub, av[1]) == -1)
+		return (close(cub.fd), -1);
+	if (execution(&cub) == -1)
+		return (free_cub(&cub), -1);
+	free_cub(&cub);
+	mlx_delete_image(cub.mlx.mlx_handle, cub.mlx.img);
+	return (0);
+}

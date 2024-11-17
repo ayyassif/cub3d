@@ -1,10 +1,10 @@
 
 
 F 74, 4, 4
-EA      mandatory/textures/tex3.png
-NO mandatory/textures/tex4.png
-WE      mandatory/textures/tex2.png
-SO    mandatory/textures/tex5.png
+EA      bonus/textures/tex3.png
+NO bonus/textures/tex4.png
+WE      bonus/textures/tex2.png
+SO    bonus/textures/tex5.png
 C 0,0,0
                 1111111111111111111111111
                 1000100000110000000001001

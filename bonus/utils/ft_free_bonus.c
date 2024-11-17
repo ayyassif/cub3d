@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_free_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 16:24:48 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 11:01:13 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/17 11:09:25 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	free_texture(t_cub *cub)
 {
@@ -24,6 +24,8 @@ void	free_texture(t_cub *cub)
 		if (cub->texture[i].tex_png)
 			mlx_delete_texture(cub->texture[i].tex_png);
 	}
+	if (cub->texture[4].tex_png)
+		mlx_delete_texture(cub->texture[4].tex_png);
 }
 
 void	free_line_map(t_line_map **line_map)
@@ -66,6 +68,7 @@ void	free_cub(t_cub *cub)
 	int	i;
 
 	free_texture(cub);
+	free(cub->sword);
 	free_map(cub);
 	close(cub->fd);
 	i = 2;
