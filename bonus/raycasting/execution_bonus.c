@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 11:36:47 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:09:14 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	door_interaction(t_cub *cub)
 	d_x = cub->pos.x / TILE_SIZE - f_x;
 	d_y = cub->pos.y / TILE_SIZE - f_y;
 	distance = sqrt(d_x * d_x + d_y * d_y);
-	if (distance > 3)
+	if (distance > 1.75)
 		return ;
 	if (cub->map[(int)f_y][(int)f_x] == M_DOOR_CLOSED)
 		cub->map[(int)f_y][(int)f_x] = M_DOOR_OPEN;
