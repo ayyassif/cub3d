@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:44:29 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 18:29:46 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:38:53 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	f() {
+	system("leaks cub3D");
+	system("lsof -s cub3D");
+}
+
 int	main(int ac, char **av)
 {
 	t_cub	cub;
-
+// atexit(f);
 	if (ac != 2 || check_file_name(av[1]))
 		return (ft_putendl_fd("ERROR:\n\tinvalid parametre", 2), -1);
 	if (ft_pars(&cub, av[1]) == -1)
