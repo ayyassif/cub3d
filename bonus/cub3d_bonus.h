@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 20:46:34 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:29:58 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include "../.MLX42.h"
 # include "get_next_line/get_next_line_bonus.h"
-# include <stdio.h> // tmp
 
 # define HEIGHT 720
 # define WIDTH 960
@@ -182,9 +181,5 @@ void	free_cub(t_cub *cub);
 void	free_texture(t_cub *cub);
 void	ft_putendl_fd(char *s, int fd);
 void	free_line_map(t_line_map **line_map);
-
-//----------------------------------
-//int	intro(t_cub *cub);
-//-------------------------------
 
 #endif

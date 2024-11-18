@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:19:02 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/09/25 12:23:07 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:29:33 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,49 +57,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	s1[j] = 0;
 	return (s1);
 }
-
-// static int	ft_intlen(int n)
-// {
-// 	int				len;
-// 	unsigned int	nb;
-
-// 	nb = n;
-// 	len = 0;
-// 	if (n < 0)
-// 	{
-// 		nb = -n;
-// 		len++;
-// 	}
-// 	if (!nb)
-// 		return (1);
-// 	while (nb)
-// 	{
-// 		len++;
-// 		nb /= 10;
-// 	}
-// 	return (len);
-// }
-
-// char	*ft_itoa(int n)
-// {
-// 	int				len;
-// 	char			*str;
-// 	unsigned int	nb;
-
-// 	len = ft_intlen(n);
-// 	str = malloc(sizeof(char) * (len + 1));
-// 	if (!str)
-// 		return (NULL);
-// 	str[len] = '\0';
-// 	nb = n;
-// 	if (n < 0)
-// 		nb = -n;
-// 	while (len--)
-// 	{
-// 		str[len] = nb % 10 + '0';
-// 		nb /= 10;
-// 	}
-// 	if (n < 0)
-// 		str[0] = '-';
-// 	return (str);
-// }
