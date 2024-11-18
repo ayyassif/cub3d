@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/17 20:45:29 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:05:29 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	map_square(t_cub *cub, t_vec tmp, t_vec	start)
 		color = create_rgb(200, 50, 50);
 	else if (cub->map[(int)tmp.y][(int)tmp.x] == M_DOOR_OPEN)
 		color = create_rgb(150, 25, 25);
+	else
+		return ;
 	draw_square(cub, ((int)tmp.x - start.x + 1) * TILE_SIZE,
 		((int)tmp.y - start.y + 1) * TILE_SIZE, color);
 }

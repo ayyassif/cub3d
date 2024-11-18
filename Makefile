@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
+#    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/18 14:19:07 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/11/18 15:58:21 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
 NAME = cub3D
 
@@ -80,7 +80,7 @@ clean:
 	@cd .MLX42/build && make clean
 
 fclean: clean
-	@rm -rf $(NAME) $(B_NAME) .MLX42/build
+	@rm -fr $(NAME) $(B_NAME) .MLX42/build
 
 re: fclean all
 
