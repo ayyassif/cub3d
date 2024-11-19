@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 08:51:32 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 15:39:56 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/19 09:45:28 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*ft_strtrim_line(char *line, int i)
 	return (NULL);
 }
 
-static int	creat_cub_1(t_cub *cub)
+static int	read_cub_file(t_cub *cub)
 {
 	char	*line_map_file;
 	int		i;
@@ -66,18 +66,18 @@ static int	creat_cub_1(t_cub *cub)
 	return (cub->height = i - 7, 0);
 }
 
-static int	creat_cub_0(t_cub *cub, char *name_file)
+static int	open_cub_file(t_cub *cub, char *name_file)
 {
 	cub->fd = open(name_file, O_RDONLY, 0400);
 	if (cub->fd == -1)
-		return (ft_putendl_fd("error: open", 2), -1);
-	return (creat_cub_1(cub));
+		return (ft_putendl_fd("ERROR:\n\tpermission denied", 2), -1);
+	return (0);
 }
 
 int	ft_pars(t_cub *cub, char *name_file)
 {
 	set_cub(cub);
-	if (creat_cub_0(cub, name_file) == -1)
+	if (open_cub_file(cub, name_file) || read_cub_file(cub))
 		return (free_line_map(&cub->line_map), free_cub(cub), -1);
 	cub->width = cub->ofset_back - cub->ofset_front + 1;
 	if (cub->height == 0)

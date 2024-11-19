@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 10:37:56 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 11:08:59 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:04:28 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_strtrim(char *s1)
 	a = 0;
 	while (i <= j)
 		str[a++] = s1[i++];
-	str[a] = 0;
+	str[a] = '\0';
 	free(s1);
 	return (str);
 }
@@ -85,7 +85,7 @@ char	*ft_back_strtrim(char *s1)
 	a = 0;
 	while (i <= j)
 		str[a++] = s1[i++];
-	str[a] = 0;
+	str[a] = '\0';
 	free(s1);
 	return (str);
 }

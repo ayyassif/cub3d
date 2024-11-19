@@ -6,13 +6,13 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:58:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 15:40:08 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/19 10:29:16 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	dir_picker(char *line)
+static int	direction_picker(char *line)
 {
 	int	j;
 
@@ -37,7 +37,7 @@ static int	set_texture(t_texture *texture, char *line)
 
 	i = 0;
 	j = 0;
-	texture->identifier = dir_picker(line);
+	texture->identifier = direction_picker(line);
 	line += (i + 2);
 	while (line[i] && is_white_space(line[i]))
 		i++;
