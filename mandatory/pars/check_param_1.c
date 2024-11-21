@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_param_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:30:58 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/16 18:10:17 by ayyassif         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:18:15 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	pars_map(t_cub *cub)
 		{
 			if (is_non_empty(cub->map[ln][col])
 				&& check_empty(cub, ln, col) == -1)
-				return (ft_putendl_fd("ERROR:\n\tinvalid wall", 2), -1);
+				return (ft_putendl_fd("Error:\ninvalid wall", 2), -1);
 			if (cub->map[ln][col] == M_PLAYER)
 			{
 				p++;
@@ -51,6 +51,6 @@ int	pars_map(t_cub *cub)
 		}
 	}
 	if (p != 1)
-		return (ft_putendl_fd("ERROR:\n\tnumber of player", 2), -1);
+		return (ft_putendl_fd("Error:\nnumber of player", 2), -1);
 	return (0);
 }

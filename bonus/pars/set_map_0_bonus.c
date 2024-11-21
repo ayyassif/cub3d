@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:58:40 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 13:57:00 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:15:34 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	set_line_map(t_line_map **line_map, char *line)
 		return (1);
 	node = malloc(sizeof(t_line_map));
 	if (!node)
-		return (ft_putendl_fd("error: malloc", 2), -1);
+		return (ft_putendl_fd("Error:\nmalloc", 2), -1);
 	node->next = NULL;
 	node->line_map = ft_strdup(line);
 	if (!node->line_map)

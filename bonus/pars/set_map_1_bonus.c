@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:01:01 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 13:57:20 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:16:01 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,15 @@ int	creat_map(t_cub *cub)
 	i = 0;
 	cub->map = malloc(sizeof(t_type *) * cub->height);
 	if (!cub->map)
-		return (ft_putendl_fd("error: malloc", 2), -1);
+		return (ft_putendl_fd("Error:\nmalloc", 2), -1);
 	while (i < cub->height)
 	{
 		cub->map[i] = malloc(sizeof(t_type) * cub->width);
 		if (!cub->map[i])
-			return (ft_putendl_fd("error: malloc", 2), -1);
+			return (ft_putendl_fd("Error:\nmalloc", 2), -1);
 		i++;
 	}
 	if (put_map(cub) == -1)
-		return (ft_putendl_fd("ERROR:\n\tmap error", 2), -1);
+		return (ft_putendl_fd("Error:\nmap error", 2), -1);
 	return (0);
 }
