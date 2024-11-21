@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:29:57 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/18 14:43:11 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:51:56 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	tex_to_wall(t_cub *cub, int drawStart, int tmp_start, int tmp_end)
 
 	cub->tex_pos_y = (drawStart - tmp_start) / (double)(tmp_end - tmp_start);
 	cub->tex_pos_y *= cub->texture[cub->tex_id].tex_png->height;
-	tmp_value = (int)cub->tex_pos_y * cub->texture[cub->tex_id].tex_png->height;
+	tmp_value = (int)cub->tex_pos_y * cub->texture[cub->tex_id].tex_png->width;
 	tmp_value += (int)cub->tex_pos_x;
 	index = tmp_value * 4;
 	color = color_from_pixel(cub->texture[cub->tex_id].tex_png, index);

@@ -6,7 +6,7 @@
 #    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/19 12:04:00 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/11/21 13:10:42 by hakaraou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,11 +77,13 @@ mlx:
 
 clean:
 	@rm -f $(OBJ) $(B_OBJ)
-	@cd .MLX42/build && make clean
+	@if [ -d ".MLX42/build" ]; then \
+		cd .MLX42/build && make clean; \
+	fi
 
 fclean: clean
 	@rm -fr $(NAME) $(B_NAME) .MLX42/build
 
 re: fclean all
 
-.PHONY: clean
+.PHONY: clean mlx

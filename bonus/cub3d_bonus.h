@@ -6,7 +6,7 @@
 /*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/18 16:29:58 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:58:42 by hakaraou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include "../.MLX42.h"
+# include "../.MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line_bonus.h"
 
+# undef HEIGHT
+# undef WIDTH
+# undef ROT_ANG
+# undef M_MAP
+# undef TILE_SIZE
+# undef SPEED
 # define HEIGHT 720
 # define WIDTH 960
 # define ROT_ANG 100
