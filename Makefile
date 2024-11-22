@@ -6,7 +6,7 @@
 #    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/22 11:34:35 by ayyassif         ###   ########.fr        #
+#    Updated: 2024/11/22 12:05:52 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME = cub3D
 
 MLX_ARCHIVE = .MLX42/build/libmlx42.a
 
-B_NAME = cub3d_bonus
+B_NAME = cub3D_bonus
 
 SRC = mandatory/main.c \
 	mandatory/get_next_line/get_next_line.c \
