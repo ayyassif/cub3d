@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+         #
+#    By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/26 10:44:54 by hakaraou          #+#    #+#              #
-#    Updated: 2024/11/21 13:10:42 by hakaraou         ###   ########.fr        #
+#    Updated: 2024/11/22 11:34:35 by ayyassif         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = cub3D
 
@@ -48,7 +48,7 @@ B_SRC = bonus/main_bonus.c \
 	bonus/raycasting/collision_bonus.c \
 	bonus/utils/libft_str_bonus.c bonus/utils/libft_ptr_0_bonus.c \
 	bonus/utils/libft_ptr_1_bonus.c bonus/utils/cond_bonus.c \
-	bonus/utils/ft_free_bonus.c \
+	bonus/utils/ft_free_bonus.c bonus/raycasting/img_tex_bonus.c\
 
 HB_SRC = bonus/cub3d_bonus.h bonus/get_next_line/get_next_line_bonus.h
 

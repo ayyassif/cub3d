@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:09:28 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/20 12:52:05 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:30:03 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static int	hooking(t_cub *cub)
 	mlx_key_hook(cub->mlx.mlx_handle, key_func, cub);
 	if (mlx_loop_hook(cub->mlx.mlx_handle, loop_hook, cub) == false)
 	{
-		ft_putendl_fd("Error:\nthe hook was not added successfully", STDERR_FILENO);
+		ft_putendl_fd("Error:\nthe hook was not added successfully",
+			STDERR_FILENO);
 		return (-1);
 	}
 	return (0);

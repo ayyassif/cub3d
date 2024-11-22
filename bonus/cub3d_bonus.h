@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:43:13 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/21 12:58:42 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:44:40 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,9 @@ void	door_interaction(t_cub *cub);
 void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords);
 void	key_func(mlx_key_data_t keydata, void *v_cub);
 void	mouse_hook(t_cub *cub);
+void	draw_s_map(t_cub *cub);
+int		animat_items(t_cub *cub);
+void	steps_and_door(t_cub *cub, t_vec *m_crds, t_vec step, int *setted);
 
 /*===========================================================================*/
 								/*UTILS*/

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   loop_hook.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:05:44 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/21 12:04:15 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:37:34 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	fill_window(t_cub *cub)
+static int	fill_window(t_cub *cub)
 {
 	mlx_delete_image(cub->mlx.mlx_handle, cub->mlx.img);
 	cub->mlx.img = mlx_new_image(cub->mlx.mlx_handle, WIDTH, HEIGHT);
@@ -48,7 +48,7 @@ static t_vec	vec_rotation(t_vec vec, double theta)
 	return (prime_vec);
 }
 
-void	rotation(t_cub *cub)
+static void	rotation(t_cub *cub)
 {
 	if (cub->pressed_down.turn_left_right)
 	{

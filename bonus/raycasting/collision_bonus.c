@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   collision_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:10:19 by hakaraou          #+#    #+#             */
-/*   Updated: 2024/11/17 11:14:42 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:29:20 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
+
+void	steps_and_door(t_cub *cub, t_vec *m_crds, t_vec step, int *setted)
+{
+	if (cub->side_dist.x < cub->side_dist.y)
+	{
+		cub->side_dist.x += cub->delta_dist.x;
+		m_crds->x += step.x;
+		cub->side = 0;
+	}
+	else
+	{
+		cub->side_dist.y += cub->delta_dist.y;
+		m_crds->y += step.y;
+		cub->side = 1;
+	}
+	if (!(*setted) && cub->ray.x == cub->direction.x
+		&& cub->ray.y == cub->direction.y
+		&& cub->map[(int)m_crds->y][(int)m_crds->x] != M_FLOOR)
+	{
+		if ((cub->map[(int)m_crds->y][(int)m_crds->x] == M_DOOR_CLOSED
+			|| cub->map[(int)m_crds->y][(int)m_crds->x] == M_DOOR_OPEN))
+			cub->focused = *m_crds;
+		else
+			cub->focused.x = -1;
+		*setted = 1;
+	}
+}
 
 void	wall_coll(t_cub *cub, t_vec new_pos, t_vec map_cords)
 {

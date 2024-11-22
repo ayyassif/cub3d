@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hakaraou <hakaraou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayyassif <ayyassif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 10:24:48 by ayyassif          #+#    #+#             */
-/*   Updated: 2024/11/17 11:13:32 by hakaraou         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:29:07 by ayyassif         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,6 @@ static t_vec	side_dist_setter(t_vec ray, t_vec *map_cords,
 	map_cords->x = (int)map_cords->x;
 	map_cords->y = (int)map_cords->y;
 	return (side_dist);
-}
-
-void	steps_and_door(t_cub *cub, t_vec *m_crds, t_vec step, int *setted)
-{
-	if (cub->side_dist.x < cub->side_dist.y)
-	{
-		cub->side_dist.x += cub->delta_dist.x;
-		m_crds->x += step.x;
-		cub->side = 0;
-	}
-	else
-	{
-		cub->side_dist.y += cub->delta_dist.y;
-		m_crds->y += step.y;
-		cub->side = 1;
-	}
-	if (!(*setted) && cub->ray.x == cub->direction.x
-		&& cub->ray.y == cub->direction.y
-		&& cub->map[(int)m_crds->y][(int)m_crds->x] != M_FLOOR)
-	{
-		if ((cub->map[(int)m_crds->y][(int)m_crds->x] == M_DOOR_CLOSED
-			|| cub->map[(int)m_crds->y][(int)m_crds->x] == M_DOOR_OPEN))
-			cub->focused = *m_crds;
-		else
-			cub->focused.x = -1;
-		*setted = 1;
-	}
 }
 
 static int	ray_dda(t_cub *cub, t_vec m_crds)
